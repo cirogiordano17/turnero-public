@@ -78,3 +78,7 @@ body{
   }
   .wa-text{ display:none; }
 }
+
+.pelu-info__box {
+  margin-bottom: 40px;
+}
