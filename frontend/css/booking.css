@@ -18,16 +18,40 @@
 }
 
 /* Compactar card servicio */
-.svc{
-  padding: 10px !important;
+.svc {
+  background: #111;
+  border: 1px solid #454040;
   border-radius: 12px;
+  padding: 6px;
+  display: block;
 }
-.svc .fw-semibold{
+
+.svc-inner {
+  background: #fff;
+  color: #000;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.svc-inner .fw-semibold {
+  color: #000;
   font-size: 15px;
   line-height: 1.1;
 }
-.svc .muted.small{
+
+.svc-inner .muted.small {
+  color: #333;
   font-size: 12px;
+}
+
+
+.svc:has(input:checked) .svc-inner {
+  background: #22c55e;
+  color: #000;
 }
 
 /* Celular: servicios 1 columna */

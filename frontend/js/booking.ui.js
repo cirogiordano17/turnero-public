@@ -25,11 +25,13 @@ window.BookingUI = {
       const label = document.createElement("label");
       label.className = "svc rounded p-2 d-flex align-items-center gap-2";
       label.innerHTML = `
-        <input class="form-check-input m-0" type="checkbox" name="svc" value="${s.id}">
-        <div class="flex-grow-1">
-          <div class="fw-semibold">${s.name}</div>
-          <div class="muted small">
-            ${s.duration_min} min · $${Number(s.price || 0).toLocaleString("es-AR")}
+        <div class="svc-inner">
+          <input class="form-check-input m-0" type="checkbox" name="svc" value="${s.id}">
+          <div class="flex-grow-1">
+            <div class="fw-semibold">${s.name}</div>
+            <div class="muted small">
+              ${s.duration_min} min · $${Number(s.price || 0).toLocaleString("es-AR")}
+            </div>
           </div>
         </div>
       `;
