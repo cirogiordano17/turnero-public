@@ -1,4 +1,4 @@
 window.AdminConfig = {
-  API_BASE: "http://localhost:3000",
+  API_BASE: "https://turnero-public.onrender.com/",
   STORAGE_KEY: "admin_token",
 };

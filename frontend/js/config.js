@@ -1,4 +1,4 @@
 window.APP = {
-  API: "http://localhost:3000",
+  API: "https://turnero-public.onrender.com/",
   TZ_OFFSET: "-03:00",
 };
