@@ -1,0 +1,71 @@
+.appointments-list{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.appointment-card{
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.appointment-top{
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.appointment-time{
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.appointment-status{
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: rgba(37,211,102,.95);
+}
+
+.appointment-name{
+  font-size: 16px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.appointment-meta{
+  color: rgba(255,255,255,.68);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.appointment-services{
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.appointment-chip{
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.08);
+  font-size: 12px;
+  color: rgba(255,255,255,.82);
+}
+
+.appointment-actions{
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.appointment-actions .admin-btn{
+  min-width: 120px;
+}

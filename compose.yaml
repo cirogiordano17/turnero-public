@@ -1,0 +1,35 @@
+services:
+  db:
+    image: postgres:17
+    container_name: pelu-db
+    environment:
+      POSTGRES_DB: peluqueria
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/db:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d peluqueria"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    container_name: pelu-backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - ./backend/.env
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://postgres:1234@db:5432/peluqueria
+
+volumes:
+  postgres_data:

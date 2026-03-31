@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin · Turnero</title>
+
+  <link rel="stylesheet" href="../css/base.css">
+
+  <link rel="stylesheet" href="./css/admin-layout.css">
+  <link rel="stylesheet" href="./css/admin-login.css">
+  <link rel="stylesheet" href="./css/admin-dashboard.css">
+  <link rel="stylesheet" href="./css/admin-cards.css">
+  <link rel="stylesheet" href="./css/admin-forms.css">
+</head>
+<body>
+
+  <main class="admin-app">
+
+    <!-- LOGIN -->
+    <section id="loginView" class="admin-view">
+      <div class="admin-shell admin-shell--login">
+        <div class="admin-login-card">
+          <div class="admin-login-badge">Admin</div>
+          <h1 class="admin-title">Panel de administración</h1>
+          <p class="admin-subtitle">
+  Ingresá usuario y contraseña para administrar turnos.
+</p>
+
+<div class="admin-form-group">
+  <label for="adminUsername" class="admin-label">Usuario</label>
+  <input
+    id="adminUsername"
+    type="text"
+    class="admin-input"
+    placeholder="Ingresá el usuario"
+    autocomplete="username"
+  >
+</div>
+
+<div class="admin-form-group">
+  <label for="adminPassword" class="admin-label">Contraseña</label>
+  <input
+    id="adminPassword"
+    type="password"
+    class="admin-input"
+    placeholder="Ingresá la contraseña"
+    autocomplete="current-password"
+  >
+</div>
+
+          <button id="btnLogin" class="admin-btn admin-btn--primary" type="button">
+            Entrar
+          </button>
+
+          <div id="loginError" class="admin-error"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <section id="dashboardView" class="admin-view d-none">
+      <div class="admin-shell">
+
+        <header class="admin-header">
+          <div>
+            <div class="admin-kicker">Turnero</div>
+            <h1 class="admin-page-title">Turnos</h1>
+          </div>
+
+          <button id="btnLogout" class="admin-btn admin-btn--ghost" type="button">
+            Salir
+          </button>
+        </header>
+
+        <section class="admin-toolbar">
+          <div class="admin-form-group admin-form-group--inline">
+            <label for="adminDate" class="admin-label">Fecha</label>
+            <input id="adminDate" type="date" class="admin-input">
+          </div>
+
+          <div class="admin-toolbar-actions">
+            <button id="btnLoadAppointments" class="admin-btn admin-btn--primary" type="button">
+              Cargar turnos
+            </button>
+
+            <button id="btnBlockDay" class="admin-btn admin-btn--secondary" type="button">
+              Bloquear día
+            </button>
+          </div>
+        </section>
+
+        <section class="admin-summary-bar">
+          
+          <div class="admin-summary-item">
+            <span class="admin-summary-label">Fecha</span>
+            <strong id="selectedDateText">—</strong>
+          </div>
+
+          <div class="admin-summary-item">
+            <span class="admin-summary-label">Turnos</span>
+            <strong id="appointmentsCount">0</strong>
+          </div>
+
+          <div class="admin-summary-item">
+            <span class="admin-summary-label">Días bloqueados</span>
+            <div id="blockedDaysList" class="admin-blocked-days">No hay días bloqueados.</div>
+          </div>
+        </section>
+
+        <section class="admin-content">
+          <div id="adminMessage" class="admin-message"></div>
+          <div id="appointmentsList" class="appointments-list"></div>
+        </section>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="blockReasonModal" class="admin-modal d-none">
+  <div class="admin-modal__backdrop"></div>
+
+  <div class="admin-modal__card">
+    <h3 class="admin-modal__title">Bloquear día</h3>
+    <p class="admin-modal__text">Motivo del bloqueo (opcional)</p>
+
+    <textarea
+      id="blockReasonInput"
+      class="admin-input admin-modal__textarea"
+      rows="4"
+      placeholder="Ej: feriado, vacaciones, capacitación..."
+    ></textarea>
+
+    <div class="admin-modal__actions">
+      <button id="btnCancelBlockModal" class="admin-btn admin-btn--ghost" type="button">
+        Cancelar
+      </button>
+
+      <button id="btnConfirmBlockModal" class="admin-btn admin-btn--danger" type="button">
+        🔒 Bloquear día
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="cancelAppointmentModal" class="admin-modal d-none">
+  <div class="admin-modal__backdrop"></div>
+
+  <div class="admin-modal__card">
+    <h3 class="admin-modal__title">Cancelar turno</h3>
+
+    <p class="admin-modal__text">
+      ¿Estás seguro de que querés cancelar este turno?
+    </p>
+
+    <div class="admin-modal__actions">
+      <button id="btnCancelCancelModal" class="admin-btn admin-btn--ghost" type="button">
+        No
+      </button>
+
+      <button id="btnConfirmCancelModal" class="admin-btn admin-btn--danger" type="button">
+        Cancelar turno
+      </button>
+    </div>
+  </div>
+</div>
+
+<div id="confirmPaymentModal" class="admin-modal d-none">
+  <div class="admin-modal__backdrop"></div>
+
+  <div class="admin-modal__card">
+    <h3 class="admin-modal__title">Confirmar pago</h3>
+
+    <p class="admin-modal__text">
+      ¿Estás seguro de que querés confirmar el pago de este turno?
+    </p>
+
+    <div class="admin-modal__actions">
+      <button id="btnCancelConfirmPaymentModal" class="admin-btn admin-btn--ghost" type="button">
+        No
+      </button>
+
+      <button id="btnAcceptConfirmPaymentModal" class="admin-btn admin-btn--success" type="button">
+        Sí, confirmar pago
+      </button>
+    </div>
+  </div>
+</div>
+
+  <script src="./js/admin.config.js"></script>
+  <script src="./js/admin.dom.js"></script>
+  <script src="./js/admin.state.js"></script>
+  <script src="./js/admin.api.js"></script>
+  <script src="./js/admin.ui.js"></script>
+  <script src="./js/admin.main.js"></script>
+</body>
+</html>
