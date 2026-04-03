@@ -2,7 +2,7 @@ window.BookingMain = {
   async loadServices(){
     const { servicesEl, errEl } = window.BookingDOM;
 
-    servicesEl.innerHTML = "Cargando...";
+    servicesEl.innerHTML = `<div id="servicesLoading">Cargando servicios...</div>`;
     try{
       window.BookingState.services = await window.BookingAPI.getServices(window.BookingState.cat);
       window.BookingUI.renderServices();
@@ -171,6 +171,7 @@ window.BookingMain = {
 
     await window.BookingMain.loadClosedDays();
     window.BookingUI.renderDayStrip();
+    document.getElementById("services").innerHTML = `<div id="servicesLoading">Cargando servicios...</div>`;
     window.BookingMain.loadServices();
     document.addEventListener("click", (e) => {
       if(e.target && e.target.matches(".slots-grid .btn")){
