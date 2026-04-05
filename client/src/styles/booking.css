@@ -1,0 +1,311 @@
+/* =========================
+   Servicios
+========================= */
+
+.services-wrap {
+  max-height: 340px;
+  overflow: auto;
+  padding-right: 6px;
+  margin-bottom: 24px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.svc {
+  display: block;
+  padding: 6px;
+  border-radius: 12px;
+}
+
+.svc-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.svc-inner .fw-semibold {
+  font-size: 15px;
+  line-height: 1.1;
+}
+
+.svc-inner .muted.small {
+  font-size: 12px;
+}
+
+@media (min-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 992px) {
+  .services-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* =========================
+   Slots
+========================= */
+
+.slots-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+
+.slots-grid .btn {
+  width: 84px;
+  padding: 8px 0;
+  font-weight: 800;
+  border-radius: 12px;
+  white-space: nowrap;
+}
+
+@media (min-width: 992px) {
+  .slots-grid .btn {
+    width: 92px;
+  }
+}
+
+/* =========================
+   Navegación de días
+========================= */
+
+.day-strip {
+  display: flex;
+  gap: 10px;
+  overflow: hidden;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.day-btn {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+
+  padding: 10px 6px;
+  border-radius: 14px;
+
+  text-align: center;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+
+  transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
+}
+
+.day-btn:hover {
+  transform: translateY(-1px);
+}
+
+.day-btn .dow {
+  font-size: 11px;
+  opacity: 0.8;
+  text-transform: lowercase;
+}
+
+.day-btn .dom {
+  margin-top: 4px;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.day-btn.disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.days-nav-label {
+  padding: 0 6px;
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  user-select: none;
+}
+
+@media (max-width: 767px) {
+  .day-strip {
+    gap: 8px;
+  }
+
+  .day-btn {
+    padding: 10px 4px;
+    border-radius: 16px;
+  }
+
+  .day-btn .dow {
+    font-size: 10px;
+  }
+
+  .day-btn .dom {
+    font-size: 18px;
+  }
+}
+
+/* =========================
+   Mes
+========================= */
+
+.month-row {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.month-muted {
+  font-weight: 700;
+}
+
+#monthLabel {
+  font-weight: 900;
+}
+
+/* =========================
+   Resumen de reserva
+========================= */
+
+.booking-summary {
+  max-width: 420px;
+  margin-top: 24px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.summary-services {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sum-svc {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+}
+
+.sum-svc .name {
+  font-weight: 800;
+}
+
+.sum-svc .meta {
+  font-size: 12px;
+}
+
+@media (max-width: 991px) {
+  .booking-summary {
+    position: static;
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+@media (min-width: 992px) {
+  .booking-summary {
+    position: sticky;
+    top: 16px;
+    align-self: start;
+    min-width: 280px;
+    max-height: calc(100vh - 32px);
+    overflow: auto;
+  }
+}
+
+/* =========================
+   Éxito de reserva
+========================= */
+
+.booking-success {
+  padding: 24px 12px 8px;
+  text-align: center;
+}
+
+.success-check-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.success-check {
+  width: 96px;
+  height: 96px;
+}
+
+.success-check svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.success-check-circle {
+  stroke: #25d366;
+  stroke-width: 2.5;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  animation: success-stroke 0.6s ease forwards;
+}
+
+.success-check-mark {
+  stroke: #25d366;
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: success-mark 0.35s ease 0.55s forwards;
+}
+
+.success-title {
+  margin: 0 0 10px;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.success-text {
+  max-width: 560px;
+  margin: 0 auto;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+@keyframes success-stroke {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes success-mark {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* =========================
+   Ajustes puntuales
+========================= */
+
+#reservar .card-dark {
+  max-width: 900px;
+  margin: 0 auto;
+}
