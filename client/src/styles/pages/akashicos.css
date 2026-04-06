@@ -1,0 +1,160 @@
+.akashicos-page {
+  min-height: 100vh;
+  background: #0b1020;
+  color: #fff;
+}
+
+.akashicos-page .muted {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.akashicos-page .hero-akash {
+  min-height: 52vh;
+  background:
+    linear-gradient(rgba(8, 10, 20, 0.72), rgba(8, 10, 20, 0.88)),
+    radial-gradient(circle at top right, rgba(139, 92, 246, 0.25), transparent 38%),
+    radial-gradient(circle at bottom left, rgba(59, 130, 246, 0.18), transparent 30%);
+  color: #fff;
+}
+
+.akashicos-page .lead-akash {
+  max-width: 720px;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 1.05rem;
+  margin-bottom: 1.25rem;
+}
+
+.akashicos-page .btn-akash {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.akashicos-page .btn-akash--primary {
+  background: var(--color-akash-accent);
+  color: #fff;
+}
+
+.akashicos-page .btn-akash--primary:hover {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.akashicos-page .btn-akash--ghost {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+
+.akashicos-page .btn-akash--ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.akashicos-page .card-dark {
+  background: #101827;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.akashicos-page #reservar .card-dark {
+  background: #0f172a;
+}
+
+.akashicos-page .services-grid .svc {
+  background: #111c33;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: 0.2s ease;
+}
+
+.akashicos-page .services-grid .svc:hover {
+  border-color: rgba(139, 92, 246, 0.6);
+  transform: translateY(-1px);
+}
+
+.akashicos-page .services-grid .svc input[type="checkbox"],
+.akashicos-page .services-grid .svc input[type="radio"] {
+  accent-color: var(--color-akash-accent);
+}
+
+.akashicos-page .svc-inner {
+  background: #0f172a;
+  color: #fff;
+}
+
+.akashicos-page .month-muted {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.akashicos-page .day-btn {
+  background: #111c33;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.akashicos-page .day-btn:hover {
+  border-color: rgba(139, 92, 246, 0.7);
+}
+
+.akashicos-page .day-btn.active {
+  background: var(--color-akash-accent);
+  border-color: var(--color-akash-accent);
+}
+
+.akashicos-page .time-group {
+  background: #111827;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.akashicos-page .booking-summary {
+  background: #0f172a;
+}
+
+.akashicos-page .sum-svc {
+  background: #111c33;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.akashicos-page .sum-svc .meta {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.akashicos-page .form-control {
+  background: #0f172a;
+  border: 1px solid #334155;
+  color: #fff;
+}
+
+.akashicos-page .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.akashicos-page .form-control:focus {
+  background: #0f172a;
+  color: #fff;
+  border-color: var(--color-akash-accent);
+  box-shadow: 0 0 0 0.2rem rgba(139, 92, 246, 0.15);
+}
+
+.akashicos-page #btnBook.btn-success {
+  background: var(--color-akash-accent);
+  border-color: var(--color-akash-accent);
+}
+
+.akashicos-page #btnBook.btn-success:hover,
+.akashicos-page #btnBook.btn-success:focus {
+  background: #7c3aed;
+  border-color: #7c3aed;
+}
+
+.akashicos-page .success-title {
+  color: #fff;
+}
+
+.akashicos-page .success-text {
+  color: rgba(255, 255, 255, 0.74);
+}

@@ -1,0 +1,228 @@
+.pelu-page {
+  min-height: 100vh;
+  background: var(--color-dark-bg);
+  color: var(--color-dark-text);
+}
+
+.pelu-page .hero {
+  min-height: 56vh;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.38)),
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 30%),
+    url("/img/pelu-hero.jpg") center/cover no-repeat;
+  color: #fff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pelu-page .hero .lead,
+.pelu-page .hero p {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.pelu-page .muted {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.pelu-page .card-dark {
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+.pelu-page #reservar .card-dark {
+  background: #101010;
+}
+
+.pelu-page .pelu-info__box {
+  margin-bottom: 40px;
+}
+
+.pelu-page .pelu-info__title {
+  margin-bottom: 14px;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.pelu-page .pelu-info__text {
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.75;
+}
+
+.pelu-page .services-grid .svc {
+  background: #151515;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: 0.2s ease;
+}
+
+.pelu-page .services-grid .svc:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  transform: translateY(-1px);
+}
+
+.pelu-page .services-grid .svc input[type="checkbox"],
+.pelu-page .services-grid .svc input[type="radio"] {
+  accent-color: var(--color-pelu-accent);
+}
+
+.pelu-page .svc-inner {
+  background: #fff;
+  color: #000;
+}
+
+.pelu-page .svc-inner .fw-semibold {
+  color: #000;
+}
+
+.pelu-page .svc-inner .muted.small {
+  color: #333;
+}
+
+.pelu-page #monthLabel {
+  color: var(--color-pelu-accent);
+}
+
+.pelu-page .month-muted {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.pelu-page .day-btn {
+  background: #151515;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.pelu-page .day-btn:hover {
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.pelu-page .day-btn.active {
+  background: rgba(37, 211, 102, 0.22);
+  border-color: rgba(37, 211, 102, 0.6);
+  box-shadow: 0 0 0 4px rgba(37, 211, 102, 0.12);
+}
+
+.pelu-page .days-nav-label {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.pelu-page .time-group {
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.pelu-page .booking-summary {
+  background: #101010;
+}
+
+.pelu-page .sum-svc {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pelu-page .form-control {
+  background: #0f0f0f;
+  border: 1px solid #2f2f2f;
+  color: #fff;
+}
+
+.pelu-page .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.pelu-page .form-control:focus {
+  background: #0f0f0f;
+  color: #fff;
+  border-color: var(--color-pelu-accent);
+  box-shadow: 0 0 0 0.2rem rgba(37, 211, 102, 0.14);
+}
+
+.pelu-page #btnBook.btn-success {
+  background: #1ebe5d;
+  border-color: #1ebe5d;
+  font-weight: 700;
+}
+
+.pelu-page #btnBook.btn-success:hover,
+.pelu-page #btnBook.btn-success:focus {
+  background: #19a950;
+  border-color: #19a950;
+}
+
+.pelu-page .success-title {
+  color: #fff;
+}
+
+.pelu-page .success-text {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.pelu-page .container {
+  max-width: 1100px;
+}
+
+.pelu-page #servicesLoading {
+  color: #aaa;
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
+
+.pelu-page .wa-float {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #25d366, #1ebe5d);
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.4),
+    0 0 0 4px rgba(37, 211, 102, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.pelu-page .wa-float:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 6px rgba(37, 211, 102, 0.25);
+  filter: brightness(1.03);
+}
+
+.pelu-page .wa-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pelu-page .wa-text {
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .pelu-page .wa-float {
+    right: 16px;
+    bottom: 16px;
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    border-radius: 50%;
+    gap: 0;
+  }
+
+  .pelu-page .wa-text {
+    display: none;
+  }
+}

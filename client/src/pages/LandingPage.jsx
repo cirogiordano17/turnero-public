@@ -1,21 +1,22 @@
 import { Link } from "react-router-dom";
-import "../styles/base.css";
-import "../styles/landing.css";
+import "../styles/pages/landing.css";
 
 function LandingPage() {
   return (
-    <>
+    <div className="landing-page">
       <header className="landing-header">
         <div className="landing-header__inner">
-          <a href="#inicio" className="brand">Servicios</a>
+          <a href="#inicio" className="brand">
+            Servicios
+          </a>
         </div>
       </header>
 
       <main id="inicio" className="landing-main">
-        <section className="hero">
-          <div className="hero__content">
-            <h1 className="hero__title">Bienvenido</h1>
-            <p className="hero__text">
+        <section className="landing-hero">
+          <div className="landing-hero__content">
+            <h1 className="landing-hero__title">Bienvenido</h1>
+            <p className="landing-hero__text">
               Descubrí nuestros servicios especializados diseñados para tu bienestar y transformación.
             </p>
           </div>
@@ -38,7 +39,9 @@ function LandingPage() {
                 </div>
 
                 <div className="service-card__content">
-                  <div className="service-card__icon" aria-hidden="true">✂</div>
+                  <div className="service-card__icon" aria-hidden="true">
+                    ✂
+                  </div>
 
                   <div className="service-card__body">
                     <h2 className="service-card__title">Peluquería</h2>
@@ -66,7 +69,9 @@ function LandingPage() {
                 </div>
 
                 <div className="service-card__content">
-                  <div className="service-card__icon" aria-hidden="true">✧</div>
+                  <div className="service-card__icon" aria-hidden="true">
+                    ✧
+                  </div>
 
                   <div className="service-card__body">
                     <h2 className="service-card__title">Registros Akáshicos</h2>
@@ -81,7 +86,7 @@ function LandingPage() {
           </div>
         </section>
       </main>
-    </>
+    </div>
   );
 }
 

@@ -1,73 +1,62 @@
 import { useEffect, useState } from "react";
 import { getServices } from "../../api/services";
 
-function Services() {
+function Services({ category = "pelu", selectedIds, onToggle, onServicesLoaded }) {
   const [services, setServices] = useState([]);
-  const [selectedIds, setSelectedIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    async function loadServices() {
+    async function load() {
       try {
         setLoading(true);
         setError("");
 
-        const data = await getServices("pelu");
+        const data = await getServices(category);
         setServices(data);
+
+        if (onServicesLoaded) {
+          onServicesLoaded(data);
+        }
       } catch (err) {
         console.error(err);
-        setError("No se pudieron cargar los servicios.");
+        setError("Error cargando servicios");
       } finally {
         setLoading(false);
       }
     }
 
-    loadServices();
-  }, []);
+    load();
+  }, [category, onServicesLoaded]);
 
-  function toggleService(serviceId) {
-    setSelectedIds((prev) => {
-      if (prev.includes(serviceId)) {
-        return prev.filter((id) => id !== serviceId);
-      }
-      return [...prev, serviceId];
-    });
-  }
+  if (loading) return <div id="servicesLoading">Cargando servicios...</div>;
+  if (error) return <div className="text-danger">{error}</div>;
 
   return (
-    <div className="col-12">
-      <div className="services-wrap">
-        <div className="services-grid">
-          {loading && <div>Cargando servicios...</div>}
+    <div className="services-wrap">
+      <div className="services-grid">
+        {services.map((service) => {
+          const active = selectedIds.includes(service.id);
 
-          {error && <div className="text-danger">{error}</div>}
+          return (
+            <label key={service.id} className="svc">
+              <div className="svc-inner">
+                <input
+                  type="checkbox"
+                  checked={active}
+                  onChange={() => onToggle(service.id)}
+                />
 
-          {!loading &&
-            !error &&
-            services.map((service) => {
-              const checked = selectedIds.includes(service.id);
-
-              return (
-                <label key={service.id} className="svc">
-                  <div className="svc-inner">
-                    <input
-                      type="checkbox"
-                      checked={checked}
-                      onChange={() => toggleService(service.id)}
-                    />
-
-                    <div>
-                      <div className="fw-semibold">{service.name}</div>
-                      <div className="muted small">
-                        {service.duration_min} min · ${service.price ?? 0}
-                      </div>
-                    </div>
+                <div>
+                  <div className="fw-semibold">{service.name}</div>
+                  <div className="muted small">
+                    {service.duration_min} min · ${service.price ?? 0}
                   </div>
-                </label>
-              );
-            })}
-        </div>
+                </div>
+              </div>
+            </label>
+          );
+        })}
       </div>
     </div>
   );

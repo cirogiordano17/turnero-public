@@ -1,6 +1,7 @@
-/* =========================
-   Servicios
-========================= */
+.booking-shell {
+  max-width: 980px;
+  margin: 0 auto;
+}
 
 .services-wrap {
   max-height: 340px;
@@ -51,10 +52,6 @@
   }
 }
 
-/* =========================
-   Slots
-========================= */
-
 .slots-grid {
   display: flex;
   flex-wrap: wrap;
@@ -76,10 +73,6 @@
   }
 }
 
-/* =========================
-   Navegación de días
-========================= */
-
 .day-strip {
   display: flex;
   gap: 10px;
@@ -95,16 +88,13 @@
   align-items: center;
   justify-content: center;
   min-width: 0;
-
   padding: 10px 6px;
   border-radius: 14px;
-
   text-align: center;
   line-height: 1;
   cursor: pointer;
   user-select: none;
   overflow: hidden;
-
   transition: transform 0.12s ease, border-color 0.12s ease, background 0.12s ease;
 }
 
@@ -158,10 +148,6 @@
   }
 }
 
-/* =========================
-   Mes
-========================= */
-
 .month-row {
   display: flex;
   align-items: baseline;
@@ -175,10 +161,6 @@
 #monthLabel {
   font-weight: 900;
 }
-
-/* =========================
-   Resumen de reserva
-========================= */
 
 .booking-summary {
   max-width: 420px;
@@ -231,10 +213,6 @@
     overflow: auto;
   }
 }
-
-/* =========================
-   Éxito de reserva
-========================= */
 
 .booking-success {
   padding: 24px 12px 8px;
@@ -300,10 +278,6 @@
     stroke-dashoffset: 0;
   }
 }
-
-/* =========================
-   Ajustes puntuales
-========================= */
 
 #reservar .card-dark {
   max-width: 900px;
