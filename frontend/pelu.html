@@ -9,13 +9,13 @@
   <link rel="stylesheet" href="./css/pelu.css">
   <link rel="stylesheet" href="./css/booking.css">
 </head>
-<body>
+<body class="pelu-page">
 
   <!-- HERO -->
   <header id="inicio" class="hero d-flex align-items-center">
     <div class="container py-5">
       <div class="row">
-        <div class="col-12 col-lg-7">
+        <div class="col-12 ">
           <h1 class="display-5 fw-bold">Reservá tu turno</h1>
           <p></p>
           <div class="d-flex gap-2">
@@ -31,9 +31,9 @@
   <!-- INFO -->
 
    <!-- INFO -->
-<section class="container py-5">
+<section id="info" class="container py-5">
   <div class="row">
-    <div class="col-12 col-lg-6 mx-auto mb-4">
+    <div class="col-12 mx-auto mb-4">
       <div class="card-dark rounded p-4">
         <h3 class="h6 text-uppercase muted mb-2">Importante</h3>
         <ul class="mb-0 muted">
@@ -68,7 +68,7 @@
 
   <!-- RESERVAR (usa tu backend) -->
   <section id="reservar" class="container pb-5 anchor-offset">
-    <div class="card-dark rounded p-3 p-md-4">
+    <div class="card-dark rounded p-3 p-md-4 booking-shell">
 
       <div class="d-flex justify-content-between align-items-center mb-2">
         <h2 class="h4 fw-bold m-0">Elegí tus servicios</h2>
@@ -77,11 +77,11 @@
       <div class="row g-3">
 
         <!-- IZQUIERDA: Servicios + Fecha/Horarios -->
-        <div class="col-12 col-lg-8">
+        <div class="col-12 ">
           <div class="row g-3">
 
         <!-- Servicios -->
-              <div class="col-12 col-lg-6">
+              <div class="col-12">
                 <div id="servicesWrap" class="services-wrap">
                   <div id="services" class="services-grid">
                     <div id="servicesLoading">Cargando servicios...</div>
@@ -90,7 +90,7 @@
               </div>
 
             <!-- Fecha + horarios -->
-            <div class="col-12 col-lg-6">
+            <div class="col-12">
               <div class="d-flex justify-content-between align-items-center mt-1">
                 <div>
                   <div class="muted small">Fecha</div>
@@ -135,7 +135,7 @@
         </div>
 
         <!-- DERECHA: Resumen -->
-        <div class="col-12 col-lg-4">
+        <div class="col-12">
           <div class="card-dark rounded p-3 booking-summary">
             <div class="d-flex align-items-center justify-content-between mb-2">
               <div class="fw-bold">Resumen</div>

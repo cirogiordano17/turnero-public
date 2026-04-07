@@ -1,6 +1,53 @@
+import Services from "../components/booking/Services";
+import DateSelector from "../components/booking/DateSelector";
+import Slots from "../components/booking/Slots";
+import useBooking from "../hooks/useBooking";
+import { formatDateLong } from "../utils/dates";
 import "../styles/pages/akashicos.css";
 
 function AkashicosPage() {
+  const {
+    selectedIds,
+    selectedDate,
+    slots,
+    selectedSlot,
+    loadingSlots,
+    slotsError,
+
+    firstName,
+    lastName,
+    whatsapp,
+    email,
+    comment,
+
+    submitting,
+    submitError,
+    bookingSuccess,
+    fieldErrors,
+
+    selectedServices,
+    totalDuration,
+    totalPrice,
+    visibleDays,
+    canGoPrev,
+
+    setServices,
+    setSelectedDate,
+    setSelectedSlot,
+    setFirstName,
+    setLastName,
+    setWhatsapp,
+    setEmail,
+    setComment,
+    setFieldErrors,
+
+    toggleService,
+    handlePrevDays,
+    handleNextDays,
+    handleSubmit,
+    resetBooking,
+  } = useBooking({ category: "akashicos" });
+
   return (
     <div className="akashicos-page">
       <header className="hero-akash d-flex align-items-center">
@@ -40,50 +87,39 @@ function AkashicosPage() {
 
           <div className="row g-3">
             <div className="col-12">
-              <div className="services-wrap">
-                <div className="services-grid">
-                  <label className="svc">
-                    <div className="svc-inner">
-                      <input type="radio" name="service" />
-                      <div>
-                        <div className="fw-semibold">Lectura Akáshica</div>
-                        <div className="muted small">120 min · $45000</div>
-                      </div>
-                    </div>
-                  </label>
-                </div>
-              </div>
+              <Services
+                category="akashicos"
+                selectedIds={selectedIds}
+                onToggle={toggleService}
+                onServicesLoaded={setServices}
+              />
             </div>
 
             <div className="col-12">
-              <div className="month-row">
-                <div className="h5 m-0">abril</div>
-                <div className="h5 m-0 month-muted">mayo</div>
-              </div>
+              <DateSelector
+                days={visibleDays}
+                selectedDate={selectedDate}
+                onSelectDate={setSelectedDate}
+                onPrev={handlePrevDays}
+                onNext={handleNextDays}
+                canGoPrev={canGoPrev}
+              />
 
-              <div className="day-strip mt-3">
-                <button className="day-btn active">
-                  <span className="dow">lun</span>
-                  <span className="dom">7</span>
-                </button>
-                <button className="day-btn">
-                  <span className="dow">mar</span>
-                  <span className="dom">8</span>
-                </button>
-                <button className="day-btn">
-                  <span className="dow">mié</span>
-                  <span className="dom">9</span>
-                </button>
-              </div>
-
-              <div className="time-group mt-3">
-                <div className="muted small mb-2">Horarios disponibles</div>
-                <div className="slots-grid">
-                  <button className="btn btn-outline-light">10:00</button>
-                  <button className="btn btn-outline-light">12:00</button>
-                  <button className="btn btn-outline-light">16:00</button>
+              {selectedIds.length === 0 ? (
+                <div className="muted small mt-3">
+                  Elegí al menos un servicio para ver horarios.
                 </div>
-              </div>
+              ) : loadingSlots ? (
+                <div className="muted small mt-3">Cargando horarios...</div>
+              ) : slotsError ? (
+                <div className="text-warning small mt-3">{slotsError}</div>
+              ) : (
+                <Slots
+                  slots={slots}
+                  selectedSlot={selectedSlot}
+                  onSelect={setSelectedSlot}
+                />
+              )}
             </div>
 
             <div className="col-12">
@@ -91,56 +127,199 @@ function AkashicosPage() {
                 <div className="d-flex align-items-center justify-content-between mb-2">
                   <div className="fw-bold">Resumen</div>
                   <div className="text-end">
-                    <div className="muted small">120 min</div>
-                    <div className="fw-bold">$45000</div>
+                    <div className="muted small">
+                      {totalDuration > 0 ? `${totalDuration} min` : "—"}
+                    </div>
+                    <div className="fw-bold">
+                      ${totalPrice.toLocaleString("es-AR")}
+                    </div>
                   </div>
                 </div>
 
+                <div className="summary-row">
+                  <div className="muted small">Fecha</div>
+                  <div className="fw-semibold">{formatDateLong(selectedDate)}</div>
+                </div>
+
+                <div className="summary-row mt-2">
+                  <div className="muted small">Horario</div>
+                  <div className="fw-semibold">{selectedSlot || "—"}</div>
+                </div>
+
+                <hr className="border-secondary my-3" />
+
+                <div className="muted small mb-2">Servicios</div>
+
                 <div className="summary-services">
-                  <div className="sum-svc">
-                    <div>
-                      <div className="name">Lectura Akáshica</div>
-                      <div className="meta">120 min</div>
-                    </div>
-                    <div>$45000</div>
-                  </div>
+                  {selectedServices.length === 0 ? (
+                    <div className="muted small">Elegí servicios.</div>
+                  ) : (
+                    selectedServices.map((service) => (
+                      <div key={service.id} className="sum-svc">
+                        <div>
+                          <div className="name">{service.name}</div>
+                          <div className="meta">{service.duration_min} min</div>
+                        </div>
+                        <div>${(service.price || 0).toLocaleString("es-AR")}</div>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
             </div>
 
             <div className="col-12">
-              <div className="row g-2">
-                <div className="col-12 col-md-6">
-                  <label className="form-label">Nombre</label>
-                  <input className="form-control" />
-                </div>
+              <hr className="border-secondary" />
 
-                <div className="col-12 col-md-6">
-                  <label className="form-label">Apellido</label>
-                  <input className="form-control" />
-                </div>
+              {bookingSuccess ? (
+                <div className="booking-success text-center">
+                  <div className="success-check-wrap">
+                    <div className="success-check">
+                      <svg viewBox="0 0 52 52" aria-hidden="true">
+                        <circle
+                          className="success-check-circle"
+                          cx="26"
+                          cy="26"
+                          r="25"
+                          fill="none"
+                        />
+                        <path
+                          className="success-check-mark"
+                          fill="none"
+                          d="M14 27 l8 8 l16 -16"
+                        />
+                      </svg>
+                    </div>
+                  </div>
 
-                <div className="col-12 col-md-6">
-                  <label className="form-label">WhatsApp</label>
-                  <input className="form-control" />
-                </div>
+                  <h3 className="success-title mt-3">Reserva confirmada</h3>
+                  <p className="success-text">
+                    Tu sesión quedó agendada correctamente.
+                  </p>
 
-                <div className="col-12 col-md-6">
-                  <label className="form-label">Email (opcional)</label>
-                  <input className="form-control" />
+                  <button
+                    className="btn btn-outline-light mt-3"
+                    onClick={resetBooking}
+                    type="button"
+                  >
+                    Agendar otra sesión
+                  </button>
                 </div>
+              ) : (
+                <>
+                  <div className="row g-2">
+                    <div className="col-12 col-md-6">
+                      <label className="form-label">Nombre</label>
+                      <input
+                        className={`form-control ${
+                          fieldErrors.firstName ? "is-invalid" : ""
+                        }`}
+                        value={firstName}
+                        onChange={(e) => {
+                          setFirstName(e.target.value);
+                          if (fieldErrors.firstName) {
+                            setFieldErrors((prev) => ({
+                              ...prev,
+                              firstName: "",
+                            }));
+                          }
+                        }}
+                      />
+                      {fieldErrors.firstName && (
+                        <div className="text-danger small mt-1">
+                          {fieldErrors.firstName}
+                        </div>
+                      )}
+                    </div>
 
-                <div className="col-12">
-                  <label className="form-label">Consulta / intención</label>
-                  <input className="form-control" />
-                </div>
-              </div>
+                    <div className="col-12 col-md-6">
+                      <label className="form-label">Apellido</label>
+                      <input
+                        className={`form-control ${
+                          fieldErrors.lastName ? "is-invalid" : ""
+                        }`}
+                        value={lastName}
+                        onChange={(e) => {
+                          setLastName(e.target.value);
+                          if (fieldErrors.lastName) {
+                            setFieldErrors((prev) => ({
+                              ...prev,
+                              lastName: "",
+                            }));
+                          }
+                        }}
+                      />
+                      {fieldErrors.lastName && (
+                        <div className="text-danger small mt-1">
+                          {fieldErrors.lastName}
+                        </div>
+                      )}
+                    </div>
 
-              <div className="d-grid mt-3">
-                <button className="btn btn-success btn-lg" id="btnBook">
-                  Confirmar reserva
-                </button>
-              </div>
+                    <div className="col-12 col-md-6">
+                      <label className="form-label">WhatsApp</label>
+                      <input
+                        className={`form-control ${
+                          fieldErrors.whatsapp ? "is-invalid" : ""
+                        }`}
+                        placeholder="351..."
+                        inputMode="numeric"
+                        value={whatsapp}
+                        onChange={(e) => {
+                          const onlyDigits = e.target.value.replace(/\D/g, "");
+                          setWhatsapp(onlyDigits);
+
+                          if (fieldErrors.whatsapp) {
+                            setFieldErrors((prev) => ({
+                              ...prev,
+                              whatsapp: "",
+                            }));
+                          }
+                        }}
+                      />
+                      {fieldErrors.whatsapp && (
+                        <div className="text-danger small mt-1">
+                          {fieldErrors.whatsapp}
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="col-12 col-md-6">
+                      <label className="form-label">Email (opcional)</label>
+                      <input
+                        className="form-control"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="col-12">
+                      <label className="form-label">Consulta / intención</label>
+                      <input
+                        className="form-control"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="d-grid mt-3">
+                    <button
+                      className="btn btn-success btn-lg"
+                      id="btnBook"
+                      disabled={submitting}
+                      onClick={handleSubmit}
+                      type="button"
+                    >
+                      {submitting ? "Confirmando..." : "Confirmar reserva"}
+                    </button>
+                  </div>
+
+                  {submitError && (
+                    <div className="text-danger mt-3">{submitError}</div>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>

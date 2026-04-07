@@ -1,181 +1,52 @@
-import { useEffect, useMemo, useState } from "react";
 import Services from "../components/booking/Services";
 import DateSelector from "../components/booking/DateSelector";
 import Slots from "../components/booking/Slots";
-import { getAvailability } from "../api/availability";
-import { addDays, formatDateISO, formatDateLong, getTomorrow, getWeekDays } from "../utils/dates";
+import useBooking from "../hooks/useBooking";
+import { formatDateLong } from "../utils/dates";
 import "../styles/pages/pelu.css";
-import { createAppointment } from "../api/appointments";
 
 function PeluPage() {
+  const {
+    selectedIds,
+    selectedDate,
+    slots,
+    selectedSlot,
+    loadingSlots,
+    slotsError,
 
-  const tomorrow = getTomorrow();
+    firstName,
+    lastName,
+    whatsapp,
+    email,
+    comment,
 
-  const [services, setServices] = useState([]);
-  const [selectedIds, setSelectedIds] = useState([]);
+    submitting,
+    submitError,
+    bookingSuccess,
+    fieldErrors,
 
-  const [daysStart, setDaysStart] = useState(tomorrow);
-  const [selectedDate, setSelectedDate] = useState(formatDateISO(tomorrow));
-  const [slots, setSlots] = useState([]);
-  const [selectedSlot, setSelectedSlot] = useState("");
-  const [loadingSlots, setLoadingSlots] = useState(false);
-  const [slotsError, setSlotsError] = useState("");
+    selectedServices,
+    totalDuration,
+    totalPrice,
+    visibleDays,
+    canGoPrev,
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [whatsapp, setWhatsapp] = useState("");
-  const [email, setEmail] = useState("");
-  const [comment, setComment] = useState("");
+    setServices,
+    setSelectedDate,
+    setSelectedSlot,
+    setFirstName,
+    setLastName,
+    setWhatsapp,
+    setEmail,
+    setComment,
+    setFieldErrors,
 
-  const [submitting, setSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
-  const [bookingSuccess, setBookingSuccess] = useState(false);
-
-  const [fieldErrors, setFieldErrors] = useState({
-    firstName: "",
-    lastName: "",
-    whatsapp: "",
-  });
-
-
-  function toggleService(id) {
-    setSelectedSlot("");
-
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
-    );
-  }
-
-  const selectedServices = useMemo(() => {
-    return services.filter((service) => selectedIds.includes(service.id));
-  }, [services, selectedIds]);
-
-  const totalDuration = useMemo(() => {
-    return selectedServices.reduce(
-      (acc, service) => acc + (service.duration_min || 0),
-      0
-    );
-  }, [selectedServices]);
-
-  const totalPrice = useMemo(() => {
-    return selectedServices.reduce((acc, service) => acc + (service.price || 0), 0);
-  }, [selectedServices]);
-
-  const visibleDays = useMemo(() => {
-    return getWeekDays(daysStart, 7);
-  }, [daysStart]);
-
-  const canGoPrev = useMemo(() => {
-    return formatDateISO(daysStart) > formatDateISO(tomorrow);
-  }, [daysStart, tomorrow]);
-
-  const canSubmit =
-  selectedIds.length > 0 &&
-  !!selectedDate &&
-  !!selectedSlot &&
-  firstName.trim() &&
-  lastName.trim() &&
-  whatsapp.trim();
-
-  useEffect(() => {
-    setSelectedSlot("");
-    setSlots([]);
-
-    if (!selectedDate || selectedIds.length === 0) {
-      return;
-    }
-
-    async function loadAvailability() {
-      try {
-        setLoadingSlots(true);
-        setSlotsError("");
-
-        const data = await getAvailability(selectedDate, selectedIds);
-
-        if (Array.isArray(data)) {
-          setSlots(data);
-        } else if (Array.isArray(data.slots)) {
-          setSlots(data.slots);
-        } else {
-          setSlots([]);
-        }
-      } catch (err) {
-        console.error(err);
-        setSlotsError("No se pudieron cargar los horarios.");
-        setSlots([]);
-      } finally {
-        setLoadingSlots(false);
-      }
-    }
-
-    loadAvailability();
-  }, [selectedDate, selectedIds]);
-
-  function handlePrevDays() {
-  if (!canGoPrev) return;
-
-  setDaysStart((prev) => {
-    const next = addDays(prev, -7);
-    return formatDateISO(next) < formatDateISO(tomorrow) ? tomorrow : next;
-  });
-}
-
-  function handleNextDays() {
-    setDaysStart((prev) => addDays(prev, 7));
-  }
-
-  async function handleSubmit() {
-
-    const errors = {
-      firstName: firstName.trim() ? "" : "Este campo es obligatorio",
-      lastName: lastName.trim() ? "" : "Este campo es obligatorio",
-      whatsapp: whatsapp.trim() ? "" : "Este campo es obligatorio",
-    };
-
-    setFieldErrors(errors);
-
-    if (errors.firstName || errors.lastName || errors.whatsapp) {
-      setSubmitError("");
-      return;
-    }
-
-    if (!selectedIds.length || !selectedDate || !selectedSlot) {
-      setSubmitError("Elegí servicio, fecha y horario.");
-      return;
-    }
-
-    try {
-      setSubmitting(true);
-      setSubmitError("");
-
-      const payload = {
-        first_name: firstName.trim(),
-        last_name: lastName.trim(),
-        whatsapp: whatsapp.trim(),
-        email: email.trim() || null,
-        comment: comment.trim() || null,
-        category: "pelu",
-        start_at: `${selectedDate}T${selectedSlot}:00-03:00`,
-        service_ids: selectedIds,
-      };
-
-      await createAppointment(payload);
-      setBookingSuccess(true);
-    } catch (err) {
-      console.error(err);
-
-      const message =
-        err?.response?.data?.error ||
-        err?.response?.data?.message ||
-        "No se pudo confirmar el turno.";
-
-      setSubmitError(message);
-    } finally {
-      setSubmitting(false);
-    }
-  }
-
-  
+    toggleService,
+    handlePrevDays,
+    handleNextDays,
+    handleSubmit,
+    resetBooking,
+  } = useBooking({ category: "pelu" });
 
   return (
     <div className="pelu-page">
@@ -329,7 +200,7 @@ function PeluPage() {
               <hr className="border-secondary" />
 
               {bookingSuccess ? (
-                <div className="booking-success">
+                <div className="booking-success text-center">
                   <div className="success-check-wrap">
                     <div className="success-check">
                       <svg viewBox="0 0 52 52" aria-hidden="true">
@@ -349,7 +220,7 @@ function PeluPage() {
                     </div>
                   </div>
 
-                  <h3 className="success-title">Turno confirmado</h3>
+                  <h3 className="success-title mt-3">Turno confirmado</h3>
                   <p className="success-text">
                     Tu turno quedó agendado correctamente.
                   </p>
@@ -357,10 +228,10 @@ function PeluPage() {
                   <button
                     className="btn btn-outline-light mt-3"
                     onClick={resetBooking}
+                    type="button"
                   >
                     Agendar otro turno
                   </button>
-                  
                 </div>
               ) : (
                 <>
@@ -368,41 +239,57 @@ function PeluPage() {
                     <div className="col-12 col-md-6">
                       <label className="form-label">Nombre</label>
                       <input
-                        className={`form-control ${fieldErrors.firstName ? "is-invalid" : ""}`}
+                        className={`form-control ${
+                          fieldErrors.firstName ? "is-invalid" : ""
+                        }`}
                         value={firstName}
                         onChange={(e) => {
                           setFirstName(e.target.value);
                           if (fieldErrors.firstName) {
-                            setFieldErrors((prev) => ({ ...prev, firstName: "" }));
+                            setFieldErrors((prev) => ({
+                              ...prev,
+                              firstName: "",
+                            }));
                           }
                         }}
                       />
                       {fieldErrors.firstName && (
-                        <div className="text-danger small mt-1">{fieldErrors.firstName}</div>
+                        <div className="text-danger small mt-1">
+                          {fieldErrors.firstName}
+                        </div>
                       )}
                     </div>
 
                     <div className="col-12 col-md-6">
                       <label className="form-label">Apellido</label>
                       <input
-                        className={`form-control ${fieldErrors.lastName ? "is-invalid" : ""}`}
+                        className={`form-control ${
+                          fieldErrors.lastName ? "is-invalid" : ""
+                        }`}
                         value={lastName}
                         onChange={(e) => {
                           setLastName(e.target.value);
                           if (fieldErrors.lastName) {
-                            setFieldErrors((prev) => ({ ...prev, lastName: "" }));
+                            setFieldErrors((prev) => ({
+                              ...prev,
+                              lastName: "",
+                            }));
                           }
                         }}
                       />
                       {fieldErrors.lastName && (
-                        <div className="text-danger small mt-1">{fieldErrors.lastName}</div>
+                        <div className="text-danger small mt-1">
+                          {fieldErrors.lastName}
+                        </div>
                       )}
                     </div>
 
                     <div className="col-12 col-md-6">
                       <label className="form-label">WhatsApp</label>
                       <input
-                        className={`form-control ${fieldErrors.whatsapp ? "is-invalid" : ""}`}
+                        className={`form-control ${
+                          fieldErrors.whatsapp ? "is-invalid" : ""
+                        }`}
                         placeholder="351..."
                         inputMode="numeric"
                         value={whatsapp}
@@ -411,12 +298,17 @@ function PeluPage() {
                           setWhatsapp(onlyDigits);
 
                           if (fieldErrors.whatsapp) {
-                            setFieldErrors((prev) => ({ ...prev, whatsapp: "" }));
+                            setFieldErrors((prev) => ({
+                              ...prev,
+                              whatsapp: "",
+                            }));
                           }
                         }}
                       />
                       {fieldErrors.whatsapp && (
-                        <div className="text-danger small mt-1">{fieldErrors.whatsapp}</div>
+                        <div className="text-danger small mt-1">
+                          {fieldErrors.whatsapp}
+                        </div>
                       )}
                     </div>
 
@@ -452,7 +344,9 @@ function PeluPage() {
                     </button>
                   </div>
 
-                  {submitError && <div className="text-danger mt-3">{submitError}</div>}
+                  {submitError && (
+                    <div className="text-danger mt-3">{submitError}</div>
+                  )}
                 </>
               )}
             </div>
