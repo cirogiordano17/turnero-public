@@ -21,7 +21,10 @@ const app = express();
  */
 const allowedOrigins = [
   process.env.FRONTEND_ORIGIN,
-  "https://turnero-public.vercel.app"
+  "https://turnero-public.vercel.app",
+  "https://turnero-public-git-main-cirogiordano17s-projects.vercel.app",
+  "https://turnero-public-l5d7cxxmk-cirogiordano17s-projects.vercel.app",
+  "http://localhost:5173"
 ].filter(Boolean);
 
 app.use(
