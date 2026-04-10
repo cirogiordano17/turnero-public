@@ -1,0 +1,89 @@
+import { MessageCircle, Phone, Camera, Clock3 } from "lucide-react";
+import "./styles/contact-section.css";
+
+export default function ContactSection() {
+  return (
+    <section className="contact-section" id="contacto">
+      <div className="contact-section__container">
+        <header className="contact-section__header">
+          <h2 className="contact-section__title">Reservá tu turno</h2>
+          <p className="contact-section__subtitle">
+            Elegí el método que prefieras para contactarnos
+          </p>
+        </header>
+
+        <div className="contact-section__grid">
+          <article className="contact-card contact-card--primary">
+            <div className="contact-card__left">
+              <div className="contact-card__icon contact-card__icon--whatsapp">
+                <MessageCircle size={36} strokeWidth={2.2} />
+              </div>
+
+              <div className="contact-card__content">
+                <h3>WhatsApp</h3>
+                <p>La forma más rápida de reservar</p>
+              </div>
+            </div>
+
+            <a
+              className="contact-card__cta"
+              href="https://wa.me/541123456789"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Enviar mensaje
+            </a>
+          </article>
+
+          <article className="contact-card">
+            <div className="contact-card__left">
+              <div className="contact-card__icon">
+                <Phone size={32} strokeWidth={2.2} />
+              </div>
+
+              <div className="contact-card__content">
+                <h3>Teléfono</h3>
+                <p>Llamanos directamente</p>
+                <span>+54 11 2345-6789</span>
+              </div>
+            </div>
+          </article>
+
+          <article className="contact-card">
+            <div className="contact-card__left">
+              <div className="contact-card__icon">
+                <Camera size={32} strokeWidth={2.2} />
+              </div>
+
+              <div className="contact-card__content">
+                <h3>Instagram</h3>
+                <p>Seguinos en redes</p>
+                <span>@salonsala</span>
+              </div>
+            </div>
+          </article>
+
+          <article className="contact-card contact-card--hours">
+            <div className="contact-card__left contact-card__left--top">
+              <div className="contact-card__icon">
+                <Clock3 size={32} strokeWidth={2.2} />
+              </div>
+
+              <div className="contact-card__content">
+                <h3>Horarios de atención</h3>
+              </div>
+            </div>
+
+            <div className="contact-hours">
+              <div className="contact-hours__item">
+                <p>Lunes a Sabados</p>
+                <span>9:00 - 13:00 y 15:00 - 20:00</span>
+              </div>
+
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
+}

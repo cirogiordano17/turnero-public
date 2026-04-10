@@ -1,0 +1,61 @@
+.btn {
+  border: none;
+  cursor: pointer;
+  border-radius: 999px;
+  font-family: inherit;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* tamaños */
+.btn--sm {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+}
+
+.btn--md {
+  padding: 12px 22px;
+  font-size: 1rem;
+}
+
+.btn--lg {
+  padding: 16px 32px;
+  font-size: 1.1rem;
+}
+
+/* variantes */
+.btn--primary {
+  background-color: #1f4b33;
+  color: white;
+  box-shadow: 0 6px 16px rgba(31, 75, 51, 0.25);
+}
+
+.btn--primary:hover {
+  background-color: #183a28;
+  transform: translateY(-1px);
+}
+
+.btn--secondary {
+  background-color: transparent;
+  color: #1f4b33;
+  border: 2px solid #1f4b33;
+}
+
+.btn--secondary:hover {
+  background-color: rgba(31, 75, 51, 0.08);
+}
+
+/* ancho completo */
+.btn--full {
+  width: 100%;
+}
+
+/* disabled */
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}

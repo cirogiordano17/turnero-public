@@ -34,7 +34,7 @@ function SlotGroup({ title, slots, selectedSlot, onSelect }) {
               <button
                 key={slot}
                 type="button"
-                className={`btn ${active ? "btn-success" : "btn-outline-light"}`}
+                className={`slot-btn ${active ? "active" : ""}`}
                 onClick={() => onSelect(slot)}
               >
                 {slot}

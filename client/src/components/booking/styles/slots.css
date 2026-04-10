@@ -1,0 +1,34 @@
+.slots-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.slot-btn {
+  width: 90px;
+  padding: 10px 0;
+  font-weight: 700;
+  border-radius: 10px;
+  border: 1px solid #1f4b33;
+  background: #ffffff;
+  color: #1f4b33;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.slot-btn:hover {
+  background: #1f4b33;
+  color: #ffffff;
+}
+
+.slot-btn.active {
+  background: #1f4b33;
+  color: #ffffff;
+}
+
+.slot-btn:disabled {
+  background: #eee;
+  color: #999;
+  border-color: #ccc;
+  cursor: not-allowed;
+}

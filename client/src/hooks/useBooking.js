@@ -56,6 +56,18 @@ function useBooking({ category }) {
     );
   }, [selectedServices]);
 
+  const endTime = useMemo(() => {
+    if (!selectedSlot || !totalDuration) return "";
+
+    const [hours, minutes] = selectedSlot.split(":").map(Number);
+    const totalMinutes = hours * 60 + minutes + totalDuration;
+
+    const endHours = Math.floor(totalMinutes / 60) % 24;
+    const endMinutes = totalMinutes % 60;
+
+    return `${String(endHours).padStart(2, "0")}:${String(endMinutes).padStart(2, "0")}`;
+  }, [selectedSlot, totalDuration]);
+
   const totalPrice = useMemo(() => {
     return selectedServices.reduce(
       (acc, service) => acc + (service.price || 0),
@@ -229,6 +241,7 @@ function useBooking({ category }) {
 
     selectedServices,
     totalDuration,
+    endTime,
     totalPrice,
     visibleDays,
     canGoPrev,

@@ -1,0 +1,99 @@
+.booking-summary-box {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.booking-summary-box__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(31, 75, 51, 0.08);
+}
+
+.booking-summary-box__divider {
+  height: 1px;
+  background: rgba(31, 75, 51, 0.12);
+  margin: 4px 0 8px;
+}
+
+.booking-summary-box__detail-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1f4b33;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.booking-summary-box__services {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.booking-summary-box__service {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #f8f8f8;
+}
+
+.booking-summary-box__service-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.booking-summary-box__service-name {
+  color: #1f4b33;
+  font-weight: 700;
+}
+
+.booking-summary-box__service-meta {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.booking-summary-box__service-price {
+  font-weight: 600;
+  color: #111827;
+}
+
+.booking-summary-box__total {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: #1f4b33;
+  color: #fff;
+}
+
+.booking-summary-box__total span {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.booking-summary-box__total strong {
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+@media (max-width: 768px) {
+  .booking-summary-box__row,
+  .booking-summary-box__service {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .booking-summary-box__total {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}

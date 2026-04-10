@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getServices } from "../../api/services";
+import "./styles/services.css";
 
 function Services({ category = "pelu", selectedIds, onToggle, onServicesLoaded }) {
   const [services, setServices] = useState([]);
@@ -40,7 +41,7 @@ function Services({ category = "pelu", selectedIds, onToggle, onServicesLoaded }
 
           return (
             <label key={service.id} className="svc">
-              <div className="svc-inner">
+              <div className={`svc-inner ${active ? "active" : ""}`}>
                 <input
                   type="checkbox"
                   checked={active}

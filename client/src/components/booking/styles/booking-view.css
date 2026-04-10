@@ -1,0 +1,38 @@
+.booking-view {
+  min-height: 100vh;
+  background: #f5f3f1;
+  padding: 48px 20px 80px;
+}
+
+.booking-view__container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.booking-view__back {
+  border: none;
+  background: transparent;
+  color: #1f4b33;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 28px;
+  padding: 0;
+}
+
+.booking-view__header {
+  margin-bottom: 36px;
+}
+
+.booking-view__title {
+  margin: 0 0 12px;
+  color: #1f4b33;
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  line-height: 1.05;
+  font-weight: 500;
+}
+
+.booking-view__subtitle {
+  margin: 0;
+  color: #5b6a7d;
+  font-size: 1.15rem;
+}

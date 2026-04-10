@@ -1,3 +1,6 @@
+import "./styles/days.css";
+
+
 import {
   formatDateISO,
   formatMonthLabel,
@@ -5,8 +8,14 @@ import {
   formatDayNumber,
 } from "../../utils/dates";
 
-function DateSelector({ days, selectedDate, onSelectDate, onPrev, onNext }) {
-  const selected = days.find((day) => formatDateISO(day) === selectedDate);
+function DateSelector({
+  days,
+  selectedDate,
+  onSelectDate,
+  onPrev,
+  onNext,
+  closedDays = [],
+}) {
   const nextMonthDay = days.find(
     (day) => formatMonthLabel(day) !== formatMonthLabel(days[0])
   );
@@ -29,13 +38,21 @@ function DateSelector({ days, selectedDate, onSelectDate, onPrev, onNext }) {
         </div>
 
         <div className="d-flex gap-2 align-items-center">
-          <button type="button" className="btn btn-outline-light btn-md" onClick={onPrev}>
+          <button
+            type="button"
+            className="btn btn-outline-light btn-md"
+            onClick={onPrev}
+          >
             ‹
           </button>
 
           <span className="days-nav-label">Ver otros días</span>
 
-          <button type="button" className="btn btn-outline-light btn-md" onClick={onNext}>
+          <button
+            type="button"
+            className="btn btn-outline-light btn-md"
+            onClick={onNext}
+          >
             ›
           </button>
         </div>
@@ -46,15 +63,25 @@ function DateSelector({ days, selectedDate, onSelectDate, onPrev, onNext }) {
           const iso = formatDateISO(day);
           const active = iso === selectedDate;
 
+          const isSunday = day.getDay() === 0;
+          const isAdminBlocked = closedDays.includes(iso);
+          const disabled = isSunday || isAdminBlocked;
+
           return (
             <button
               key={iso}
               type="button"
-              className={`day-btn ${active ? "active" : ""}`}
-              onClick={() => onSelectDate(iso)}
+              disabled={disabled}
+              className={`day-btn ${active ? "active" : ""} ${
+                disabled ? "disabled" : ""
+              }`}
+              onClick={() => {
+                if (!disabled) onSelectDate(iso);
+              }}
             >
               <span className="dow">{formatDayName(day)}</span>
               <span className="dom">{formatDayNumber(day)}</span>
+              {disabled && <span className="day-status">Bloqueado</span>}
             </button>
           );
         })}

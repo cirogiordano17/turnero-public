@@ -1,0 +1,32 @@
+.site-footer {
+  background: #f5f3f1;
+  border-top: 1px solid rgba(31, 75, 51, 0.12);
+  padding: 26px 20px;
+}
+
+.site-footer__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.site-footer__brand,
+.site-footer__copy {
+  margin: 0;
+  color: #1f3d2b;
+  font-size: 1rem;
+}
+
+@media (max-width: 700px) {
+  .site-footer {
+    padding: 22px 16px;
+  }
+
+  .site-footer__container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
