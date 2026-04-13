@@ -19,7 +19,6 @@ export default function ServicesSection() {
               las últimas tendencias y técnicas.
             </p>
 
-            <Button size="md">Reservar turno</Button>
           </div>
         </div>
 
@@ -35,7 +34,7 @@ export default function ServicesSection() {
               para tu transformación interior.
             </p>
 
-            <Button size="md">Reservar turno</Button>
+         
           </div>
         </div>
       </div>
