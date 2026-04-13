@@ -19,13 +19,14 @@ const app = express();
  * En desarrollo deja entrar localhost.
  * En producción usá FRONTEND_ORIGIN en .env
  */
-const allowedOrigins = [
-  process.env.FRONTEND_ORIGIN,
-  "https://turnero-public.vercel.app",
-  "https://turnero-public-git-main-cirogiordano17s-projects.vercel.app",
-  "https://turnero-public-l5d7cxxmk-cirogiordano17s-projects.vercel.app",
-  "http://localhost:5173"
-].filter(Boolean);
+const allowedOrigins =
+  process.env.NODE_ENV === "production"
+    ? [process.env.FRONTEND_ORIGIN]
+    : [
+        "http://localhost:5173",
+        "http://localhost:5500",
+        process.env.FRONTEND_ORIGIN,
+      ];
 
 app.use(
   cors({

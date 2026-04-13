@@ -1,0 +1,71 @@
+.client-form-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 24px;
+  margin-top: 12px;
+}
+
+.form-control {
+  border-radius: 12px !important;
+  padding: 12px 14px;
+  font-size: 0.95rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.15s ease;
+}
+
+.form-control:focus {
+  border-color: #1f4b33;
+  box-shadow: 0 0 0 2px rgba(31, 75, 51, 0.1);
+}
+
+.form-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.row.g-2 {
+  row-gap: 16px !important;
+}
+
+#btnBook {
+  border-radius: 16px;
+  padding: 16px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  background: #1f4b33;
+  border: none;
+  transition: all 0.18s ease;
+}
+
+#btnBook:hover {
+  background: #163c29;
+  transform: translateY(-1px);
+}
+
+.text-danger {
+  font-size: 0.85rem;
+}
+
+.booking-view-form__section-title {
+  margin-bottom: 16px;
+}
+
+.client-form__reset-btn {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 999px;
+  background: #1f4b33;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.client-form__reset-btn:hover {
+  background: #163c29;
+  transform: translateY(-1px);
+}

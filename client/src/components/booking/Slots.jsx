@@ -1,3 +1,5 @@
+import "./styles/slots.css";
+
 function splitSlotsByRange(slots) {
   const morning = [];
   const afternoon = [];
@@ -20,12 +22,12 @@ function splitSlotsByRange(slots) {
 
 function SlotGroup({ title, slots, selectedSlot, onSelect }) {
   return (
-    <div className="time-group mt-3">
-      <div className="muted small mb-2">{title}</div>
+    <section className="slot-group-card">
+      <h3 className="slot-group-card__title">{title}</h3>
 
       <div className="slots-grid">
         {slots.length === 0 ? (
-          <div className="muted small">Sin horarios.</div>
+          <div className="slots-empty">Sin horarios.</div>
         ) : (
           slots.map((slot) => {
             const active = selectedSlot === slot;
@@ -34,7 +36,7 @@ function SlotGroup({ title, slots, selectedSlot, onSelect }) {
               <button
                 key={slot}
                 type="button"
-                className={`slot-btn ${active ? "active" : ""}`}
+                className={`slot-btn ${active ? "slot-btn--active" : ""}`}
                 onClick={() => onSelect(slot)}
               >
                 {slot}
@@ -43,7 +45,7 @@ function SlotGroup({ title, slots, selectedSlot, onSelect }) {
           })
         )}
       </div>
-    </div>
+    </section>
   );
 }
 
@@ -51,8 +53,8 @@ function Slots({ slots, selectedSlot, onSelect }) {
   const { morning, afternoon, night } = splitSlotsByRange(slots);
 
   return (
-    <div>
-      <label className="form-label mt-3">Horarios disponibles</label>
+    <div className="slots-section">
+      <label className="slots-section__label">Horarios disponibles</label>
 
       <SlotGroup
         title="Mañana"

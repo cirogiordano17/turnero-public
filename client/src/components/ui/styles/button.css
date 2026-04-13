@@ -59,3 +59,11 @@
   cursor: not-allowed;
   transform: none;
 }
+
+.btn--pill {
+  border-radius: 999px;
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}

@@ -81,7 +81,6 @@ function DateSelector({
             >
               <span className="dow">{formatDayName(day)}</span>
               <span className="dom">{formatDayNumber(day)}</span>
-              {disabled && <span className="day-status">Bloqueado</span>}
             </button>
           );
         })}

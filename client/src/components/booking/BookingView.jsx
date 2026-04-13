@@ -1,18 +1,15 @@
 import BookingCategorySelector from "./BookingCategorySelector";
 import BookingViewForm from "./BookingViewForm";
 import "./styles/booking-view.css";
+import { Button } from "../ui/Button";
 
 function BookingView({ selectedCategory, onSelectCategory, onBack }) {
   return (
     <section className="booking-view">
       <div className="booking-view__container">
-        <button
-          type="button"
-          className="booking-view__back"
-          onClick={onBack}
-        >
+        <Button variant="pill" onClick={onBack}>
           ← Volver al inicio
-        </button>
+        </Button>
 
         <div className="booking-view__header">
           <h1 className="booking-view__title">Reservá tu turno</h1>

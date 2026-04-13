@@ -1,3 +1,35 @@
+.booking-view-form__top {
+  margin-bottom: 24px;
+}
+
+.booking-view-form__category-inline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.booking-view-form__category-text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1f2937;
+}
+
+.booking-view-form__change {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 999px;
+  background: rgba(31, 75, 51, 0.08);
+  color: #1f4b33;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.booking-view-form__change:hover {
+  background: rgba(31, 75, 51, 0.15);
+}
+
 .booking-summary-box {
   display: flex;
   flex-direction: column;
@@ -9,21 +41,20 @@
   justify-content: space-between;
   gap: 20px;
   padding-bottom: 10px;
-  border-bottom: 1px solid rgba(31, 75, 51, 0.08);
 }
 
 .booking-summary-box__divider {
   height: 1px;
-  background: rgba(31, 75, 51, 0.12);
   margin: 4px 0 8px;
+  background: rgba(31, 75, 51, 0.12);
 }
 
 .booking-summary-box__detail-title {
   font-size: 0.95rem;
   font-weight: 700;
-  color: #1f4b33;
-  text-transform: uppercase;
   letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #1f4b33;
 }
 
 .booking-summary-box__services {
@@ -49,13 +80,13 @@
 }
 
 .booking-summary-box__service-name {
-  color: #1f4b33;
   font-weight: 700;
+  color: #1f4b33;
 }
 
 .booking-summary-box__service-meta {
-  color: #6b7280;
   font-size: 0.9rem;
+  color: #6b7280;
 }
 
 .booking-summary-box__service-price {
@@ -64,10 +95,10 @@
 }
 
 .booking-summary-box__total {
-  margin-top: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 8px;
   padding: 18px 20px;
   border-radius: 16px;
   background: #1f4b33;
@@ -96,4 +127,8 @@
     align-items: flex-start;
     gap: 6px;
   }
+}
+
+.booking-view-form__section {
+  margin-top: 32px;
 }

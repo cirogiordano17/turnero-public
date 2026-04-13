@@ -2,6 +2,7 @@ import { useState } from "react";
 import LandingPage from "./pages/LandingPage";
 import BookingView from "./components/booking/BookingView";
 
+
 function App() {
   const [currentView, setCurrentView] = useState("landing");
   const [selectedCategory, setSelectedCategory] = useState(null);
