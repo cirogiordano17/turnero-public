@@ -312,7 +312,7 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-
+.day-status{
 background: repeating-linear-gradient(
   -45deg,
   #ececec,
@@ -320,3 +320,4 @@ background: repeating-linear-gradient(
   #e2e2e2 8px,
   #e2e2e2 16px
 );
+}
