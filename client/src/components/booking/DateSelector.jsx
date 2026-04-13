@@ -37,25 +37,29 @@ function DateSelector({
           </div>
         </div>
 
-        <div className="d-flex gap-2 align-items-center">
-          <button
-            type="button"
-            className="btn btn-outline-light btn-md"
-            onClick={onPrev}
-          >
-            ‹
-          </button>
+       <div className="d-flex gap-2 align-items-center">
+        <button
+          type="button"
+          className="btn btn-outline-success btn-md days-nav-btn"
+          onClick={onPrev}
+          onMouseUp={(e) => e.currentTarget.blur()}
+          onTouchEnd={(e) => e.currentTarget.blur()}
+        >
+          ‹
+        </button>
 
-          <span className="days-nav-label">Ver otros días</span>
+        <span className="days-nav-label">Ver otros días</span>
 
-          <button
-            type="button"
-            className="btn btn-outline-light btn-md"
-            onClick={onNext}
-          >
-            ›
-          </button>
-        </div>
+        <button
+          type="button"
+          className="btn btn-outline-success btn-md days-nav-btn"
+          onClick={onNext}
+          onMouseUp={(e) => e.currentTarget.blur()}
+          onTouchEnd={(e) => e.currentTarget.blur()}
+        >
+          ›
+        </button>
+      </div>
       </div>
 
       <div className="day-strip mt-3">
