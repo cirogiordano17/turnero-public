@@ -22,11 +22,11 @@ const app = express();
 const allowedOrigins =
   process.env.NODE_ENV === "production"
     ? [process.env.FRONTEND_ORIGIN]
-    : [
-        "http://localhost:5173",
-        "http://localhost:5500",
-        process.env.FRONTEND_ORIGIN,
-      ];
+    : ["http://localhost:5173", "http://localhost:5500"];
+
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("FRONTEND_ORIGIN:", process.env.FRONTEND_ORIGIN);
+console.log("allowedOrigins:", allowedOrigins);
 
 app.use(
   cors({
@@ -40,7 +40,7 @@ app.use(
       return callback(new Error("Origen no permitido por CORS"));
     },
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 

@@ -47,22 +47,38 @@ function ScheduleStep({ booking, onBack, onNext }) {
         )}
       </div>
 
-      <div className="d-flex justify-content-between align-items-center gap-3 mt-4 flex-wrap">
-        <div className="muted small">
-          {booking.selectedSlot
-            ? `Horario elegido: ${booking.selectedSlot}`
-            : "Elegí un horario para seguir."}
-        </div>
+    <div className="booking-bottom-bar">
+  <div className="booking-bottom-bar__info">
+    <div className="booking-bottom-bar__title">
+      {booking.selectedServices.length > 0
+        ? booking.selectedServices.map((s) => s.name).join(" + ")
+        : "Elegí un horario"}
+    </div>
 
-        <button
-          className="btn btn-success"
-          type="button"
-          onClick={onNext}
-          disabled={!canContinue}
-        >
-          Siguiente
-        </button>
+    {booking.totalPrice > 0 && (
+      <div className="booking-bottom-bar__price">
+        ${booking.totalPrice.toLocaleString("es-AR")}
       </div>
+        )}
+
+        <div className="booking-bottom-bar__meta">
+          {booking.selectedSlot
+            ? `${formatDateLong(booking.selectedDate)} · ${booking.selectedSlot}${
+                booking.endTime ? ` - ${booking.endTime}` : ""
+              }`
+            : "Seleccioná fecha y horario para continuar"}
+        </div>
+      </div>
+
+      <button
+        className="booking-bottom-bar__button"
+        type="button"
+        onClick={onNext}
+        disabled={!canContinue}
+      >
+        Siguiente
+      </button>
+    </div>
     </div>
   );
 }
