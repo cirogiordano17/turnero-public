@@ -1,0 +1,72 @@
+.booking-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  background: #fff;
+  border-top: 1px solid #ddd;
+
+  padding: 12px 16px;
+  z-index: 999;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.booking-bottom-bar__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-bottom-bar__title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.booking-bottom-bar__price {
+  font-size: 13px;
+  color: #666;
+}
+
+.booking-bottom-bar__button {
+  background: #1f3d2b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+
+  padding: 10px 16px;
+  font-weight: 500;
+}
+
+.booking-shell {
+  padding-bottom: 80px;
+}
+
+.booking-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+
+  border-radius: 999px;
+  padding: 6px 12px;
+
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.booking-back-btn:hover {
+  background: #e5e7eb;
+}
+
+.booking-back-icon {
+  font-size: 14px;
+}

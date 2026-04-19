@@ -1,5 +1,5 @@
 const TZ = "America/Argentina/Cordoba";
-const SLOT_MIN = 15;
+const SLOT_MIN = 30;
 
 function minutesToMs(min) {
   return min * 60 * 1000;

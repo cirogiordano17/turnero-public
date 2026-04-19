@@ -1,6 +1,5 @@
 import "./styles/client-form.css";
 
-
 function ClientForm({
   firstName,
   lastName,
@@ -22,6 +21,13 @@ function ClientForm({
 
   handleSubmit,
   resetBooking,
+
+  successTitle = "Turno confirmado",
+  successText = "Tu turno quedó agendado correctamente.",
+  resetButtonText = "Agendar otro turno",
+  commentLabel = "Comentario (opcional)",
+  commentPlaceholder = "",
+  confirmButtonText = "Confirmar turno",
 }) {
   if (bookingSuccess) {
     return (
@@ -45,17 +51,15 @@ function ClientForm({
           </div>
         </div>
 
-        <h3 className="success-title mt-3">Turno confirmado</h3>
-        <p className="success-text">
-          Tu turno quedó agendado correctamente.
-        </p>
+        <h3 className="success-title mt-3">{successTitle}</h3>
+        <p className="success-text">{successText}</p>
 
         <button
           className="client-form__reset-btn mt-3"
           onClick={resetBooking}
           type="button"
         >
-          Agendar otro turno
+          {resetButtonText}
         </button>
       </div>
     );
@@ -146,10 +150,10 @@ function ClientForm({
         </div>
 
         <div className="col-12">
-          <label className="form-label">Comentario (opcional)</label>
+          <label className="form-label">{commentLabel}</label>
           <input
             className="form-control"
-            placeholder="Ej: mechas rubias"
+            placeholder={commentPlaceholder}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
@@ -164,13 +168,11 @@ function ClientForm({
           onClick={handleSubmit}
           type="button"
         >
-          {submitting ? "Confirmando..." : "Confirmar turno"}
+          {submitting ? "Confirmando..." : confirmButtonText}
         </button>
       </div>
 
-      {submitError && (
-        <div className="text-danger mt-3">{submitError}</div>
-      )}
+      {submitError && <div className="text-danger mt-3">{submitError}</div>}
     </>
   );
 }

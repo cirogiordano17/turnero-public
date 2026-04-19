@@ -7,10 +7,6 @@ function BookingView({ selectedCategory, onSelectCategory, onBack }) {
   return (
     <section className="booking-view">
       <div className="booking-view__container">
-        <Button variant="pill" onClick={onBack}>
-          ← Volver al inicio
-        </Button>
-
         <div className="booking-view__header">
           <h1 className="booking-view__title">Reservá tu turno</h1>
           <p className="booking-view__subtitle">
@@ -18,14 +14,22 @@ function BookingView({ selectedCategory, onSelectCategory, onBack }) {
           </p>
         </div>
 
-        {!selectedCategory ? (
+      {!selectedCategory ? (
+        <>
+          <div className="mb-3">
+            <Button variant="pill" onClick={onBack}>
+              ← Volver al inicio
+            </Button>
+          </div>
+
           <BookingCategorySelector onSelectCategory={onSelectCategory} />
-        ) : (
-          <BookingViewForm
-            category={selectedCategory}
-            onChangeCategory={onSelectCategory}
-          />
-        )}
+        </>
+      ) : (
+        <BookingViewForm
+          category={selectedCategory}
+          onChangeCategory={onSelectCategory}
+        />
+      )}
       </div>
     </section>
   );

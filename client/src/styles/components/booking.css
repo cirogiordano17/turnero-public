@@ -3,12 +3,7 @@
   margin: 0 auto;
 }
 
-.services-wrap {
-  max-height: 340px;
-  overflow: auto;
-  padding-right: 6px;
-  margin-bottom: 24px;
-}
+
 
 .services-grid {
   display: grid;
@@ -53,18 +48,23 @@
 }
 
 .slots-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: flex-start;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
 }
 
-.slots-grid .btn {
-  width: 84px;
-  padding: 8px 0;
-  font-weight: 800;
+@media (min-width: 900px) {
+  .slots-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.slot-btn {
+  width: 100%;        /* lo dejamos */
+  height: 48px;       /* BAJAMOS altura */
+  padding: 0 6px;     /* menos padding */
+  font-size: 0.9rem;  /* más chico */
   border-radius: 12px;
-  white-space: nowrap;
 }
 
 @media (min-width: 992px) {
