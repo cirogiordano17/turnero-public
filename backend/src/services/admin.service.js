@@ -74,4 +74,46 @@ async function confirmAkashicosPayment(db, appointmentId) {
   return updated.rows[0];
 }
 
-module.exports = { getAppointmentsForDay, cancelAppointment, blockDay, unblockDay, confirmAkashicosPayment };
+async function getUpcomingAppointments(db) {
+  const result = await adminRepo.getUpcomingAppointments(db);
+
+  const fmt = new Intl.DateTimeFormat("es-AR", {
+    timeZone: TZ,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+
+  return result.rows.map((r) => ({
+    ...r,
+    start_hhmm: fmt.format(new Date(r.start_at)),
+    end_hhmm: fmt.format(new Date(r.end_at)),
+  }));
+}
+
+async function getHistoryAppointments(db) {
+  const result = await adminRepo.getHistoryAppointments(db);
+
+  const fmt = new Intl.DateTimeFormat("es-AR", {
+    timeZone: TZ,
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+
+  return result.rows.map((r) => ({
+    ...r,
+    start_hhmm: fmt.format(new Date(r.start_at)),
+    end_hhmm: fmt.format(new Date(r.end_at)),
+  }));
+}
+
+module.exports = {
+  getAppointmentsForDay,
+  getUpcomingAppointments,
+  getHistoryAppointments,
+  cancelAppointment,
+  blockDay,
+  unblockDay,
+  confirmAkashicosPayment,
+};

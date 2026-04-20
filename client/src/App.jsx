@@ -1,29 +1,43 @@
 import { useState } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import BookingView from "./components/booking/BookingView";
+import AdminPage from "./admin/pages/AdminPage";
 
 function App() {
-  const [currentView, setCurrentView] = useState("landing");
+  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleOpenBooking = (category = null) => {
     setSelectedCategory(category);
-    setCurrentView("booking");
+    navigate("/reservar");
   };
 
   const handleBackToLanding = () => {
-    setCurrentView("landing");
     setSelectedCategory(null);
+    navigate("/");
   };
 
-  return currentView === "landing" ? (
-    <LandingPage onOpenBooking={handleOpenBooking} />
-  ) : (
-    <BookingView
-      selectedCategory={selectedCategory}
-      onSelectCategory={setSelectedCategory}
-      onBack={handleBackToLanding}
-    />
+  return (
+    <Routes>
+      <Route
+        path="/"
+        element={<LandingPage onOpenBooking={handleOpenBooking} />}
+      />
+
+      <Route
+        path="/reservar"
+        element={
+          <BookingView
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+            onBack={handleBackToLanding}
+          />
+        }
+      />
+
+      <Route path="/admin" element={<AdminPage />} />
+    </Routes>
   );
 }
 

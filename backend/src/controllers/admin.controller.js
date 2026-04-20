@@ -77,4 +77,36 @@ async function confirmAkashicosPayment(req, res) {
   }
 }
 
-module.exports = { getAdminAppointments, cancelAdminAppointment, blockClosedDay, unblockClosedDay, confirmAkashicosPayment, };
+async function getUpcomingAppointments(req, res) {
+  try {
+    const rows = await adminService.getUpcomingAppointments(
+      req.app.locals.db
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error("Error GET /api/admin/appointments/upcoming:", err);
+    res.status(500).json({ error: err.message });
+  }
+}
+
+async function getHistoryAppointments(req, res) {
+  try {
+    const rows = await adminService.getHistoryAppointments(
+      req.app.locals.db
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error("Error GET /api/admin/appointments/history:", err);
+    res.status(500).json({ error: err.message });
+  }
+}
+
+module.exports = {
+  getAdminAppointments,
+  getUpcomingAppointments,
+  getHistoryAppointments,
+  cancelAdminAppointment,
+  blockClosedDay,
+  unblockClosedDay,
+  confirmAkashicosPayment,
+};

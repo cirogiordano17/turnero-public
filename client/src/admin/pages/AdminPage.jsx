@@ -1,0 +1,112 @@
+import { useMemo, useState } from "react";
+import { useAdminAuth } from "../hooks/useAdminAuth";
+import { useAdminAppointments } from "../hooks/useAdminAppointments";
+import AdminLoginForm from "../components/AdminLoginForm";
+import AdminHeader from "../components/AdminHeader";
+import DayGroup from "../components/DayGroup";
+import "../styles/admin.css";
+
+function groupAppointmentsByDate(appointments) {
+  return appointments.reduce((acc, appointment) => {
+    const dateKey = appointment.start_at.slice(0, 10);
+
+    if (!acc[dateKey]) {
+      acc[dateKey] = [];
+    }
+
+    acc[dateKey].push(appointment);
+    return acc;
+  }, {});
+}
+
+function AdminPage() {
+  const [mode, setMode] = useState("upcoming");
+
+  const {
+    admin,
+    loading,
+    login,
+    logout,
+    loginError,
+    loginLoading,
+  } = useAdminAuth();
+
+  const {
+    appointments,
+    loadingAppointments,
+    appointmentsError,
+    reloadAppointments,
+  } = useAdminAppointments(mode);
+
+  const groupedAppointments = useMemo(
+    () => groupAppointmentsByDate(appointments),
+    [appointments]
+  );
+
+  if (loading) {
+    return (
+      <div className="admin-page">
+        <div className="admin-shell">Cargando...</div>
+      </div>
+    );
+  }
+
+  if (!admin) {
+    return (
+      <div className="admin-page admin-page--login">
+        <div className="admin-shell admin-shell--login">
+          <AdminLoginForm
+            onSubmit={login}
+            loading={loginLoading}
+            error={loginError}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="admin-page">
+      <div className="admin-shell">
+        <AdminHeader mode={mode} setMode={setMode} onLogout={logout} />
+
+        <div className="admin-content">
+          <div className="admin-section-head">
+            <h2>
+              {mode === "history" ? "Historial de Turnos" : "Próximos Turnos"}
+            </h2>
+            <p>
+              {appointments.length}{" "}
+              {mode === "history" ? "turnos anteriores" : "turnos programados"}
+            </p>
+          </div>
+
+          {loadingAppointments ? (
+            <div className="admin-empty">Cargando turnos...</div>
+          ) : appointmentsError ? (
+            <div className="admin-error-box">{appointmentsError}</div>
+          ) : appointments.length === 0 ? (
+            <div className="admin-empty">
+              {mode === "history"
+                ? "No hay turnos en el historial."
+                : "No hay próximos turnos."}
+            </div>
+          ) : (
+            <div className="admin-day-groups">
+              {Object.entries(groupedAppointments).map(([date, items]) => (
+                <DayGroup
+                  key={date}
+                  date={date}
+                  items={items}
+                  onActionDone={reloadAppointments}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default AdminPage;

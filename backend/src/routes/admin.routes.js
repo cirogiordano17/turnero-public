@@ -11,6 +11,9 @@ router.post("/login", authController.login);
 // PROTEGIDO
 router.get("/me", requireAdminAuth, authController.me);
 
+router.get("/appointments/upcoming", requireAdminAuth, ctrl.getUpcomingAppointments);
+router.get("/appointments/history", requireAdminAuth, ctrl.getHistoryAppointments);
+
 router.get("/appointments", requireAdminAuth, ctrl.getAdminAppointments);
 router.delete("/appointments/:id", requireAdminAuth, ctrl.cancelAdminAppointment);
 router.patch("/appointments/:id/confirm-payment", requireAdminAuth, ctrl.confirmAkashicosPayment);
