@@ -11,10 +11,10 @@ function LandingPage({ onOpenBooking }) {
   return (
     <>
       <Hero onOpenBooking={onOpenBooking} />
-      <ServicesSection onOpenBooking={onOpenBooking} />
       <ExperienceSection />
       <StepsSection />
       <ResultsSection />
+      <ServicesSection onOpenBooking={onOpenBooking} />
       <ContactSection />
       <Footer />
     </>

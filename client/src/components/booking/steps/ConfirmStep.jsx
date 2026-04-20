@@ -1,7 +1,12 @@
 import { formatDateLong } from "../../../utils/dates";
 import ClientForm from "../ClientForm";
+import { CONTACT } from "../../../config/contact";
 
 function ConfirmStep({ category, booking, onBack }) {
+  const whatsappMessage = encodeURIComponent(
+    `Hola, te envío el comprobante de pago de mi sesión de Registros Akáshicos.`
+  );
+
   return (
     <div className="card-dark rounded p-3 p-md-4 booking-shell">
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -10,6 +15,65 @@ function ConfirmStep({ category, booking, onBack }) {
           <span>Anterior</span>
         </button>
       </div>
+
+      {category === "akashicos" && (
+        <>
+          <div className="alert-akashicos">
+            <div className="alert-akashicos__title">ATENCIÓN</div>
+            <div className="alert-akashicos__text">
+              Para confirmar la sesión se debe abonar por transferencia.
+              <br />
+              Luego de reservar, tenés <strong>24 hs</strong> para realizar el
+              pago o el turno se libera automáticamente.
+              <br />
+              La sesión de Registros Akáshicos se paga con anticipación.
+            </div>
+          </div>
+
+          <div className="transfer-box">
+            <div className="transfer-box__title">Datos para la transferencia</div>
+
+            <div className="transfer-box__grid">
+              <div className="transfer-box__row">
+                <span className="transfer-box__label">CVU</span>
+                <span className="transfer-box__value">
+                  {CONTACT.transfer.cvu}
+                </span>
+              </div>
+
+              <div className="transfer-box__row">
+                <span className="transfer-box__label">Alias</span>
+                <span className="transfer-box__value">
+                  {CONTACT.transfer.alias}
+                </span>
+              </div>
+
+              <div className="transfer-box__row">
+                <span className="transfer-box__label">CUIT</span>
+                <span className="transfer-box__value">
+                  {CONTACT.transfer.cuit}
+                </span>
+              </div>
+
+              <div className="transfer-box__row">
+                <span className="transfer-box__label">Nombre</span>
+                <span className="transfer-box__value">
+                  {CONTACT.transfer.holderName}
+                </span>
+              </div>
+            </div>
+
+            <a
+              className="transfer-box__cta"
+              href={`https://wa.me/${CONTACT.whatsapp}?text=${whatsappMessage}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Enviar comprobante
+            </a>
+          </div>
+        </>
+      )}
 
       <div className="confirm-summary-card mb-4">
         <div className="confirm-summary-card__header">

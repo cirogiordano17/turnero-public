@@ -1,3 +1,7 @@
+/* =========================
+   COMÚN A TODOS LOS STEPS
+   ========================= */
+
 .booking-shell {
   padding-bottom: 110px;
 }
@@ -6,18 +10,14 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   background: #f3f4f6;
   border: 1px solid #e5e7eb;
   border-radius: 999px;
-
-  padding: 10px 16px;       /* 🔥 más grande */
-  font-size: 14px;          /* 🔥 más legible */
+  padding: 10px 16px;
+  font-size: 14px;
   font-weight: 600;
-
   color: #374151;
   cursor: pointer;
-
   transition: all 0.2s ease;
 }
 
@@ -28,6 +28,11 @@
 .booking-back-icon {
   font-size: 16px;
 }
+
+/* =========================
+   STEP 2 - SCHEDULE
+   bottom bar fija
+   ========================= */
 
 .booking-bottom-bar {
   position: fixed;
@@ -95,7 +100,11 @@
   cursor: not-allowed;
 }
 
-/* Confirm step summary */
+/* =========================
+   STEP 3 - CONFIRM
+   resumen
+   ========================= */
+
 .confirm-summary-card {
   background: #fff;
   border: 1px solid #e5e7eb;
@@ -217,11 +226,112 @@
   white-space: nowrap;
 }
 
+/* =========================
+   STEP 3 - CONFIRM
+   alerta akashicos
+   ========================= */
+
+.alert-akashicos {
+  background: #fff5f5;
+  border: 1px solid #f5c2c7;
+  border-left: 5px solid #dc2626;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.alert-akashicos__title {
+  color: #b91c1c;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.alert-akashicos__text {
+  color: #7f1d1d;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* =========================
+   STEP 3 - CONFIRM
+   datos transferencia akashicos
+   ========================= */
+
+.transfer-box {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-left: 5px solid #2563eb;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.transfer-box__title {
+  color: #1d4ed8;
+  font-size: 14px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.transfer-box__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.transfer-box__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.transfer-box__label {
+  font-size: 13px;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+.transfer-box__value {
+  font-size: 13px;
+  color: #1f2937;
+  font-weight: 600;
+  text-align: right;
+  word-break: break-word;
+}
+
+.transfer-box__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 14px;
+  background: #2563eb;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background 0.2s ease;
+}
+
+.transfer-box__cta:hover {
+  background: #1d4ed8;
+  color: #fff;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
 @media (max-width: 576px) {
   .booking-shell {
     padding-bottom: 120px;
   }
 
+  /* schedule */
   .booking-bottom-bar {
     align-items: center;
     padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
@@ -245,6 +355,7 @@
     font-size: 13px;
   }
 
+  /* confirm */
   .confirm-summary-card {
     padding: 16px 14px;
     border-radius: 16px;
@@ -268,5 +379,18 @@
 
   .confirm-summary-total__price {
     font-size: 1.1rem;
+  }
+
+  .transfer-box__row {
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .transfer-box__value {
+    text-align: left;
+  }
+
+  .transfer-box__cta {
+    width: 100%;
   }
 }

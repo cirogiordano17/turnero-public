@@ -7,7 +7,7 @@ export default function ContactSection() {
     <section className="contact-section" id="contacto">
       <div className="contact-section__container">
         <header className="contact-section__header">
-          <h2 className="contact-section__title">Reservá tu turno</h2>
+          <h2 className="contact-section__title"> Contactanos</h2>
           <p className="contact-section__subtitle">
             Elegí el método que prefieras para contactarnos
           </p>
