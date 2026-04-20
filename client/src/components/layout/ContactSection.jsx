@@ -1,5 +1,6 @@
 import { MessageCircle, Phone, Camera, Clock3 } from "lucide-react";
 import "./styles/contact-section.css";
+import { CONTACT } from "../../config/contact";
 
 export default function ContactSection() {
   return (
@@ -13,6 +14,8 @@ export default function ContactSection() {
         </header>
 
         <div className="contact-section__grid">
+
+          {/* WHATSAPP */}
           <article className="contact-card contact-card--primary">
             <div className="contact-card__left">
               <div className="contact-card__icon contact-card__icon--whatsapp">
@@ -27,7 +30,7 @@ export default function ContactSection() {
 
             <a
               className="contact-card__cta"
-              href="https://wa.me/541123456789"
+              href={`https://wa.me/${CONTACT.whatsapp}?text=Hola,%20quiero%20reservar%20un%20turno`}
               target="_blank"
               rel="noreferrer"
             >
@@ -35,6 +38,7 @@ export default function ContactSection() {
             </a>
           </article>
 
+          {/* TELÉFONO */}
           <article className="contact-card">
             <div className="contact-card__left">
               <div className="contact-card__icon">
@@ -44,11 +48,12 @@ export default function ContactSection() {
               <div className="contact-card__content">
                 <h3>Teléfono</h3>
                 <p>Llamanos directamente</p>
-                <span>+54 11 2345-6789</span>
+                <span>{CONTACT.phone}</span>
               </div>
             </div>
           </article>
 
+          {/* INSTAGRAM */}
           <article className="contact-card">
             <div className="contact-card__left">
               <div className="contact-card__icon">
@@ -58,11 +63,18 @@ export default function ContactSection() {
               <div className="contact-card__content">
                 <h3>Instagram</h3>
                 <p>Seguinos en redes</p>
-                <span>@salonsala</span>
+                <a
+                  href={CONTACT.instagramUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {CONTACT.instagram}
+                </a>
               </div>
             </div>
           </article>
 
+          {/* HORARIOS */}
           <article className="contact-card contact-card--hours">
             <div className="contact-card__left contact-card__left--top">
               <div className="contact-card__icon">
@@ -79,9 +91,9 @@ export default function ContactSection() {
                 <p>Lunes a Sabados</p>
                 <span>9:00 - 13:00 y 15:00 - 20:00</span>
               </div>
-
             </div>
           </article>
+
         </div>
       </div>
     </section>

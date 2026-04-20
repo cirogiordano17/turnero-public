@@ -88,7 +88,7 @@ function Services({
                   }`}
                   onClick={() => onToggle(service.id)}
                 >
-                  {active ? "Seleccionado" : "Agendar servicio"}
+                  {active ? "Quitar Servicio" : "Agendar servicio"}
                 </button>
               </div>
             </div>

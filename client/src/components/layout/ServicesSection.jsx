@@ -1,7 +1,7 @@
 import "./styles/services-section.css";
 import { Button } from "../ui/Button";
 
-export default function ServicesSection() {
+export default function ServicesSection({ onOpenBooking }) {
   return (
     <section className="services-section" id="servicios">
       <h2 className="services-section__title">Nuestros Servicios</h2>
@@ -19,6 +19,9 @@ export default function ServicesSection() {
               las últimas tendencias y técnicas.
             </p>
 
+            <Button onClick={() => onOpenBooking?.("pelu")}>
+              Reservar
+            </Button>
           </div>
         </div>
 
@@ -34,7 +37,9 @@ export default function ServicesSection() {
               para tu transformación interior.
             </p>
 
-         
+            <Button onClick={() => onOpenBooking?.("akashicos")}>
+              Reservar
+            </Button>
           </div>
         </div>
       </div>

@@ -1,94 +1,58 @@
+import "react-day-picker/dist/style.css";
 import "./styles/days.css";
-
-
-import {
-  formatDateISO,
-  formatMonthLabel,
-  formatDayName,
-  formatDayNumber,
-} from "../../utils/dates";
+import { DayPicker } from "react-day-picker";
 
 function DateSelector({
-  days,
   selectedDate,
   onSelectDate,
-  onPrev,
-  onNext,
   closedDays = [],
 }) {
-  const nextMonthDay = days.find(
-    (day) => formatMonthLabel(day) !== formatMonthLabel(days[0])
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // clave
+
+  const selected = selectedDate
+    ? new Date(`${selectedDate}T00:00:00`)
+    : undefined;
+
+  const blockedDates = closedDays.map(
+    (iso) => new Date(`${iso}T00:00:00`)
   );
 
   return (
-    <div>
-      <div className="d-flex justify-content-between align-items-center mt-1">
-        <div>
-          <div className="muted small">Fecha</div>
+    <div className="date-selector">
+      <div className="muted small mb-2">Fecha</div>
 
-          <div className="month-row">
-            <div className="h5 m-0" id="monthLabel">
-              {days[0] ? formatMonthLabel(days[0]) : "—"}
-            </div>
+      <DayPicker
+        mode="single"
+        selected={selected}
+        onSelect={(date) => {
+          if (!date) return;
 
-            <div className="h5 m-0 month-muted">
-              {nextMonthDay ? formatMonthLabel(nextMonthDay) : "—"}
-            </div>
-          </div>
-        </div>
+          const iso = date.toLocaleDateString("sv-SE");
+          const isSunday = date.getDay() === 0;
+          const isBlocked = closedDays.includes(iso);
+          const isPastOrToday = date <= today;
 
-       <div className="d-flex gap-2 align-items-center">
-        <button
-          type="button"
-          className="btn btn-outline-success btn-md days-nav-btn"
-          onClick={onPrev}
-          onMouseUp={(e) => e.currentTarget.blur()}
-          onTouchEnd={(e) => e.currentTarget.blur()}
-        >
-          ‹
-        </button>
+          if (isSunday || isBlocked || isPastOrToday) return;
 
-        <span className="days-nav-label">Ver otros días</span>
-
-        <button
-          type="button"
-          className="btn btn-outline-success btn-md days-nav-btn"
-          onClick={onNext}
-          onMouseUp={(e) => e.currentTarget.blur()}
-          onTouchEnd={(e) => e.currentTarget.blur()}
-        >
-          ›
-        </button>
-      </div>
-      </div>
-
-      <div className="day-strip mt-3">
-        {days.map((day) => {
-          const iso = formatDateISO(day);
-          const active = iso === selectedDate;
-
-          const isSunday = day.getDay() === 0;
-          const isAdminBlocked = closedDays.includes(iso);
-          const disabled = isSunday || isAdminBlocked;
-
-          return (
-            <button
-              key={iso}
-              type="button"
-              disabled={disabled}
-              className={`day-btn ${active ? "active" : ""} ${
-                disabled ? "disabled" : ""
-              }`}
-              onClick={() => {
-                if (!disabled) onSelectDate(iso);
-              }}
-            >
-              <span className="dow">{formatDayName(day)}</span>
-              <span className="dom">{formatDayNumber(day)}</span>
-            </button>
-          );
-        })}
-      </div>
+          onSelectDate(iso);
+        }}
+        disabled={[
+          { dayOfWeek: [0] },     // domingos
+          { before: new Date(today.getTime() + 1) }, // todo hasta hoy inclusive
+          ...blockedDates,        // admin
+        ]}
+        modifiers={{
+          blocked: blockedDates,
+        }}
+        modifiersClassNames={{
+          selected: "calendar-selected",
+          blocked: "calendar-blocked",
+          disabled: "calendar-disabled",
+        }}
+        showOutsideDays
+        weekStartsOn={1}
+      />
     </div>
   );
 }

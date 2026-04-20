@@ -5,15 +5,19 @@
 .booking-back-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+
   background: #f3f4f6;
   border: 1px solid #e5e7eb;
   border-radius: 999px;
-  padding: 6px 12px;
-  font-size: 13px;
-  font-weight: 500;
+
+  padding: 10px 16px;       /* 🔥 más grande */
+  font-size: 14px;          /* 🔥 más legible */
+  font-weight: 600;
+
   color: #374151;
   cursor: pointer;
+
   transition: all 0.2s ease;
 }
 
@@ -22,7 +26,7 @@
 }
 
 .booking-back-icon {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .booking-bottom-bar {
@@ -91,6 +95,128 @@
   cursor: not-allowed;
 }
 
+/* Confirm step summary */
+.confirm-summary-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 18px 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.confirm-summary-card__header {
+  margin-bottom: 14px;
+}
+
+.confirm-summary-card__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.confirm-summary-card__section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.confirm-summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.confirm-summary-row__label {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.confirm-summary-row__value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  text-align: right;
+}
+
+.confirm-summary-divider {
+  height: 1px;
+  background: #ececec;
+  margin: 16px 0;
+}
+
+.confirm-summary-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.confirm-summary-services {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.confirm-summary-service {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.confirm-summary-service__left {
+  min-width: 0;
+}
+
+.confirm-summary-service__name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.confirm-summary-service__meta {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.confirm-summary-service__right {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  white-space: nowrap;
+}
+
+.confirm-summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.confirm-summary-total__label {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.confirm-summary-total__meta {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.confirm-summary-total__price {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #1f7a45;
+  white-space: nowrap;
+}
+
 @media (max-width: 576px) {
   .booking-shell {
     padding-bottom: 120px;
@@ -117,5 +243,30 @@
     min-width: 96px;
     padding: 9px 14px;
     font-size: 13px;
+  }
+
+  .confirm-summary-card {
+    padding: 16px 14px;
+    border-radius: 16px;
+  }
+
+  .confirm-summary-row__value {
+    font-size: 13px;
+  }
+
+  .confirm-summary-service__name {
+    font-size: 14px;
+  }
+
+  .confirm-summary-service__meta {
+    font-size: 12px;
+  }
+
+  .confirm-summary-service__right {
+    font-size: 13px;
+  }
+
+  .confirm-summary-total__price {
+    font-size: 1.1rem;
   }
 }
