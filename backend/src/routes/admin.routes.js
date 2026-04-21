@@ -3,10 +3,14 @@ const router = express.Router();
 
 const ctrl = require("../controllers/admin.controller");
 const authController = require("../controllers/auth.controller");
+const adminEventsController = require("../controllers/adminEvents.controller");
 const { requireAdminAuth } = require("../middleware/adminAuth.middleware");
 
 // LOGIN (NO protegido)
 router.post("/login", authController.login);
+
+// SSE admin
+router.get("/events", adminEventsController.openAdminEvents);
 
 // PROTEGIDO
 router.get("/me", requireAdminAuth, authController.me);

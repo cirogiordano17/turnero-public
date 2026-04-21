@@ -1,6 +1,17 @@
 import { useEffect, useState } from "react";
 import { adminLogin, adminMe } from "../api/admin.api";
 
+function getStoredAdminToken() {
+  return (
+    localStorage.getItem("adminToken") || sessionStorage.getItem("adminToken")
+  );
+}
+
+function clearStoredAdminToken() {
+  localStorage.removeItem("adminToken");
+  sessionStorage.removeItem("adminToken");
+}
+
 export function useAdminAuth() {
   const [admin, setAdmin] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -8,7 +19,7 @@ export function useAdminAuth() {
   const [loginError, setLoginError] = useState("");
 
   useEffect(() => {
-    const token = localStorage.getItem("adminToken");
+    const token = getStoredAdminToken();
 
     if (!token) {
       setLoading(false);
@@ -20,7 +31,7 @@ export function useAdminAuth() {
         setAdmin(data.user);
       })
       .catch(() => {
-        localStorage.removeItem("adminToken");
+        clearStoredAdminToken();
         setAdmin(null);
       })
       .finally(() => {
@@ -28,14 +39,21 @@ export function useAdminAuth() {
       });
   }, []);
 
-  async function login({ username, password }) {
+  async function login({ username, password, rememberMe }) {
     setLoginLoading(true);
     setLoginError("");
 
     try {
       const data = await adminLogin({ username, password });
 
-      localStorage.setItem("adminToken", data.token);
+      clearStoredAdminToken();
+
+      if (rememberMe) {
+        localStorage.setItem("adminToken", data.token);
+      } else {
+        sessionStorage.setItem("adminToken", data.token);
+      }
+
       setAdmin(data.user);
     } catch (err) {
       setLoginError(err.message || "Error al iniciar sesión");
@@ -45,7 +63,7 @@ export function useAdminAuth() {
   }
 
   function logout() {
-    localStorage.removeItem("adminToken");
+    clearStoredAdminToken();
     setAdmin(null);
   }
 

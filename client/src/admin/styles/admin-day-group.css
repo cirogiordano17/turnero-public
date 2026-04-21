@@ -1,0 +1,26 @@
+.admin-day-groups {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.admin-day-group {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid #ececec;
+}
+
+.admin-day-group__header {
+  background: linear-gradient(90deg, #8b2cf5 0%, #ec4899 100%);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 14px 16px;
+}
+
+.admin-day-group__body {
+  padding: 0;
+}

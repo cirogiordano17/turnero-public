@@ -1,0 +1,50 @@
+@media (max-width: 576px) {
+  .admin-page {
+    padding: 14px;
+  }
+
+  .admin-shell {
+    max-width: 100%;
+  }
+
+  .admin-login__card,
+  .admin-header,
+  .admin-content {
+    border-radius: 24px;
+  }
+
+  .admin-login__title,
+  .admin-header__title,
+  .admin-section-head h2 {
+    font-size: 1.45rem;
+  }
+
+  .admin-header__controls {
+    flex-direction: column;
+  }
+
+  .admin-logout-btn {
+    width: 100%;
+  }
+
+  .admin-day-group__header {
+    font-size: 0.95rem;
+    padding: 13px 14px;
+  }
+
+  .admin-appointment-item {
+    padding: 14px;
+  }
+
+  .admin-appointment-item__row {
+    align-items: flex-start;
+  }
+
+  .admin-appointment-item__name {
+    font-size: 0.92rem;
+  }
+
+  .admin-btn {
+    flex: 1 1 auto;
+  }
+}

@@ -31,12 +31,15 @@ function AdminPage() {
     loginLoading,
   } = useAdminAuth();
 
+  const isAuthReady = !loading && !!admin;
+
   const {
     appointments,
     loadingAppointments,
     appointmentsError,
     reloadAppointments,
-  } = useAdminAppointments(mode);
+    liveMessage,
+  } = useAdminAppointments(mode, isAuthReady);
 
   const groupedAppointments = useMemo(
     () => groupAppointmentsByDate(appointments),
@@ -71,6 +74,7 @@ function AdminPage() {
         <AdminHeader mode={mode} setMode={setMode} onLogout={logout} />
 
         <div className="admin-content">
+          {liveMessage && <div className="admin-live-toast">{liveMessage}</div>}
           <div className="admin-section-head">
             <h2>
               {mode === "history" ? "Historial de Turnos" : "Próximos Turnos"}

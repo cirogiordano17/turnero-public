@@ -4,10 +4,11 @@ import { Sparkles, Lock } from "lucide-react";
 function AdminLoginForm({ onSubmit, loading, error }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(true);
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSubmit({ username, password });
+    onSubmit({ username, password, rememberMe });
   }
 
   return (
@@ -43,6 +44,15 @@ function AdminLoginForm({ onSubmit, loading, error }) {
             />
           </label>
 
+          <label className="admin-login__checkbox">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+            />
+            <span>Recordarme</span>
+          </label>
+
           {error ? <div className="admin-login__error">{error}</div> : null}
 
           <button className="admin-login__button" type="submit" disabled={loading}>
@@ -51,7 +61,9 @@ function AdminLoginForm({ onSubmit, loading, error }) {
           </button>
         </form>
 
-        <p className="admin-login__hint">Acceso restringido solo para administración</p>
+        <p className="admin-login__hint">
+          Acceso restringido solo para administración
+        </p>
       </div>
     </div>
   );

@@ -1,0 +1,25 @@
+.admin-page {
+  min-height: 100vh;
+  padding: 16px;
+  background: #f5f5f7;
+}
+
+.admin-page--login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at top left, rgba(168, 85, 247, 0.24), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(249, 115, 22, 0.2), transparent 28%),
+    linear-gradient(135deg, #7c3aed 0%, #ec4899 58%, #f97316 100%);
+}
+
+.admin-shell {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.admin-shell--login {
+  max-width: 360px;
+}

@@ -1,0 +1,48 @@
+.admin-content {
+  background: #fff;
+  border-radius: 22px;
+  padding: 18px 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.admin-section-head h2 {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: #111827;
+}
+
+.admin-section-head p {
+  margin: 8px 0 0;
+  color: #6b7280;
+  font-size: 0.96rem;
+}
+
+.admin-empty,
+.admin-error-box {
+  margin-top: 16px;
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 0.95rem;
+}
+
+.admin-empty {
+  background: #f9fafb;
+  color: #4b5563;
+}
+
+.admin-error-box {
+  background: #fff1f2;
+  color: #be123c;
+  border: 1px solid #fecdd3;
+}
+
+.admin-live-toast {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #ecfdf5;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  font-weight: 600;
+}

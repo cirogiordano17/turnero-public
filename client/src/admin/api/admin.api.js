@@ -1,7 +1,14 @@
 const API_BASE = import.meta.env.VITE_API_URL;
 
+function getStoredAdminToken() {
+  return (
+    localStorage.getItem("adminToken") || sessionStorage.getItem("adminToken")
+  );
+}
+
 function getAuthHeaders() {
-  const token = localStorage.getItem("adminToken");
+  const token = getStoredAdminToken();
+
   return token
     ? {
         Authorization: `Bearer ${token}`,
@@ -163,4 +170,28 @@ export async function getHistoryAppointments() {
   }
 
   return res.json();
+}
+
+export function connectAdminEvents({ onAppointmentCreated, onError }) {
+  const token = localStorage.getItem("adminToken");
+
+  if (!token) return null;
+
+  const eventsUrl = `${API_BASE}/admin/events?token=${encodeURIComponent(token)}`;
+  const source = new EventSource(eventsUrl);
+
+  source.addEventListener("appointment_created", (event) => {
+    try {
+      const data = JSON.parse(event.data);
+      onAppointmentCreated?.(data);
+    } catch (err) {
+      console.error("Error parseando evento SSE:", err);
+    }
+  });
+
+  source.onerror = (err) => {
+    onError?.(err);
+  };
+
+  return source;
 }

@@ -44,54 +44,43 @@ app.use(
   })
 );
 
-/**
- * Helmet
- */
 app.use(
   helmet({
-    crossOriginResourcePolicy: false
+    crossOriginResourcePolicy: false,
   })
 );
 
 app.use(express.json());
 
-/**
- * Rate limit general
- */
 const generalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 300,
   standardHeaders: true,
   legacyHeaders: false,
-  message: { error: "Demasiadas solicitudes. Probá de nuevo más tarde." }
+  message: { error: "Demasiadas solicitudes. Probá de nuevo más tarde." },
 });
 
-/**
- * Rate limit para admin
- */
 const adminLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 200,
   standardHeaders: true,
   legacyHeaders: false,
-  message: { error: "Demasiadas solicitudes al panel admin." }
+  message: { error: "Demasiadas solicitudes al panel admin." },
 });
 
-/**
- * Rate limit para creación de turnos
- */
 const bookingLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 12,
   standardHeaders: true,
   legacyHeaders: false,
-  message: { error: "Demasiados intentos de reserva. Probá más tarde." }
+  message: { error: "Demasiados intentos de reserva. Probá más tarde." },
 });
 
 app.use(generalLimiter);
 
 app.locals.pool = pool;
 app.locals.db = { query };
+app.locals.adminEventClients = new Set();
 
 app.get("/health", (req, res) => res.json({ ok: true }));
 

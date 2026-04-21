@@ -1,0 +1,64 @@
+.admin-header {
+  background: #fff;
+  border-radius: 22px;
+  padding: 18px 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 16px;
+}
+
+.admin-header__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.admin-header__title {
+  margin: 0;
+  font-size: 1.9rem;
+  line-height: 1.05;
+  font-weight: 800;
+  color: #111827;
+}
+
+.admin-header__subtitle {
+  margin: 8px 0 0;
+  color: #6b7280;
+  font-size: 0.96rem;
+}
+
+.admin-history-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  opacity: 0.5;
+}
+
+.admin-header__controls {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+}
+
+.admin-date-input,
+.admin-logout-btn {
+  height: 44px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: #f9fafb;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.admin-date-input {
+  flex: 1;
+}
+
+.admin-logout-btn {
+  min-width: 90px;
+  cursor: pointer;
+}
