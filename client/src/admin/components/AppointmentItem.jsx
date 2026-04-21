@@ -11,15 +11,19 @@ function AppointmentItem({ appointment, onActionDone }) {
     last_name,
     start_hhmm,
     end_hhmm,
+    email,
+    comment,
   } = appointment;
 
   const [confirmState, setConfirmState] = useState({
     open: false,
-    type: null, // "cancel" | "confirmPayment"
+    type: null,
   });
   const [loadingAction, setLoadingAction] = useState(false);
 
   const fullName = `${first_name} ${last_name}`.trim();
+  const hasEmail = !!email?.trim();
+  const hasComment = !!comment?.trim();
 
   function openCancelModal() {
     setConfirmState({ open: true, type: "cancel" });
@@ -106,6 +110,24 @@ function AppointmentItem({ appointment, onActionDone }) {
               : status}
           </span>
         </div>
+
+        {(hasEmail || hasComment) && (
+          <div className="admin-appointment-item__extra">
+            {hasEmail && (
+              <div className="admin-appointment-item__extra-row">
+                <span className="admin-appointment-item__extra-label">Email:</span>
+                <span className="admin-appointment-item__extra-value">{email}</span>
+              </div>
+            )}
+
+            {hasComment && (
+              <div className="admin-appointment-item__extra-row">
+                <span className="admin-appointment-item__extra-label">Comentario:</span>
+                <span className="admin-appointment-item__extra-value">{comment}</span>
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="admin-appointment-item__actions">
           {category === "akashicos" && status === "PENDIENTE_PAGO" && (

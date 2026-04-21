@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useAdminAuth } from "../hooks/useAdminAuth";
 import { useAdminAppointments } from "../hooks/useAdminAppointments";
 import AdminLoginForm from "../components/AdminLoginForm";
@@ -45,6 +45,16 @@ function AdminPage() {
     () => groupAppointmentsByDate(appointments),
     [appointments]
   );
+
+
+  useEffect(() => {
+  const previousTitle = document.title;
+  document.title = "Turnero | Admin";
+
+  return () => {
+    document.title = previousTitle || "Salon Sala";
+  };
+}, []);
 
   if (loading) {
     return (
