@@ -7,12 +7,7 @@ import { AnimatePresence, motion } from "motion/react";
 
 function BookingFlow({ category, onBackToCategory, onStepChange }) {
   const [step, setStep] = useState(1);
-
   const booking = useBooking({ category });
-
-  useEffect(() => {
-    setStep(1);
-  }, [category]);
 
   useEffect(() => {
     onStepChange?.(step);
@@ -35,6 +30,11 @@ function BookingFlow({ category, onBackToCategory, onStepChange }) {
     }
 
     setStep((prev) => Math.max(1, prev - 1));
+  };
+
+  const handleRestartBooking = () => {
+    booking.resetBooking();
+    setStep(1);
   };
 
   return (
@@ -85,6 +85,7 @@ function BookingFlow({ category, onBackToCategory, onStepChange }) {
               category={category}
               booking={booking}
               onBack={goBack}
+              onRestart={handleRestartBooking}
             />
           </motion.div>
         )}

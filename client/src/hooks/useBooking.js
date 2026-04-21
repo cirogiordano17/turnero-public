@@ -83,6 +83,29 @@ function useBooking({ category }) {
     return formatDateISO(daysStart) > formatDateISO(tomorrow);
   }, [daysStart, tomorrow]);
 
+  async function loadAvailability(date, ids) {
+    try {
+      setLoadingSlots(true);
+      setSlotsError("");
+
+      const data = await getAvailability(date, ids);
+
+      if (Array.isArray(data)) {
+        setSlots(data);
+      } else if (Array.isArray(data.slots)) {
+        setSlots(data.slots);
+      } else {
+        setSlots([]);
+      }
+    } catch (err) {
+      console.error(err);
+      setSlotsError("No se pudieron cargar los horarios.");
+      setSlots([]);
+    } finally {
+      setLoadingSlots(false);
+    }
+  }
+
   useEffect(() => {
     setSelectedSlot("");
     setSlots([]);
@@ -91,30 +114,7 @@ function useBooking({ category }) {
       return;
     }
 
-    async function loadAvailability() {
-      try {
-        setLoadingSlots(true);
-        setSlotsError("");
-
-        const data = await getAvailability(selectedDate, selectedIds);
-
-        if (Array.isArray(data)) {
-          setSlots(data);
-        } else if (Array.isArray(data.slots)) {
-          setSlots(data.slots);
-        } else {
-          setSlots([]);
-        }
-      } catch (err) {
-        console.error(err);
-        setSlotsError("No se pudieron cargar los horarios.");
-        setSlots([]);
-      } finally {
-        setLoadingSlots(false);
-      }
-    }
-
-    loadAvailability();
+    loadAvailability(selectedDate, selectedIds);
   }, [selectedDate, selectedIds]);
 
   function handlePrevDays() {
@@ -177,6 +177,9 @@ function useBooking({ category }) {
       };
 
       await createAppointment(payload);
+      await loadAvailability(selectedDate, selectedIds);
+
+      setSelectedSlot("");
       setBookingSuccess(true);
     } catch (err) {
       console.error(err);

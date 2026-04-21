@@ -1,7 +1,8 @@
 import AppointmentItem from "./AppointmentItem";
 
 function formatGroupDate(dateString) {
-  const date = new Date(dateString);
+  const [year, month, day] = dateString.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
 
   const formatted = date.toLocaleDateString("es-AR", {
     weekday: "long",

@@ -2,7 +2,7 @@ import { formatDateLong } from "../../../utils/dates";
 import ClientForm from "../ClientForm";
 import { CONTACT } from "../../../config/contact";
 
-function ConfirmStep({ category, booking, onBack }) {
+function ConfirmStep({ category, booking, onBack, onRestart }) {
   const whatsappMessage = encodeURIComponent(
     `Hola, te envío el comprobante de pago de mi sesión de Registros Akáshicos.`
   );
@@ -155,7 +155,7 @@ function ConfirmStep({ category, booking, onBack }) {
         setComment={booking.setComment}
         setFieldErrors={booking.setFieldErrors}
         handleSubmit={booking.handleSubmit}
-        resetBooking={booking.resetBooking}
+        resetBooking={onRestart}
         successTitle={category === "pelu" ? "Turno confirmado" : "Reserva confirmada"}
         successText={
           category === "pelu"
