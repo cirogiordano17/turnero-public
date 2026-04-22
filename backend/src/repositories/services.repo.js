@@ -82,7 +82,6 @@ async function updateService(db, id, { name, description, duration_min, price, c
   );
 }
 
-
 async function sumActiveDurationsByIds(db, serviceIds) {
   return db.query(
     `SELECT COALESCE(SUM(duration_min), 0) AS total_min
@@ -106,6 +105,7 @@ module.exports = {
   getAllServices,
   getServiceById,
   createService,
+  updateService,
   sumActiveDurationsByIds,
   sumActivePricesByIds,
 };
