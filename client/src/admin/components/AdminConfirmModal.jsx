@@ -14,7 +14,7 @@ function AdminConfirmModal({
   return (
     <div className="admin-modal-backdrop" onClick={onCancel}>
       <div
-        className="admin-modal"
+        className={`admin-modal admin-modal--confirm admin-modal--confirm-${confirmVariant}`}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"

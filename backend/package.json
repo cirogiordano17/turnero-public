@@ -5,7 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "migrate": "node src/run-migrations.js",
+    "start:with-migrations": "node src/run-migrations.js && node src/server.js"
   },
   "keywords": [],
   "author": "",

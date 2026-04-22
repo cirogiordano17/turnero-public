@@ -1,29 +1,60 @@
-function AdminHeader({ mode, setMode, onLogout }) {
+import AdminSettingsMenu from "./AdminSettingsMenu";
+
+function AdminHeader({ mode, setMode, onLogout, onManageServices }) {
+  const isHistory = mode === "history";
+
   return (
-    <div className="admin-header">
+    <header
+      className={`admin-header ${
+        isHistory ? "admin-header--history" : "admin-header--upcoming"
+      }`}
+    >
       <div className="admin-header__top">
         <div>
           <h1 className="admin-header__title">Panel de Administración</h1>
-          <p className="admin-header__subtitle">Gestión de turnos</p>
+          <p className="admin-header__subtitle">
+            {isHistory ? "Consulta de turnos anteriores" : "Gestión de turnos"}
+          </p>
         </div>
 
-        <button
-          type="button"
-          className={`admin-history-btn ${mode === "history" ? "active" : ""}`}
-          onClick={() =>
-            setMode(mode === "upcoming" ? "history" : "upcoming")
-          }
-        >
-          Historial
-        </button>
-      </div>
+        <div className="admin-header__tools">
+          <div
+            className="admin-view-toggle"
+            role="tablist"
+            aria-label="Vista de turnos"
+          >
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mode === "upcoming"}
+              className={`admin-view-toggle__btn ${
+                mode === "upcoming" ? "is-active" : ""
+              }`}
+              onClick={() => setMode("upcoming")}
+            >
+              Próximos
+            </button>
 
-      <div className="admin-header__controls">
-        <button type="button" className="admin-logout-btn" onClick={onLogout}>
-          Salir
-        </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mode === "history"}
+              className={`admin-view-toggle__btn ${
+                mode === "history" ? "is-active" : ""
+              }`}
+              onClick={() => setMode("history")}
+            >
+              Historial
+            </button>
+          </div>
+
+          <AdminSettingsMenu
+            onManageServices={onManageServices}
+            onLogout={onLogout}
+          />
+        </div>
       </div>
-    </div>
+    </header>
   );
 }
 

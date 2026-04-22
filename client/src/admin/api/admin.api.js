@@ -173,7 +173,7 @@ export async function getHistoryAppointments() {
 }
 
 export function connectAdminEvents({ onAppointmentCreated, onError }) {
-  const token = localStorage.getItem("adminToken");
+  const token = getStoredAdminToken();
 
   if (!token) return null;
 
@@ -194,4 +194,57 @@ export function connectAdminEvents({ onAppointmentCreated, onError }) {
   };
 
   return source;
+}
+
+
+export async function getAdminServices() {
+  const res = await fetch(`${API_BASE}/admin/services`, {
+    headers: {
+      ...getAuthHeaders(),
+    },
+  });
+
+  if (!res.ok) {
+    throw new Error("No se pudieron cargar los servicios");
+  }
+
+  return res.json();
+}
+
+export async function createAdminService(payload) {
+  const res = await fetch(`${API_BASE}/admin/services`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await res.json().catch(() => ({}));
+
+  if (!res.ok) {
+    throw new Error(data.error || "No se pudo crear el servicio");
+  }
+
+  return data;
+}
+
+export async function updateAdminService(id, payload) {
+  const res = await fetch(`${API_BASE}/admin/services/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await res.json().catch(() => ({}));
+
+  if (!res.ok) {
+    throw new Error(data.error || "No se pudo actualizar el servicio");
+  }
+
+  return data;
 }

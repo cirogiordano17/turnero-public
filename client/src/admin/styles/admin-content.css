@@ -46,3 +46,11 @@
   border: 1px solid #bbf7d0;
   font-weight: 600;
 }
+.admin-content--history {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid #e5e7eb;
+}
+
+.admin-content--upcoming {
+  background: #fff;
+}

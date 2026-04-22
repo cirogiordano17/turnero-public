@@ -4,6 +4,7 @@ import { useAdminAppointments } from "../hooks/useAdminAppointments";
 import AdminLoginForm from "../components/AdminLoginForm";
 import AdminHeader from "../components/AdminHeader";
 import DayGroup from "../components/DayGroup";
+import AdminServicesModal from "../components/AdminServicesModal";
 import "../styles/admin.css";
 
 function groupAppointmentsByDate(appointments) {
@@ -21,6 +22,7 @@ function groupAppointmentsByDate(appointments) {
 
 function AdminPage() {
   const [mode, setMode] = useState("upcoming");
+  const [servicesModalOpen, setServicesModalOpen] = useState(false);
 
   const {
     admin,
@@ -46,15 +48,14 @@ function AdminPage() {
     [appointments]
   );
 
-
   useEffect(() => {
-  const previousTitle = document.title;
-  document.title = "Turnero | Admin";
+    const previousTitle = document.title;
+    document.title = "Turnero | Admin";
 
-  return () => {
-    document.title = previousTitle || "Salon Sala";
-  };
-}, []);
+    return () => {
+      document.title = previousTitle || "Salon Sala";
+    };
+  }, []);
 
   if (loading) {
     return (
@@ -81,10 +82,22 @@ function AdminPage() {
   return (
     <div className="admin-page">
       <div className="admin-shell">
-        <AdminHeader mode={mode} setMode={setMode} onLogout={logout} />
+        <AdminHeader
+          mode={mode}
+          setMode={setMode}
+          onLogout={logout}
+          onManageServices={() => setServicesModalOpen(true)}
+        />
 
-        <div className="admin-content">
+        <div
+          className={`admin-content ${
+            mode === "history"
+              ? "admin-content--history"
+              : "admin-content--upcoming"
+          }`}
+        >
           {liveMessage && <div className="admin-live-toast">{liveMessage}</div>}
+
           <div className="admin-section-head">
             <h2>
               {mode === "history" ? "Historial de Turnos" : "Próximos Turnos"}
@@ -119,6 +132,11 @@ function AdminPage() {
           )}
         </div>
       </div>
+
+      <AdminServicesModal
+        open={servicesModalOpen}
+        onClose={() => setServicesModalOpen(false)}
+      />
     </div>
   );
 }
