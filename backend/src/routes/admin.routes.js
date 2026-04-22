@@ -30,6 +30,6 @@ router.delete("/closed-days/:date", requireAdminAuth, ctrl.unblockClosedDay);
 router.get("/services", requireAdminAuth, adminServicesCtrl.getAdminServices);
 router.post("/services", requireAdminAuth, adminServicesCtrl.createAdminService);
 router.patch("/services/:id", requireAdminAuth, adminServicesCtrl.updateAdminService);
-router.delete("/services/:id", requireAdminAuth, adminServicesCtrl.deleteAdminService);
+
 
 module.exports = router;
