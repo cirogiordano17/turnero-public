@@ -18,6 +18,14 @@
   overflow: hidden;
 }
 
+.admin-modal--confirm-danger .admin-modal__title {
+  color: #be123c;
+}
+
+.admin-modal--confirm-success .admin-modal__title {
+  color: #047857;
+}
+
 .admin-modal__header {
   padding: 20px 20px 8px;
 }
@@ -47,9 +55,8 @@
   padding: 16px 20px 20px;
 }
 
-
 .admin-modal--services {
-  max-width: 980px;
+  max-width: 760px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -57,18 +64,6 @@
 
 .admin-modal--services .admin-modal__body {
   overflow-y: auto;
-}
-
-.admin-services-manager__grid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 18px;
-}
-
-.admin-services-manager__list,
-.admin-services-manager__form {
-  display: flex;
-  flex-direction: column;
 }
 
 .admin-services-manager__list-head,
@@ -83,7 +78,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-height: 520px;
+  max-height: 440px;
   overflow: auto;
 }
 
@@ -97,6 +92,20 @@
 .admin-services-item.is-selected {
   border-color: #d946ef;
   box-shadow: 0 0 0 3px rgba(217, 70, 239, 0.08);
+}
+
+.admin-services-item.is-inactive {
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+
+.admin-services-item.is-inactive .admin-services-item__name {
+  color: #9f1239;
+}
+
+.admin-services-item.is-inactive .admin-services-item__meta,
+.admin-services-item.is-inactive .admin-services-item__description {
+  color: #881337;
 }
 
 .admin-services-item__top {
@@ -130,6 +139,33 @@
   flex-wrap: wrap;
 }
 
+.admin-services-inline-form {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-services-inline-form__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.admin-services-inline-form__actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.admin-services-manager__create {
+  margin-top: 18px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 18px;
+}
+
 .admin-services-form {
   display: flex;
   flex-direction: column;
@@ -157,4 +193,30 @@
   margin-top: 8px;
   border-top: 1px solid #e5e7eb;
   z-index: 2;
+}
+
+.admin-modal__header--with-close {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.admin-modal__close {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: #f3f4f6;
+  color: #334155;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-modal__close:hover {
+  background: #e5e7eb;
 }
