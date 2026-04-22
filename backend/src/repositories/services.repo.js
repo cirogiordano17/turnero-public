@@ -106,7 +106,6 @@ module.exports = {
   getAllServices,
   getServiceById,
   createService,
-  deactivateService,
   sumActiveDurationsByIds,
   sumActivePricesByIds,
 };
