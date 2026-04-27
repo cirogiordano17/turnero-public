@@ -207,7 +207,7 @@ function AdminManageDaysModal({ onClose }) {
 
             <select value={from} onChange={(e) => setFrom(e.target.value)}>
               <option value="">Desde</option>
-              {slots.map((s) => (
+              {(Array.isArray(slots) ? slots : []).map((s) => (
                 <option key={s} value={s}>
                   {s}
                 </option>

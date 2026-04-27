@@ -20,38 +20,39 @@
     return { morning, afternoon, night };
   }
 
-  function SlotGroup({ title, slots, selectedSlot, onSelect }) {
-    return (
-      <section className="slot-group-card">
-        <h3 className="slot-group-card__title">{title}</h3>
+ function SlotGroup({ title, slots = [], selectedSlot, onSelect }) {
+  const safeSlots = Array.isArray(slots) ? slots : [];
 
-        <div className="slots-grid">
-          {slots.length === 0 ? (
-            <div className="slots-empty">Sin horarios.</div>
-          ) : (
-            slots.map((slot) => {
-              const active = selectedSlot === slot;
+  return (
+    <section className="slot-group-card">
+      <h3 className="slot-group-card__title">{title}</h3>
 
-              return (
-                <button
-                  key={slot}
-                  type="button"
-                  className={`slot-btn ${active ? "slot-btn--active" : ""}`}
-                  onClick={() => onSelect(slot)}
-                >
-                  {slot}
-                </button>
-              );
-            })
-          )}
-        </div>
-      </section>
-    );
-  }
+      <div className="slots-grid">
+        {safeSlots.length === 0 ? (
+          <div className="slots-empty">Sin horarios.</div>
+        ) : (
+          safeSlots.map((slot) => {
+            const active = selectedSlot === slot;
 
-  function Slots({ slots, selectedSlot, onSelect, isClosed }) {
-    console.log("Slots isClosed:", isClosed, "slots:", slots);
-    const { morning, afternoon, night } = splitSlotsByRange(slots);
+            return (
+              <button
+                key={slot}
+                type="button"
+                className={`slot-btn ${active ? "slot-btn--active" : ""}`}
+                onClick={() => onSelect(slot)}
+              >
+                {slot}
+              </button>
+            );
+          })
+        )}
+      </div>
+    </section>
+  );
+}
+function Slots({ slots, selectedSlot, onSelect, isClosed }) {
+  const safeSlots = Array.isArray(slots) ? slots : [];
+  const { morning, afternoon, night } = splitSlotsByRange(safeSlots);
 
     return (
   <div className="slots-section">
