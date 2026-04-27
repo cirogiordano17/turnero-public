@@ -48,24 +48,37 @@ function AdminManageDaysModal({ onClose }) {
   // EFFECTS
   // ========================
 
-  useEffect(() => {
-    refreshClosed();
-  }, [date]);
+// CLOSED DAYS
+useEffect(() => {
+  if (!date) return;
+  refreshClosed();
+}, [date]);
 
-  useEffect(() => {
-    if (!date) return;
+useEffect(() => {
+  if (!date) {
+    setSlots([]);
+    return;
+  }
 
-    async function fetchSlots() {
+  async function fetchSlots() {
+    try {
       const data = await getAvailability(date, [1]);
-      setSlots(data);
+
+      if (Array.isArray(data)) {
+        setSlots(data);
+      } else if (Array.isArray(data?.slots)) {
+        setSlots(data.slots);
+      } else {
+        setSlots([]);
+      }
+    } catch (err) {
+      console.error(err);
+      setSlots([]);
     }
+  }
 
-    fetchSlots();
-  }, [date]);
-
-  useEffect(() => {
-    refreshBlocked();
-  }, [date]);
+  fetchSlots();
+}, [date]);
 
   // ========================
   // ACTIONS
