@@ -9,7 +9,7 @@ export default function Hero({ onOpenBooking }) {
     }
   };
 
-  return (
+   return (
     <section className="hero">
       <div className="hero__overlay" />
 

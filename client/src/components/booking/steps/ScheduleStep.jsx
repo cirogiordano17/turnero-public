@@ -2,6 +2,7 @@ import DateSelector from "../DateSelector";
 import Slots from "../Slots";
 import { formatDateLong } from "../../../utils/dates";
 import "../styles/booking-flow.css";
+import "../styles/slots.css";
 
 function ScheduleStep({ booking, onBack, onNext }) {
   const canContinue = booking.selectedDate && booking.selectedSlot;
@@ -40,6 +41,7 @@ function ScheduleStep({ booking, onBack, onNext }) {
             slots={booking.slots}
             selectedSlot={booking.selectedSlot}
             onSelect={booking.setSelectedSlot}
+            isClosed={booking.isClosed}
           />
         )}
       </div>

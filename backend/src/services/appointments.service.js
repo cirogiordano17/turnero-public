@@ -1,6 +1,8 @@
 const servicesRepo = require("../repositories/services.repo");
 const clientsRepo = require("../repositories/clients.repo");
 const apptRepo = require("../repositories/appointments.repo");
+const blockedRepo = require("../repositories/blockedSlots.repo");
+
 
 const TZ_OFFSET = "-03:00";
 
@@ -25,6 +27,8 @@ async function createAppointment(pool, payload) {
   const { first_name, last_name, whatsapp, email, comment, service_ids, start_at, category } = payload;
   const safeCategory = ["pelu", "akashicos"].includes(category) ? category : "pelu";
   const initialStatus = safeCategory === "akashicos" ? "PENDIENTE_PAGO" : "CONFIRMADO";
+  
+
 
   const client = await pool.connect();
   try {
@@ -113,6 +117,14 @@ async function createAppointment(pool, payload) {
       throw err;
     }
 
+      // blocked slots
+  const blocked = await blockedRepo.hasBlockedOverlap(client, startIso, endIso);
+  if (blocked.rows.length > 0) {
+    const err = new Error("Horario bloqueado por el administrador");
+    err.status = 409;
+    throw err;
+  }
+
 
     console.log("TOTAL MIN:", totalMin);
     console.log("TOTAL PRICE:", totalPrice);
@@ -147,4 +159,6 @@ async function createAppointment(pool, payload) {
   }
 }
 
-module.exports = { listAppointments, createAppointment };
+
+
+module.exports = { listAppointments, createAppointment,  };

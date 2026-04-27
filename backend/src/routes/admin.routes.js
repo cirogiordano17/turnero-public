@@ -23,6 +23,8 @@ router.get("/appointments", requireAdminAuth, ctrl.getAdminAppointments);
 router.delete("/appointments/:id", requireAdminAuth, ctrl.cancelAdminAppointment);
 router.patch("/appointments/:id/confirm-payment", requireAdminAuth, ctrl.confirmAkashicosPayment);
 
+
+router.get("/closed-days", requireAdminAuth, ctrl.getClosedDays);
 router.post("/closed-days", requireAdminAuth, ctrl.blockClosedDay);
 router.delete("/closed-days/:date", requireAdminAuth, ctrl.unblockClosedDay);
 
@@ -30,6 +32,10 @@ router.delete("/closed-days/:date", requireAdminAuth, ctrl.unblockClosedDay);
 router.get("/services", requireAdminAuth, adminServicesCtrl.getAdminServices);
 router.post("/services", requireAdminAuth, adminServicesCtrl.createAdminService);
 router.patch("/services/:id", requireAdminAuth, adminServicesCtrl.updateAdminService);
+
+router.get("/blocked-slots", requireAdminAuth, ctrl.getBlockedSlots);
+router.post("/blocked-slots", requireAdminAuth, ctrl.createBlockedSlot);
+router.delete("/blocked-slots/:id", requireAdminAuth, ctrl.deleteBlockedSlot);
 
 
 module.exports = router;

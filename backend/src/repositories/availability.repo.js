@@ -29,4 +29,17 @@ async function getBusyAppointmentsForDay(db, dayStartIso, dayEndIso) {
   );
 }
 
-module.exports = { isClosedDay, getIsoDow, getWorkingHoursByDow, getBusyAppointmentsForDay };
+
+async function getBlockedSlotsForDay(db, dayStartIso, dayEndIso) {
+  return db.query(
+    `
+    SELECT start_at, end_at
+    FROM blocked_slots
+    WHERE start_at < $2::timestamptz
+      AND end_at   > $1::timestamptz
+    `,
+    [dayStartIso, dayEndIso]
+  );
+}
+
+module.exports = { isClosedDay, getIsoDow, getWorkingHoursByDow, getBusyAppointmentsForDay, getBlockedSlotsForDay,  };

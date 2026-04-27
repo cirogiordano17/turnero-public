@@ -31,6 +31,8 @@ function useBooking({ category }) {
   const [submitError, setSubmitError] = useState("");
   const [bookingSuccess, setBookingSuccess] = useState(false);
 
+  const [isClosed, setIsClosed] = useState(false);
+
   const [fieldErrors, setFieldErrors] = useState({
     firstName: "",
     lastName: "",
@@ -91,11 +93,18 @@ function useBooking({ category }) {
       const data = await getAvailability(date, ids);
 
       if (Array.isArray(data)) {
+        // compatibilidad vieja
         setSlots(data);
-      } else if (Array.isArray(data.slots)) {
+        setIsClosed(false);
+      } else if (data?.closed) {
+        setSlots([]);
+        setIsClosed(true);
+      } else if (Array.isArray(data?.slots)) {
         setSlots(data.slots);
+        setIsClosed(false);
       } else {
         setSlots([]);
+        setIsClosed(false);
       }
     } catch (err) {
       console.error(err);
@@ -106,16 +115,17 @@ function useBooking({ category }) {
     }
   }
 
-  useEffect(() => {
-    setSelectedSlot("");
-    setSlots([]);
+useEffect(() => {
+  setSelectedSlot("");
+  setSlots([]);
 
-    if (!selectedDate || selectedIds.length === 0) {
-      return;
-    }
+  if (!selectedDate) return;
 
-    loadAvailability(selectedDate, selectedIds);
-  }, [selectedDate, selectedIds]);
+  // 👇 clave: si no hay servicios, mandamos uno dummy
+  const idsToUse = selectedIds.length ? selectedIds : [1];
+
+  loadAvailability(selectedDate, idsToUse);
+}, [selectedDate, selectedIds]);
 
   function handlePrevDays() {
     if (!canGoPrev) return;
@@ -264,6 +274,7 @@ function useBooking({ category }) {
     handleNextDays,
     handleSubmit,
     resetBooking,
+    isClosed,
   };
 }
 

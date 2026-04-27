@@ -6,6 +6,10 @@
   transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
+
+
+
+
 .admin-header--upcoming {
   background: #fff;
 }
@@ -19,7 +23,21 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
+  width: 100%;
 }
+
+.admin-header__top > div:first-child {
+  min-width: 0;
+}
+
+.admin-header__tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+
 
 .admin-header__title {
   margin: 0;

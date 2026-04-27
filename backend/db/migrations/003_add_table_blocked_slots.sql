@@ -1,0 +1,7 @@
+CREATE TABLE blocked_slots (
+  id SERIAL PRIMARY KEY,
+  start_at TIMESTAMPTZ NOT NULL,
+  end_at TIMESTAMPTZ NOT NULL,
+  reason TEXT,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);

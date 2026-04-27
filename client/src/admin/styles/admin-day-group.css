@@ -14,7 +14,8 @@
 }
 
 .admin-day-group__header {
-  background: linear-gradient(90deg, #8b2cf5 0%, #ec4899 100%);
+  background: linear-gradient(135deg, #1e293b, #334155);
+  color: #fff;
   color: #fff;
   font-size: 1rem;
   font-weight: 800;

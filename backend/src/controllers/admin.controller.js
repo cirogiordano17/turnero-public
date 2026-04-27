@@ -101,6 +101,83 @@ async function getHistoryAppointments(req, res) {
   }
 }
 
+async function createBlockedSlot(req, res) {
+  const { start_at, end_at, reason } = req.body;
+
+  if (!start_at || !end_at) {
+    return res.status(400).json({ error: "start_at y end_at requeridos" });
+  }
+
+  try {
+    const result = await require("../repositories/blockedSlots.repo")
+      .insertBlockedSlot(req.app.locals.db, {
+        startIso: start_at,
+        endIso: end_at,
+        reason,
+      });
+
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error("Error creating blocked slot:", err);
+    res.status(500).json({ error: err.message });
+  }
+}
+
+async function getBlockedSlots(req, res) {
+  const { date } = req.query;
+
+  if (!date) {
+    return res.status(400).json({ error: "date requerida" });
+  }
+
+  try {
+    const result = await require("../repositories/blockedSlots.repo")
+      .listBlockedSlotsByDate(req.app.locals.db, date);
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error getting blocked slots:", err);
+    res.status(500).json({ error: err.message });
+  }
+}
+
+async function deleteBlockedSlot(req, res) {
+  const id = Number(req.params.id);
+
+  try {
+    const result = await require("../repositories/blockedSlots.repo")
+      .deleteBlockedSlot(req.app.locals.db, id);
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("Error deleting blocked slot:", err);
+    res.status(500).json({ error: err.message });
+  }
+}
+
+async function getClosedDays(req, res) {
+  const { from, to } = req.query;
+
+  if (!from || !to || !isYmd(from) || !isYmd(to)) {
+    return res.status(400).json({
+      error: "from y to requeridos. Formato: YYYY-MM-DD",
+    });
+  }
+
+  try {
+    const rows = await adminService.getClosedDays(
+      req.app.locals.db,
+      from,
+      to
+    );
+
+    res.json(rows);
+  } catch (err) {
+    console.error("Error GET /api/admin/closed-days:", err);
+    res.status(500).json({ error: err.message });
+  }
+}
+
 module.exports = {
   getAdminAppointments,
   getUpcomingAppointments,
@@ -109,4 +186,9 @@ module.exports = {
   blockClosedDay,
   unblockClosedDay,
   confirmAkashicosPayment,
+  createBlockedSlot,
+  getBlockedSlots,
+  deleteBlockedSlot,
+  getClosedDays,
+
 };

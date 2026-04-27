@@ -41,3 +41,13 @@
   color: #ffffff !important;
   box-shadow: none !important;
 }
+
+.slots-closed {
+  margin-top: 12px;
+  padding: 16px;
+  border-radius: 14px;
+  background: #fee2e2;
+  color: #b91c1c;
+  text-align: center;
+  font-weight: 800;
+}

@@ -95,9 +95,22 @@ export async function confirmPayment(id) {
   return res.json().catch(() => ({}));
 }
 
+
+export async function getAvailability(date, serviceIds = [1]) {
+  const res = await fetch(
+    `${API_BASE}/availability?date=${date}&service_ids=${serviceIds.join(",")}`
+  );
+
+  if (!res.ok) {
+    throw new Error("No se pudo cargar disponibilidad");
+  }
+
+  return res.json();
+}
+
 export async function getClosedDays(from, to) {
   const res = await fetch(
-    `${API_BASE}/closed-days?from=${from}&to=${to}`,
+    `${API_BASE}/admin/closed-days?from=${from}&to=${to}`,
     {
       headers: {
         ...getAuthHeaders(),

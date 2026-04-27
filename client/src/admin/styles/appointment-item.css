@@ -1,6 +1,6 @@
 .admin-appointment-item {
   padding: 16px;
-  border-top: 1px solid #efefef;
+  border-top: 3px solid #2b4360f0;
 }
 
 .admin-appointment-item:first-child {
@@ -79,10 +79,10 @@
 }
 
 .admin-appointment-item__actions {
-  display: flex;
+  display: grid;
   gap: 10px;
-  flex-wrap: wrap;
   margin-top: 10px;
+  grid-template-columns: repeat(2, 1fr); /* default: 2 botones */
 }
 
 .admin-btn {

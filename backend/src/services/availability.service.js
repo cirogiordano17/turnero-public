@@ -5,7 +5,12 @@ const { generateSlots, toUtcMs, minutesToMs, overlaps } = require("../utils/time
 async function getAvailability(db, dateYmd, serviceIds) {
   // closed day
   const closedRes = await availabilityRepo.isClosedDay(db, dateYmd);
-  if (closedRes.rows.length > 0) return [];
+  if (closedRes.rows.length > 0) {
+    return {
+      closed: true,
+      slots: []
+    };
+  }
 
   // dow + working hours
   const dowRes = await availabilityRepo.getIsoDow(db, dateYmd);
@@ -36,6 +41,15 @@ async function getAvailability(db, dateYmd, serviceIds) {
     endMs: new Date(r.end_at).getTime(),
   }));
 
+  const blockedRes = await availabilityRepo.getBlockedSlotsForDay(db, dayStartIso, dayEndIso);
+
+  const blockedBusy = blockedRes.rows.map((r) => ({
+    startMs: new Date(r.start_at).getTime(),
+    endMs: new Date(r.end_at).getTime(),
+  }));
+
+  busy.push(...blockedBusy);
+
   // blocks
   const blocks = [];
   if (wh.start_morning && wh.end_morning) {
@@ -47,8 +61,16 @@ async function getAvailability(db, dateYmd, serviceIds) {
 
   const available = [];
 
+  function addMinutes(time, mins) {
+    const [h, m] = time.split(":").map(Number);
+    const d = new Date();
+    d.setHours(h, m + mins, 0, 0);
+    return d.toTimeString().slice(0, 5);
+  }
+
   for (const b of blocks) {
-    const slots = generateSlots(dateYmd, b.start, b.end);
+    const extendedEnd = addMinutes(b.end, 30);
+    const slots = generateSlots(dateYmd, b.start, extendedEnd);
     const blockEndMs = toUtcMs(dateYmd, b.end);
 
     for (const hhmm of slots) {
@@ -64,7 +86,10 @@ async function getAvailability(db, dateYmd, serviceIds) {
   }
 
   // unique + sorted
-  return Array.from(new Set(available)).sort();
+  return {
+  closed: false,
+  slots: Array.from(new Set(available)).sort()
+};
 }
 
 module.exports = { getAvailability };

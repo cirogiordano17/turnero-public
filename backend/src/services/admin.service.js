@@ -108,6 +108,20 @@ async function getHistoryAppointments(db) {
   }));
 }
 
+async function getClosedDays(db, from, to) {
+  const result = await db.query(
+    `
+    SELECT closed_date, reason
+    FROM closed_days
+    WHERE closed_date BETWEEN $1::date AND $2::date
+    ORDER BY closed_date ASC
+    `,
+    [from, to]
+  );
+
+  return result.rows;
+}
+
 module.exports = {
   getAppointmentsForDay,
   getUpcomingAppointments,
@@ -116,4 +130,5 @@ module.exports = {
   blockDay,
   unblockDay,
   confirmAkashicosPayment,
+  getClosedDays,
 };
