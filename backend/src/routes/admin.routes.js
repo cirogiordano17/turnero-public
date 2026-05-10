@@ -27,6 +27,8 @@ router.patch("/appointments/:id/confirm-payment", requireAdminAuth, ctrl.confirm
 router.get("/closed-days", requireAdminAuth, ctrl.getClosedDays);
 router.post("/closed-days", requireAdminAuth, ctrl.blockClosedDay);
 router.delete("/closed-days/:date", requireAdminAuth, ctrl.unblockClosedDay);
+router.get("/closed-days/all", requireAdminAuth, ctrl.getAllClosedDays
+);
 
 // SERVICES ADMIN
 router.get("/services", requireAdminAuth, adminServicesCtrl.getAdminServices);

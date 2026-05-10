@@ -122,6 +122,16 @@ async function getClosedDays(db, from, to) {
   return result.rows;
 }
 
+async function getAllClosedDays(db) {
+  const result = await db.query(`
+    SELECT closed_date, reason
+    FROM closed_days
+    ORDER BY closed_date ASC
+  `);
+
+  return result.rows;
+}
+
 module.exports = {
   getAppointmentsForDay,
   getUpcomingAppointments,
@@ -131,4 +141,5 @@ module.exports = {
   unblockDay,
   confirmAkashicosPayment,
   getClosedDays,
+  getAllClosedDays,
 };

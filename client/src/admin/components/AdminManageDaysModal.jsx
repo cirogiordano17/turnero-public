@@ -10,9 +10,10 @@ function AdminManageDaysModal({ onClose }) {
   const [slots, setSlots] = useState([]);
   const [from, setFrom] = useState("");
   const [duration, setDuration] = useState(30);
-  const [blockedList, setBlockedList] = useState([]);
 
-  // 🔥 NUEVO: modal confirm
+  const [blockedList, setBlockedList] = useState([]);
+  const [closedDaysList, setClosedDaysList] = useState([]);
+
   const [confirmData, setConfirmData] = useState(null);
 
   // ========================
@@ -21,15 +22,14 @@ function AdminManageDaysModal({ onClose }) {
 
   async function refreshClosed() {
     if (!date) return;
+
     const data = await getClosedDays(date, date);
     setIsClosed(data.length > 0);
   }
 
   async function refreshBlocked() {
-    if (!date) return;
-
     const res = await fetch(
-      `${import.meta.env.VITE_API_URL}/admin/blocked-slots?date=${date}`,
+      `${import.meta.env.VITE_API_URL}/admin/blocked-slots`,
       {
         headers: {
           Authorization: `Bearer ${
@@ -41,44 +41,68 @@ function AdminManageDaysModal({ onClose }) {
     );
 
     const data = await res.json();
+
     setBlockedList(data);
+  }
+
+  async function refreshClosedDaysList() {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/admin/closed-days/all`,
+      {
+        headers: {
+          Authorization: `Bearer ${
+            localStorage.getItem("adminToken") ||
+            sessionStorage.getItem("adminToken")
+          }`,
+        },
+      }
+    );
+
+    const data = await res.json();
+
+    setClosedDaysList(data);
   }
 
   // ========================
   // EFFECTS
   // ========================
 
-// CLOSED DAYS
-useEffect(() => {
-  if (!date) return;
-  refreshClosed();
-}, [date]);
+  useEffect(() => {
+    if (!date) return;
 
-useEffect(() => {
-  if (!date) {
-    setSlots([]);
-    return;
-  }
+    refreshClosed();
+  }, [date]);
 
-  async function fetchSlots() {
-    try {
-      const data = await getAvailability(date, [1]);
+  useEffect(() => {
+    refreshBlocked();
+    refreshClosedDaysList();
+  }, []);
 
-      if (Array.isArray(data)) {
-        setSlots(data);
-      } else if (Array.isArray(data?.slots)) {
-        setSlots(data.slots);
-      } else {
+  useEffect(() => {
+    if (!date) {
+      setSlots([]);
+      return;
+    }
+
+    async function fetchSlots() {
+      try {
+        const data = await getAvailability(date, [1]);
+
+        if (Array.isArray(data)) {
+          setSlots(data);
+        } else if (Array.isArray(data?.slots)) {
+          setSlots(data.slots);
+        } else {
+          setSlots([]);
+        }
+      } catch (err) {
+        console.error(err);
         setSlots([]);
       }
-    } catch (err) {
-      console.error(err);
-      setSlots([]);
     }
-  }
 
-  fetchSlots();
-}, [date]);
+    fetchSlots();
+  }, [date]);
 
   // ========================
   // ACTIONS
@@ -101,11 +125,31 @@ useEffect(() => {
             await blockDay(date, "Bloqueado por admin");
           }
 
-          await refreshClosed(); // 🔥 FIX
+          await refreshClosed();
+          await refreshClosedDaysList();
         } catch (err) {
           console.error(err);
         } finally {
           setLoading(false);
+        }
+      },
+    });
+  }
+
+  function handleDeleteClosedDay(closedDate) {
+    setConfirmData({
+      message: "¿Desbloquear este día?",
+      onConfirm: async () => {
+        try {
+          await unblockDay(closedDate);
+
+          await refreshClosedDaysList();
+
+          if (closedDate === date) {
+            await refreshClosed();
+          }
+        } catch (err) {
+          console.error(err);
         }
       },
     });
@@ -144,7 +188,7 @@ useEffect(() => {
             }
           );
 
-          await refreshBlocked(); // 🔥 FIX
+          await refreshBlocked();
         } catch (err) {
           console.error(err);
         }
@@ -169,7 +213,7 @@ useEffect(() => {
           }
         );
 
-        await refreshBlocked(); // 🔥 FIX
+        await refreshBlocked();
       },
     });
   }
@@ -205,6 +249,37 @@ useEffect(() => {
               {isClosed ? "Desbloquear" : "Bloquear"}
             </button>
           </div>
+
+          <div style={{ marginTop: 24 }}>
+            <h4>Días bloqueados</h4>
+
+            {closedDaysList.length === 0 && (
+              <p>No hay días bloqueados.</p>
+            )}
+
+            {closedDaysList.map((d) => (
+              <div
+                className="admin-blocked-row"
+                key={d.closed_date}
+              >
+                <span> {d.closed_date.split("T")[0]
+                  .split("-")
+                  .reverse()
+                  .join("/")
+                }</span>
+
+                <button
+                  onClick={() =>
+                    handleDeleteClosedDay(
+                      d.closed_date.split("T")[0]
+                    )
+                  }
+                >
+                  X
+                </button>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* HORARIO */}
@@ -220,6 +295,7 @@ useEffect(() => {
 
             <select value={from} onChange={(e) => setFrom(e.target.value)}>
               <option value="">Desde</option>
+
               {(Array.isArray(slots) ? slots : []).map((s) => (
                 <option key={s} value={s}>
                   {s}
@@ -239,15 +315,24 @@ useEffect(() => {
               <option value={240}>4 horas</option>
             </select>
 
-            <button onClick={handleBlockSlot}>Bloquear</button>
+            <button onClick={handleBlockSlot}>
+              Bloquear
+            </button>
           </div>
 
-          {/* LISTADO */}
           <div>
             <h4>Bloqueos</h4>
 
+            {blockedList.length === 0 && (
+              <p>No hay horarios bloqueados.</p>
+            )}
+
             {blockedList.map((b) => {
-              const start = new Date(b.start_at).toLocaleTimeString("es-AR", {
+              const startDate = new Date(b.start_at);
+
+              const day = startDate.toLocaleDateString("es-AR");
+
+              const start = startDate.toLocaleTimeString("es-AR", {
                 hour: "2-digit",
                 minute: "2-digit",
               });
@@ -259,7 +344,9 @@ useEffect(() => {
 
               return (
                 <div className="admin-blocked-row" key={b.id}>
-                  <span>{start} → {end}</span>
+                  <span>
+                    {day} — {start} → {end}
+                  </span>
 
                   <button onClick={() => handleDeleteBlocked(b.id)}>
                     X
@@ -270,9 +357,10 @@ useEffect(() => {
           </div>
         </section>
 
-        <button onClick={onClose}>Cerrar</button>
+        <button onClick={onClose}>
+          Cerrar
+        </button>
 
-        {/* 🔥 MODAL CONFIRM */}
         {confirmData && (
           <div className="admin-modal-backdrop">
             <div className="admin-modal">

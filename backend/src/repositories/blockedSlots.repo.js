@@ -9,6 +9,14 @@ async function insertBlockedSlot(db, { startIso, endIso, reason }) {
   );
 }
 
+async function listBlockedSlots(db) {
+  return db.query(`
+    SELECT *
+    FROM blocked_slots
+    ORDER BY start_at ASC
+  `);
+}
+
 async function listBlockedSlotsByDate(db, date) {
   return db.query(
     `
@@ -45,4 +53,5 @@ module.exports = {
   listBlockedSlotsByDate,
   deleteBlockedSlot,
   hasBlockedOverlap,
+  listBlockedSlots,
 };

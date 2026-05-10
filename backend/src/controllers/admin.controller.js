@@ -122,22 +122,32 @@ async function createBlockedSlot(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
-
 async function getBlockedSlots(req, res) {
   const { date } = req.query;
 
-  if (!date) {
-    return res.status(400).json({ error: "date requerida" });
-  }
-
   try {
-    const result = await require("../repositories/blockedSlots.repo")
-      .listBlockedSlotsByDate(req.app.locals.db, date);
+    const repo = require("../repositories/blockedSlots.repo");
+
+    let result;
+
+    if (date) {
+      result = await repo.listBlockedSlotsByDate(
+        req.app.locals.db,
+        date
+      );
+    } else {
+      result = await repo.listBlockedSlots(
+        req.app.locals.db
+      );
+    }
 
     res.json(result.rows);
   } catch (err) {
     console.error("Error getting blocked slots:", err);
-    res.status(500).json({ error: err.message });
+
+    res.status(500).json({
+      error: err.message,
+    });
   }
 }
 
@@ -178,6 +188,22 @@ async function getClosedDays(req, res) {
   }
 }
 
+async function getAllClosedDays(req, res) {
+  try {
+    const rows = await adminService.getAllClosedDays(
+      req.app.locals.db
+    );
+
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      error: err.message,
+    });
+  }
+}
+
 module.exports = {
   getAdminAppointments,
   getUpcomingAppointments,
@@ -190,5 +216,6 @@ module.exports = {
   getBlockedSlots,
   deleteBlockedSlot,
   getClosedDays,
+  getAllClosedDays,
 
 };
