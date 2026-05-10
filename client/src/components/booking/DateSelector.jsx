@@ -19,41 +19,41 @@ function DateSelector({
   );
 
   return (
-    <div className="date-selector">
-      <div className="muted small mb-2">Fecha</div>
+      <div className="date-selector">
+        <div className="muted small mb-2">Fecha</div>
 
-      <DayPicker
-        mode="single"
-        selected={selected}
-        onSelect={(date) => {
-          if (!date) return;
+        <DayPicker
+          mode="single"
+          selected={selected}
+          onSelect={(date) => {
+            if (!date) return;
 
-          const iso = date.toLocaleDateString("sv-SE");
-          const isSunday = date.getDay() === 0;
-          const isBlocked = closedDays.includes(iso);
-          const isPastOrToday = date <= today;
+            const iso = date.toLocaleDateString("sv-SE");
+            const isSunday = date.getDay() === 0;
+            const isBlocked = closedDays.includes(iso);
+            const isPastOrToday = date <= today;
 
-          if (isSunday || isBlocked || isPastOrToday) return;
+            if (isSunday || isBlocked || isPastOrToday) return;
 
-          onSelectDate(iso);
-        }}
-        disabled={[
-          { dayOfWeek: [0] },     // domingos
-          { before: new Date(today.getTime() + 1) }, // todo hasta hoy inclusive
-          ...blockedDates,        // admin
-        ]}
-        modifiers={{
-          blocked: blockedDates,
-        }}
-        modifiersClassNames={{
-          selected: "calendar-selected",
-          blocked: "calendar-blocked",
-          disabled: "calendar-disabled",
-        }}
-        showOutsideDays
-        weekStartsOn={1}
-      />
-    </div>
+            onSelectDate(iso);
+          }}
+          disabled={[
+            { dayOfWeek: [0] },     // domingos
+            { before: new Date(today.getTime() + 1) }, // todo hasta hoy inclusive
+            ...blockedDates,        // admin
+          ]}
+          modifiers={{
+            blocked: blockedDates,
+          }}
+          modifiersClassNames={{
+            selected: "calendar-selected",
+            blocked: "calendar-blocked",
+            disabled: "calendar-disabled",
+          }}
+          showOutsideDays
+          weekStartsOn={1}
+        />
+      </div>
   );
 }
 
