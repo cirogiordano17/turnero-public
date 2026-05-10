@@ -43,15 +43,15 @@ function AdminSettingsMenu({ onManageServices,onManageDays, onLogout }) {
           </button>
 
           <button
-  type="button"
-  className="admin-settings__item"
-  onClick={() => {
-    setOpen(false);
-    onManageDays?.();
-  }}
->
-  Administrar días
-</button>
+            type="button"
+            className="admin-settings__item"
+            onClick={() => {
+              setOpen(false);
+              onManageDays?.();
+            }}
+          >
+            Administrar días
+          </button>
 
           <button
             type="button"

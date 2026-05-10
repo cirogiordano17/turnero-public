@@ -11,6 +11,7 @@ function AppointmentItem({ appointment, onActionDone }) {
     last_name,
     start_hhmm,
     end_hhmm,
+    whatsapp,
     email,
     comment,
   } = appointment;
@@ -22,6 +23,7 @@ function AppointmentItem({ appointment, onActionDone }) {
   const [loadingAction, setLoadingAction] = useState(false);
 
   const fullName = `${first_name} ${last_name}`.trim();
+  const hasWhatsapp = !!whatsapp?.trim();
   const hasEmail = !!email?.trim();
   const hasComment = !!comment?.trim();
 
@@ -111,8 +113,19 @@ function AppointmentItem({ appointment, onActionDone }) {
           </span>
         </div>
 
-        {(hasEmail || hasComment) && (
+        {(hasEmail || hasComment || hasWhatsapp ) && (
           <div className="admin-appointment-item__extra">
+            {hasWhatsapp && (
+              <div className="admin-appointment-item__extra-row">
+                <span className="admin-appointment-item__extra-label">
+                  WhatsApp:
+                </span>
+
+                <span className="admin-appointment-item__extra-value">
+                  {whatsapp}
+                </span>
+              </div>
+            )}
             {hasEmail && (
               <div className="admin-appointment-item__extra-row">
                 <span className="admin-appointment-item__extra-label">Email:</span>
