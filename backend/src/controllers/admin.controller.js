@@ -1,4 +1,5 @@
 const adminService = require("../services/admin.service");
+const blockedSlotsRepo = require("../repositories/blockedSlots.repo");
 const { isYmd, toIntId } = require("../utils/validate");
 
 async function getAdminAppointments(req, res) {
@@ -62,7 +63,7 @@ async function unblockClosedDay(req, res) {
 }
 
 async function confirmAkashicosPayment(req, res) {
-  const id = Number(req.params.id);
+  const id = toIntId(req.params.id);
 
   if (!id) {
     return res.status(400).json({ error: "id inválido" });
@@ -109,12 +110,11 @@ async function createBlockedSlot(req, res) {
   }
 
   try {
-    const result = await require("../repositories/blockedSlots.repo")
-      .insertBlockedSlot(req.app.locals.db, {
-        startIso: start_at,
-        endIso: end_at,
-        reason,
-      });
+    const result = await blockedSlotsRepo.insertBlockedSlot(req.app.locals.db, {
+      startIso: start_at,
+      endIso: end_at,
+      reason,
+    });
 
     res.status(201).json(result.rows[0]);
   } catch (err) {
@@ -126,20 +126,9 @@ async function getBlockedSlots(req, res) {
   const { date } = req.query;
 
   try {
-    const repo = require("../repositories/blockedSlots.repo");
-
-    let result;
-
-    if (date) {
-      result = await repo.listBlockedSlotsByDate(
-        req.app.locals.db,
-        date
-      );
-    } else {
-      result = await repo.listBlockedSlots(
-        req.app.locals.db
-      );
-    }
+    const result = date
+      ? await blockedSlotsRepo.listBlockedSlotsByDate(req.app.locals.db, date)
+      : await blockedSlotsRepo.listBlockedSlots(req.app.locals.db);
 
     res.json(result.rows);
   } catch (err) {
@@ -152,11 +141,11 @@ async function getBlockedSlots(req, res) {
 }
 
 async function deleteBlockedSlot(req, res) {
-  const id = Number(req.params.id);
+  const id = toIntId(req.params.id);
+  if (!id) return res.status(400).json({ error: "id inválido" });
 
   try {
-    const result = await require("../repositories/blockedSlots.repo")
-      .deleteBlockedSlot(req.app.locals.db, id);
+    const result = await blockedSlotsRepo.deleteBlockedSlot(req.app.locals.db, id);
 
     res.json(result.rows[0]);
   } catch (err) {
@@ -190,17 +179,21 @@ async function getClosedDays(req, res) {
 
 async function getAllClosedDays(req, res) {
   try {
-    const rows = await adminService.getAllClosedDays(
-      req.app.locals.db
-    );
-
+    const rows = await adminService.getAllClosedDays(req.app.locals.db);
     res.json(rows);
   } catch (err) {
     console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+}
 
-    res.status(500).json({
-      error: err.message,
-    });
+async function getWorkingHours(req, res) {
+  try {
+    const rows = await adminService.getWorkingHours(req.app.locals.db);
+    res.json(rows);
+  } catch (err) {
+    console.error("Error GET /api/admin/working-hours:", err);
+    res.status(500).json({ error: err.message });
   }
 }
 
@@ -217,5 +210,5 @@ module.exports = {
   deleteBlockedSlot,
   getClosedDays,
   getAllClosedDays,
-
+  getWorkingHours,
 };

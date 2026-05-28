@@ -35,6 +35,8 @@ router.get("/services", requireAdminAuth, adminServicesCtrl.getAdminServices);
 router.post("/services", requireAdminAuth, adminServicesCtrl.createAdminService);
 router.patch("/services/:id", requireAdminAuth, adminServicesCtrl.updateAdminService);
 
+router.get("/working-hours", requireAdminAuth, ctrl.getWorkingHours);
+
 router.get("/blocked-slots", requireAdminAuth, ctrl.getBlockedSlots);
 router.post("/blocked-slots", requireAdminAuth, ctrl.createBlockedSlot);
 router.delete("/blocked-slots/:id", requireAdminAuth, ctrl.deleteBlockedSlot);

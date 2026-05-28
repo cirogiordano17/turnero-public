@@ -261,3 +261,72 @@ export async function updateAdminService(id, payload) {
 
   return data;
 }
+
+export async function getAllClosedDays() {
+  const res = await fetch(`${API_BASE}/admin/closed-days/all`, {
+    headers: { ...getAuthHeaders() },
+  });
+
+  if (!res.ok) {
+    throw new Error("No se pudieron cargar los días bloqueados");
+  }
+
+  return res.json();
+}
+
+export async function getAllBlockedSlots(date) {
+  const url = date
+    ? `${API_BASE}/admin/blocked-slots?date=${date}`
+    : `${API_BASE}/admin/blocked-slots`;
+  const res = await fetch(url, { headers: { ...getAuthHeaders() } });
+
+  if (!res.ok) {
+    throw new Error("No se pudieron cargar los horarios bloqueados");
+  }
+
+  return res.json();
+}
+
+export async function getWorkingHours() {
+  const res = await fetch(`${API_BASE}/admin/working-hours`, {
+    headers: { ...getAuthHeaders() },
+  });
+
+  if (!res.ok) {
+    throw new Error("No se pudieron cargar los horarios de trabajo");
+  }
+
+  return res.json();
+}
+
+export async function createBlockedSlot(payload) {
+  const res = await fetch(`${API_BASE}/admin/blocked-slots`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const data = await res.json().catch(() => ({}));
+
+  if (!res.ok) {
+    throw new Error(data.error || "No se pudo bloquear el horario");
+  }
+
+  return data;
+}
+
+export async function deleteBlockedSlot(id) {
+  const res = await fetch(`${API_BASE}/admin/blocked-slots/${id}`, {
+    method: "DELETE",
+    headers: { ...getAuthHeaders() },
+  });
+
+  if (!res.ok) {
+    throw new Error("No se pudo eliminar el bloqueo");
+  }
+
+  return res.json().catch(() => ({}));
+}

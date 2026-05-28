@@ -158,6 +158,37 @@ async function getHistoryAppointments(db) {
   );
 }
 
+async function getAppointmentById(db, id) {
+  return db.query(
+    `SELECT id, category, status FROM appointments WHERE id = $1 LIMIT 1`,
+    [id]
+  );
+}
+
+async function getClosedDaysInRange(db, from, to) {
+  return db.query(
+    `SELECT closed_date, reason
+     FROM closed_days
+     WHERE closed_date BETWEEN $1::date AND $2::date
+     ORDER BY closed_date ASC`,
+    [from, to]
+  );
+}
+
+async function getAllClosedDays(db) {
+  return db.query(
+    `SELECT closed_date, reason FROM closed_days ORDER BY closed_date ASC`
+  );
+}
+
+async function getWorkingHours(db) {
+  return db.query(
+    `SELECT day_of_week, start_morning, end_morning, start_afternoon, end_afternoon
+     FROM working_hours
+     ORDER BY day_of_week`
+  );
+}
+
 module.exports = {
   getAdminAppointmentsForRange,
   getUpcomingAppointments,
@@ -167,4 +198,8 @@ module.exports = {
   deleteClosedDay,
   nextDateText,
   updateAppointmentStatus,
+  getAppointmentById,
+  getClosedDaysInRange,
+  getAllClosedDays,
+  getWorkingHours,
 };

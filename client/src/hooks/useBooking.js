@@ -92,18 +92,11 @@ function useBooking({ category }) {
 
       const data = await getAvailability(date, ids);
 
-      if (Array.isArray(data)) {
-        // compatibilidad vieja
-        setSlots(data);
-        setIsClosed(false);
-      } else if (data?.closed) {
+      if (data?.closed) {
         setSlots([]);
         setIsClosed(true);
-      } else if (Array.isArray(data?.slots)) {
-        setSlots(data.slots);
-        setIsClosed(false);
       } else {
-        setSlots([]);
+        setSlots(Array.isArray(data?.slots) ? data.slots : []);
         setIsClosed(false);
       }
     } catch (err) {
@@ -119,12 +112,9 @@ useEffect(() => {
   setSelectedSlot("");
   setSlots([]);
 
-  if (!selectedDate) return;
+  if (!selectedDate || !selectedIds.length) return;
 
-  // 👇 clave: si no hay servicios, mandamos uno dummy
-  const idsToUse = selectedIds.length ? selectedIds : [1];
-
-  loadAvailability(selectedDate, idsToUse);
+  loadAvailability(selectedDate, selectedIds);
 }, [selectedDate, selectedIds]);
 
   function handlePrevDays() {

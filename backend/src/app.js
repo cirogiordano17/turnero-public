@@ -24,9 +24,6 @@ const allowedOrigins =
     ? [process.env.FRONTEND_ORIGIN]
     : ["http://localhost:5173", "http://localhost:5500"];
 
-console.log("NODE_ENV:", process.env.NODE_ENV);
-console.log("FRONTEND_ORIGIN:", process.env.FRONTEND_ORIGIN);
-console.log("allowedOrigins:", allowedOrigins);
 
 app.use(
   cors({
@@ -84,15 +81,20 @@ app.locals.adminEventClients = new Set();
 
 app.get("/health", (req, res) => res.json({ ok: true }));
 
-app.use((req, res, next) => {
-  console.log("REQ:", req.method, req.url);
-  next();
-});
-
 app.use("/api/services", servicesRoutes);
 app.use("/api/appointments", bookingLimiter, appointmentsRoutes);
 app.use("/api/availability", availabilityRoutes);
 app.use("/api/closed-days", closedDaysRoutes);
 app.use("/api/admin", adminLimiter, adminRoutes);
+
+// Error handler global: nunca exponer detalles internos en producción
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  const isDev = process.env.NODE_ENV !== "production";
+  const status = err.status || 500;
+  res.status(status).json({
+    error: status < 500 || isDev ? err.message : "Error interno del servidor",
+  });
+});
 
 module.exports = app;

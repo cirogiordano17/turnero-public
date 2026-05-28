@@ -1,6 +1,13 @@
 const adminRepo = require("../repositories/admin.repo");
 const { TZ } = require("../utils/time");
 
+const timeFmt = new Intl.DateTimeFormat("es-AR", {
+  timeZone: TZ,
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+});
+
 async function getAppointmentsForDay(db, dateYmd) {
   const dayStartIso = `${dateYmd}T00:00:00-03:00`;
   const nextRes = await adminRepo.nextDateText(db, dateYmd);
@@ -9,23 +16,15 @@ async function getAppointmentsForDay(db, dateYmd) {
 
   const result = await adminRepo.getAdminAppointmentsForRange(db, dayStartIso, dayEndIso);
 
-  const fmt = new Intl.DateTimeFormat("es-AR", {
-    timeZone: TZ,
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
-
   return result.rows.map((r) => ({
     ...r,
-    start_hhmm: fmt.format(new Date(r.start_at)),
-    end_hhmm: fmt.format(new Date(r.end_at)),
+    start_hhmm: timeFmt.format(new Date(r.start_at)),
+    end_hhmm: timeFmt.format(new Date(r.end_at)),
   }));
 }
 
-async function cancelAppointment(db, id) {
-  const result = await adminRepo.cancelAppointment(db, id);
-  return result;
+function cancelAppointment(db, id) {
+  return adminRepo.cancelAppointment(db, id);
 }
 
 async function blockDay(db, dateYmd, reason) {
@@ -40,15 +39,7 @@ async function unblockDay(db, dateYmd) {
 }
 
 async function confirmAkashicosPayment(db, appointmentId) {
-  const apptRes = await db.query(
-    `
-    SELECT id, category, status
-    FROM appointments
-    WHERE id = $1
-    LIMIT 1
-    `,
-    [appointmentId]
-  );
+  const apptRes = await adminRepo.getAppointmentById(db, appointmentId);
 
   if (apptRes.rows.length === 0) {
     const err = new Error("Turno no encontrado");
@@ -76,59 +67,34 @@ async function confirmAkashicosPayment(db, appointmentId) {
 
 async function getUpcomingAppointments(db) {
   const result = await adminRepo.getUpcomingAppointments(db);
-
-  const fmt = new Intl.DateTimeFormat("es-AR", {
-    timeZone: TZ,
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
-
   return result.rows.map((r) => ({
     ...r,
-    start_hhmm: fmt.format(new Date(r.start_at)),
-    end_hhmm: fmt.format(new Date(r.end_at)),
+    start_hhmm: timeFmt.format(new Date(r.start_at)),
+    end_hhmm: timeFmt.format(new Date(r.end_at)),
   }));
 }
 
 async function getHistoryAppointments(db) {
   const result = await adminRepo.getHistoryAppointments(db);
-
-  const fmt = new Intl.DateTimeFormat("es-AR", {
-    timeZone: TZ,
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
-
   return result.rows.map((r) => ({
     ...r,
-    start_hhmm: fmt.format(new Date(r.start_at)),
-    end_hhmm: fmt.format(new Date(r.end_at)),
+    start_hhmm: timeFmt.format(new Date(r.start_at)),
+    end_hhmm: timeFmt.format(new Date(r.end_at)),
   }));
 }
 
 async function getClosedDays(db, from, to) {
-  const result = await db.query(
-    `
-    SELECT closed_date, reason
-    FROM closed_days
-    WHERE closed_date BETWEEN $1::date AND $2::date
-    ORDER BY closed_date ASC
-    `,
-    [from, to]
-  );
-
+  const result = await adminRepo.getClosedDaysInRange(db, from, to);
   return result.rows;
 }
 
 async function getAllClosedDays(db) {
-  const result = await db.query(`
-    SELECT closed_date, reason
-    FROM closed_days
-    ORDER BY closed_date ASC
-  `);
+  const result = await adminRepo.getAllClosedDays(db);
+  return result.rows;
+}
 
+async function getWorkingHours(db) {
+  const result = await adminRepo.getWorkingHours(db);
   return result.rows;
 }
 
@@ -142,4 +108,5 @@ module.exports = {
   confirmAkashicosPayment,
   getClosedDays,
   getAllClosedDays,
+  getWorkingHours,
 };

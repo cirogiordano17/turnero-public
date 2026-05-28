@@ -1,16 +1,6 @@
 const apptService = require("../services/appointments.service");
 const { emitAdminEvent } = require("./adminEvents.controller");
 
-async function listAppointments(req, res) {
-  try {
-    const rows = await apptService.listAppointments(req.app.locals.db);
-    res.json(rows);
-  } catch (err) {
-    console.error("Error GET /api/appointments:", err);
-    res.status(500).json({ error: err.message });
-  }
-}
-
 async function createAppointment(req, res) {
   const { first_name, last_name, whatsapp, start_at, service_ids, category } = req.body;
 
@@ -44,4 +34,4 @@ async function createAppointment(req, res) {
   }
 }
 
-module.exports = { listAppointments, createAppointment };
+module.exports = { createAppointment };

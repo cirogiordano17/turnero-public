@@ -1,25 +1,3 @@
-async function listLatestAppointments(db) {
-  return db.query(`
-    SELECT
-      a.id,
-      a.start_at,
-      a.end_at,
-      a.status,
-      a.comment,
-      a.category,
-      a.price_total,
-      a.duration_total,
-      c.first_name,
-      c.last_name,
-      c.whatsapp,
-      c.email
-    FROM appointments a
-    JOIN clients c ON c.id = a.client_id
-    ORDER BY a.start_at DESC
-    LIMIT 50
-  `);
-}
-
 async function hasOverlap(db, startIso, endIso) {
   return db.query(
     `
@@ -81,17 +59,16 @@ async function insertAppointment(db, { clientId, startIso, totalMin, totalPrice,
 }
 
 async function insertAppointmentServices(db, appointmentId, serviceIds) {
-  for (const serviceId of serviceIds) {
-    await db.query(
-      `INSERT INTO appointment_services (appointment_id, service_id)
-       VALUES ($1, $2)`,
-      [appointmentId, serviceId]
-    );
-  }
+  if (!serviceIds.length) return;
+
+  const values = serviceIds.map((_, i) => `($1, $${i + 2})`).join(", ");
+  return db.query(
+    `INSERT INTO appointment_services (appointment_id, service_id) VALUES ${values}`,
+    [appointmentId, ...serviceIds]
+  );
 }
 
 module.exports = {
-  listLatestAppointments,
   hasOverlap,
   insertAppointment,
   insertAppointmentServices,

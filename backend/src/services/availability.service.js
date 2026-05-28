@@ -2,6 +2,13 @@ const servicesRepo = require("../repositories/services.repo");
 const availabilityRepo = require("../repositories/availability.repo");
 const { generateSlots, toUtcMs, minutesToMs, overlaps } = require("../utils/time");
 
+function addMinutesToHHmm(time, mins) {
+  const [h, m] = time.split(":").map(Number);
+  const d = new Date();
+  d.setHours(h, m + mins, 0, 0);
+  return d.toTimeString().slice(0, 5);
+}
+
 async function getAvailability(db, dateYmd, serviceIds) {
   // closed day
   const closedRes = await availabilityRepo.isClosedDay(db, dateYmd);
@@ -17,7 +24,7 @@ async function getAvailability(db, dateYmd, serviceIds) {
   const dow = dowRes.rows[0].dow;
 
   const whRes = await availabilityRepo.getWorkingHoursByDow(db, dow);
-  if (whRes.rows.length === 0) return [];
+  if (whRes.rows.length === 0) return { closed: false, slots: [] };
   const wh = whRes.rows[0];
 
   // total duration
@@ -61,15 +68,8 @@ async function getAvailability(db, dateYmd, serviceIds) {
 
   const available = [];
 
-  function addMinutes(time, mins) {
-    const [h, m] = time.split(":").map(Number);
-    const d = new Date();
-    d.setHours(h, m + mins, 0, 0);
-    return d.toTimeString().slice(0, 5);
-  }
-
   for (const b of blocks) {
-    const extendedEnd = addMinutes(b.end, 30);
+    const extendedEnd = addMinutesToHHmm(b.end, 30);
     const slots = generateSlots(dateYmd, b.start, extendedEnd);
     const blockEndMs = toUtcMs(dateYmd, b.end);
 

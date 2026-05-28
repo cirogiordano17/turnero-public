@@ -40,11 +40,7 @@ export function useAdminAppointments(mode = "upcoming", enabled = true) {
           setAppointmentsError(err.message || "No se pudieron cargar los turnos");
         }
       } finally {
-        if (!silent && !initialLoadedRef.current) {
-          setLoadingAppointments(false);
-        } else {
-          setLoadingAppointments(false);
-        }
+        setLoadingAppointments(false);
       }
     },
     [mode, enabled]

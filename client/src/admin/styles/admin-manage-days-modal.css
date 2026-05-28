@@ -1,149 +1,582 @@
-/* BACKDROP */
-.admin-modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  background: rgba(15, 23, 42, 0.65);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 18px;
-}
-
-/* MODAL */
-.admin-modal {
+/* ─────────────────────────────────────────────────────
+   MODAL PRINCIPAL  (.mdm)
+───────────────────────────────────────────────────── */
+.mdm {
+  position: relative;
   width: 100%;
   max-width: 520px;
+  max-height: 88vh;
   background: #ffffff;
-  border-radius: 20px;
-  padding: 26px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+  border-radius: 24px;
+  box-shadow: 0 24px 72px rgba(0, 0, 0, 0.22);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-/* TITULO */
-.admin-modal h2 {
-  margin: 0 0 20px;
-  font-size: 1.7rem;
+/* ─────────────────────────────────────────────────────
+   HEADER
+───────────────────────────────────────────────────── */
+.mdm__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 0;
+  flex-shrink: 0;
+}
+
+.mdm__title {
+  margin: 0;
+  font-size: 1.3rem;
   font-weight: 800;
   color: #0f172a;
 }
 
-/* SECCIONES */
-.admin-modal section {
-  padding: 18px 0;
-  border-top: 1px solid #e5e7eb;
-}
-
-.admin-modal h3 {
-  margin-bottom: 14px;
+.mdm__close {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 10px;
+  background: #f1f5f9;
+  color: #475569;
   font-size: 1.1rem;
-  font-weight: 700;
-  color: #1e293b;
-}
-
-/* ROW */
-.admin-modal__row {
+  cursor: pointer;
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
 }
 
-/* INPUTS */
-.admin-modal input,
-.admin-modal select {
-  height: 44px;
-  border: 1px solid #cbd5e1;
-  border-radius: 12px;
-  padding: 0 12px;
-  font-size: 0.95rem;
+.mdm__close:hover {
+  background: #e2e8f0;
+}
+
+/* ─────────────────────────────────────────────────────
+   TABS
+───────────────────────────────────────────────────── */
+.mdm__tabs {
+  display: flex;
+  gap: 4px;
+  background: #f1f5f9;
+  border-radius: 14px;
+  padding: 4px;
+  margin: 16px 20px 0;
+  flex-shrink: 0;
+}
+
+.mdm__tab {
+  flex: 1;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: transparent;
+  color: #64748b;
+  transition: all 0.15s;
+}
+
+.mdm__tab--active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ─────────────────────────────────────────────────────
+   CONTENIDO (scrollable)
+───────────────────────────────────────────────────── */
+.mdm__content {
+  padding: 20px 20px 24px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ─────────────────────────────────────────────────────
+   CAMPOS
+───────────────────────────────────────────────────── */
+.mdm__field {
+  margin-bottom: 16px;
+}
+
+.mdm__label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.mdm__input {
+  width: 100%;
+  height: 48px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 0 14px;
+  font-size: 1rem;
   background: #f8fafc;
-  transition: all 0.2s ease;
+  color: #0f172a;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
 }
 
-.admin-modal input:focus,
-.admin-modal select:focus {
+.mdm__input:focus {
   outline: none;
   border-color: #6366f1;
   background: #fff;
 }
 
-/* BOTONES GENERALES */
-.admin-modal button {
-  height: 44px;
-  border-radius: 12px;
-  padding: 0 16px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: all 0.2s ease;
+/* ─────────────────────────────────────────────────────
+   FILA ESTADO DEL DÍA
+───────────────────────────────────────────────────── */
+.mdm__day-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
-/* BOTONES DE ACCIÓN (AZUL) */
-.admin-modal section button {
-  background: linear-gradient(135deg, #3b82f6, #2563eb);
+.mdm__status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.mdm__status-badge--open {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.mdm__status-badge--closed {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* ─────────────────────────────────────────────────────
+   BOTONES DE ACCIÓN
+───────────────────────────────────────────────────── */
+.mdm__action-btn {
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  padding: 0 20px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.mdm__action-btn--red {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
   color: white;
 }
 
-.admin-modal section button:hover {
+.mdm__action-btn--red:hover {
+  opacity: 0.88;
   transform: translateY(-1px);
-  opacity: 0.9;
 }
 
-/* BOTÓN ROJO (bloquear día) */
-.admin-modal button[style*="dc2626"] {
-  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+.mdm__action-btn--green {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
 }
 
-/* BOTÓN VERDE (desbloquear) */
-.admin-modal button[style*="16a34a"] {
-  background: linear-gradient(135deg, #22c55e, #16a34a) !important;
+.mdm__action-btn--green:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
 }
 
-/* BOTÓN CERRAR */
-.admin-modal > button {
-  width: 100%;
-  margin-top: 16px;
+.mdm__action-btn--primary {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  color: white;
+  flex: 1;
+}
+
+.mdm__action-btn--ghost {
+  background: #f1f5f9;
+  color: #475569;
+  flex: 1;
+}
+
+.mdm__action-btn--ghost:hover {
   background: #e2e8f0;
+}
+
+/* ─────────────────────────────────────────────────────
+   SECCIONES Y LISTAS
+───────────────────────────────────────────────────── */
+.mdm__section {
+  border-top: 1px solid #f1f5f9;
+  padding-top: 16px;
+}
+
+.mdm__section-title {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
   color: #334155;
 }
 
-.admin-modal > button:hover {
-  background: #cbd5e1;
-}
-
-/* LISTA DE BLOQUEOS */
-.admin-blocked-row {
+.mdm__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 14px;
-  margin-top: 10px;
-  border-radius: 12px;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
+  flex-direction: column;
+  gap: 8px;
 }
 
-/* TEXTO */
-.admin-blocked-row span {
+.mdm__list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.mdm__list-item-text {
+  font-size: 0.9rem;
   font-weight: 600;
   color: #334155;
 }
 
-/* BOTÓN X */
-.admin-blocked-row button {
-  background: #3b82f6;
-  color: white;
-  border-radius: 10px;
-  padding: 6px 12px;
+.mdm__unblock-btn {
+  flex-shrink: 0;
+  height: 34px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 8px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.8rem;
   font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
 }
 
-.admin-blocked-row button:hover {
-  background: #2563eb;
+.mdm__unblock-btn:hover {
+  background: #bae6fd;
 }
 
-/* SCROLL SI CRECE */
-.admin-modal {
-  max-height: 90vh;
-  overflow-y: auto;
+.mdm__empty {
+  font-size: 0.88rem;
+  color: #94a3b8;
+  margin: 0;
+  padding: 8px 0;
+}
+
+/* ─────────────────────────────────────────────────────
+   TAB HORARIOS — grid info
+───────────────────────────────────────────────────── */
+.mdm__date-heading {
+  margin: 0 0 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+  text-transform: capitalize;
+}
+
+.mdm__hint {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  text-align: center;
+  padding: 20px 0;
+  margin: 0;
+}
+
+.mdm__grid-hint {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin: 0 0 14px;
+}
+
+.mdm__notice {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 16px;
+}
+
+.mdm__notice--warn {
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+}
+
+.mdm__notice p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────────────────
+   LEYENDA
+───────────────────────────────────────────────────── */
+.mdm__legend {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.mdm__legend-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.mdm__legend-chip--free {
+  background: #f1f5f9;
+  border: 1.5px solid #cbd5e1;
+  color: #64748b;
+}
+
+.mdm__legend-chip--sel {
+  background: #dbeafe;
+  border: 1.5px solid #3b82f6;
+  color: #1d4ed8;
+}
+
+.mdm__legend-chip--blocked {
+  background: #fee2e2;
+  border: 1.5px solid #f87171;
+  color: #dc2626;
+}
+
+.mdm__legend-chip--booked {
+  background: #f8fafc;
+  border: 1.5px solid #cbd5e1;
+  color: #94a3b8;
+}
+
+/* ─────────────────────────────────────────────────────
+   SECCIONES DE TIEMPO (mañana / tarde)
+───────────────────────────────────────────────────── */
+.mdm__time-section {
+  margin-bottom: 16px;
+}
+
+.mdm__time-label {
+  margin: 0 0 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ─────────────────────────────────────────────────────
+   GRILLA DE SLOTS
+───────────────────────────────────────────────────── */
+.mdm__time-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mdm__slot {
+  min-width: 72px;
+  min-height: 48px;
+  border-radius: 12px;
+  border: 1.5px solid transparent;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.12s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* libre */
+.mdm__slot--free {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+.mdm__slot--free:hover {
+  background: #eff6ff;
+  border-color: #3b82f6;
+  color: #1d4ed8;
+}
+
+.mdm__slot--free:active {
+  transform: scale(0.94);
+  background: #dbeafe;
+}
+
+/* seleccionado */
+.mdm__slot--sel {
+  background: #dbeafe;
+  border-color: #3b82f6;
+  color: #1d4ed8;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.mdm__slot--sel:active {
+  transform: scale(0.94);
+}
+
+/* bloqueado */
+.mdm__slot--blocked {
+  background: #fee2e2;
+  border-color: #f87171;
+  color: #dc2626;
+}
+
+.mdm__slot--blocked:hover {
+  background: #fecaca;
+  border-color: #ef4444;
+}
+
+.mdm__slot--blocked:active {
+  transform: scale(0.94);
+}
+
+/* con turno */
+.mdm__slot--booked {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #94a3b8;
+  cursor: default;
+  opacity: 0.7;
+}
+
+/* ─────────────────────────────────────────────────────
+   BARRA DE CONFIRMACIÓN (footer del modal, fuera del scroll)
+───────────────────────────────────────────────────── */
+.mdm__confirm-bar {
+  flex-shrink: 0;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.mdm__confirm-bar-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #ffffff;
+  flex: 1;
+  min-width: 140px;
+}
+
+.mdm__confirm-bar-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.mdm__confirm-bar-cancel {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  background: transparent;
+  color: #e0e7ff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.mdm__confirm-bar-cancel:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mdm__confirm-bar-ok {
+  height: 40px;
+  padding: 0 20px;
+  border-radius: 10px;
+  border: none;
+  background: #ffffff;
+  color: #1e40af;
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.mdm__confirm-bar-ok:hover {
+  background: #f0f9ff;
+}
+
+/* ─────────────────────────────────────────────────────
+   CONFIRM DIALOG (nested modal)
+───────────────────────────────────────────────────── */
+.mdm__dialog {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  width: 100%;
+  max-width: 360px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+.mdm__dialog-msg {
+  margin: 0 0 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+  line-height: 1.5;
+}
+
+.mdm__dialog-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ─────────────────────────────────────────────────────
+   RESPONSIVE — móvil
+───────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .mdm {
+    border-radius: 20px 20px 0 0;
+    max-height: 92vh;
+    margin-top: auto;
+  }
+
+  .mdm__confirm-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .mdm__confirm-bar-actions {
+    width: 100%;
+  }
+
+  .mdm__confirm-bar-cancel,
+  .mdm__confirm-bar-ok {
+    flex: 1;
+  }
+
+  .mdm__slot {
+    min-width: 66px;
+    font-size: 0.85rem;
+  }
 }

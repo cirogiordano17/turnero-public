@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import BookingCategorySelector from "./BookingCategorySelector";
-import BookingViewForm from "./BookingViewForm";
+import BookingFlow from "./BookingFlow";
 import "./styles/booking-view.css";
 import { Button } from "../ui/Button";
 
@@ -46,9 +46,9 @@ function BookingView({ selectedCategory, onSelectCategory, onBack }) {
             <BookingCategorySelector onSelectCategory={onSelectCategory} />
           </>
         ) : (
-          <BookingViewForm
+          <BookingFlow
             category={selectedCategory}
-            onChangeCategory={onSelectCategory}
+            onBackToCategory={() => onSelectCategory(null)}
             onStepChange={setCurrentStep}
           />
         )}

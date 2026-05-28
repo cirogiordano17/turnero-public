@@ -18,11 +18,6 @@ function addMinutesIso(iso, minutes) {
   return end.toISOString();
 }
 
-async function listAppointments(db) {
-  const result = await apptRepo.listLatestAppointments(db);
-  return result.rows;
-}
-
 async function createAppointment(pool, payload) {
   const { first_name, last_name, whatsapp, email, comment, service_ids, start_at, category } = payload;
   const safeCategory = ["pelu", "akashicos"].includes(category) ? category : "pelu";
@@ -126,10 +121,6 @@ async function createAppointment(pool, payload) {
   }
 
 
-    console.log("TOTAL MIN:", totalMin);
-    console.log("TOTAL PRICE:", totalPrice);
-    console.log("SERVICE IDS:", service_ids);
-
     // insert appointment + services
     const apptRes = await apptRepo.insertAppointment(client, {
   clientId,
@@ -161,4 +152,4 @@ async function createAppointment(pool, payload) {
 
 
 
-module.exports = { listAppointments, createAppointment,  };
+module.exports = { createAppointment };
