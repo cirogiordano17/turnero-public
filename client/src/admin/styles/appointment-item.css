@@ -82,7 +82,11 @@
   display: grid;
   gap: 10px;
   margin-top: 10px;
-  grid-template-columns: repeat(2, 1fr); /* default: 2 botones */
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.admin-appointment-item__actions--three {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .admin-btn {
@@ -107,6 +111,20 @@
 .admin-btn--cancel {
   background: #fff1f2;
   color: #e11d48;
+}
+
+.admin-btn--reschedule {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.admin-btn--reschedule:hover {
+  background: #dbeafe;
+}
+
+.admin-btn--reschedule:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .admin-btn--ghost {

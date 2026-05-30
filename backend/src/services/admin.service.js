@@ -1,5 +1,5 @@
 const adminRepo = require("../repositories/admin.repo");
-const { TZ } = require("../utils/time");
+const { TZ, toUtcMs, minutesToMs } = require("../utils/time");
 
 const timeFmt = new Intl.DateTimeFormat("es-AR", {
   timeZone: TZ,
@@ -83,6 +83,38 @@ async function getHistoryAppointments(db) {
   }));
 }
 
+async function rescheduleAppointment(db, appointmentId, dateYmd, startHhmm) {
+  const apptRes = await adminRepo.getAppointmentForReschedule(db, appointmentId);
+
+  if (apptRes.rows.length === 0) {
+    const err = new Error("Turno no encontrado");
+    err.status = 404;
+    throw err;
+  }
+
+  const appt = apptRes.rows[0];
+
+  if (appt.status === "CANCELADO") {
+    const err = new Error("No se puede reprogramar un turno cancelado");
+    err.status = 400;
+    throw err;
+  }
+
+  const newStartIso = `${dateYmd}T${startHhmm}:00-03:00`;
+  const endMs = toUtcMs(dateYmd, startHhmm) + minutesToMs(appt.duration_total);
+  const newEndIso = new Date(endMs).toISOString();
+
+  const overlapRes = await adminRepo.checkRescheduleOverlap(db, appointmentId, newStartIso, newEndIso);
+  if (overlapRes.rows.length > 0) {
+    const err = new Error("El horario seleccionado ya está ocupado");
+    err.status = 409;
+    throw err;
+  }
+
+  const updated = await adminRepo.rescheduleAppointmentTimes(db, appointmentId, newStartIso, newEndIso);
+  return updated.rows[0];
+}
+
 async function getClosedDays(db, from, to) {
   const result = await adminRepo.getClosedDaysInRange(db, from, to);
   return result.rows;
@@ -106,6 +138,7 @@ module.exports = {
   blockDay,
   unblockDay,
   confirmAkashicosPayment,
+  rescheduleAppointment,
   getClosedDays,
   getAllClosedDays,
   getWorkingHours,

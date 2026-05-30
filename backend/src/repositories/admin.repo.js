@@ -189,6 +189,35 @@ async function getWorkingHours(db) {
   );
 }
 
+async function getAppointmentForReschedule(db, id) {
+  return db.query(
+    `SELECT id, category, status, duration_total FROM appointments WHERE id = $1 LIMIT 1`,
+    [id]
+  );
+}
+
+async function checkRescheduleOverlap(db, excludeId, newStartIso, newEndIso) {
+  return db.query(
+    `SELECT 1 FROM appointments
+     WHERE id != $1
+       AND status IN ('CONFIRMADO', 'PENDIENTE_PAGO')
+       AND start_at < $3::timestamptz
+       AND end_at   > $2::timestamptz
+     LIMIT 1`,
+    [excludeId, newStartIso, newEndIso]
+  );
+}
+
+async function rescheduleAppointmentTimes(db, id, newStartIso, newEndIso) {
+  return db.query(
+    `UPDATE appointments
+     SET start_at = $2::timestamptz, end_at = $3::timestamptz
+     WHERE id = $1
+     RETURNING id, status, start_at, end_at, category`,
+    [id, newStartIso, newEndIso]
+  );
+}
+
 module.exports = {
   getAdminAppointmentsForRange,
   getUpcomingAppointments,
@@ -202,4 +231,7 @@ module.exports = {
   getClosedDaysInRange,
   getAllClosedDays,
   getWorkingHours,
+  getAppointmentForReschedule,
+  checkRescheduleOverlap,
+  rescheduleAppointmentTimes,
 };

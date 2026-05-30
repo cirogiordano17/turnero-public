@@ -102,6 +102,29 @@ async function getHistoryAppointments(req, res) {
   }
 }
 
+async function rescheduleAdminAppointment(req, res) {
+  const id = toIntId(req.params.id);
+  if (!id) return res.status(400).json({ error: "id inválido" });
+
+  const { date, start_hhmm } = req.body;
+
+  if (!date || !isYmd(date)) {
+    return res.status(400).json({ error: "date inválida. Formato: YYYY-MM-DD" });
+  }
+
+  if (!start_hhmm || !/^\d{2}:\d{2}$/.test(start_hhmm)) {
+    return res.status(400).json({ error: "start_hhmm inválido. Formato: HH:MM" });
+  }
+
+  try {
+    const data = await adminService.rescheduleAppointment(req.app.locals.db, id, date, start_hhmm);
+    res.json(data);
+  } catch (err) {
+    console.error("Error PATCH /api/admin/appointments/:id/reschedule:", err);
+    res.status(err.status || 500).json({ error: err.message });
+  }
+}
+
 async function createBlockedSlot(req, res) {
   const { start_at, end_at, reason } = req.body;
 
@@ -205,6 +228,7 @@ module.exports = {
   blockClosedDay,
   unblockClosedDay,
   confirmAkashicosPayment,
+  rescheduleAdminAppointment,
   createBlockedSlot,
   getBlockedSlots,
   deleteBlockedSlot,

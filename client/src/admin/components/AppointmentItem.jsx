@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { cancelAppointment, confirmPayment } from "../api/admin.api";
 import AdminConfirmModal from "./AdminConfirmModal";
+import RescheduleModal from "./RescheduleModal";
 
 function AppointmentItem({ appointment, onActionDone }) {
   const {
@@ -21,6 +22,7 @@ function AppointmentItem({ appointment, onActionDone }) {
     type: null,
   });
   const [loadingAction, setLoadingAction] = useState(false);
+  const [rescheduleOpen, setRescheduleOpen] = useState(false);
 
   const fullName = `${first_name} ${last_name}`.trim();
   const hasWhatsapp = !!whatsapp?.trim();
@@ -142,18 +144,14 @@ function AppointmentItem({ appointment, onActionDone }) {
           </div>
         )}
 
-        <div className="admin-appointment-item__actions">
-          {category === "akashicos" && status === "PENDIENTE_PAGO" && (
-            <button
-              type="button"
-              className="admin-btn admin-btn--confirm"
-              onClick={openConfirmPaymentModal}
-            >
-              Confirmar reserva
-            </button>
-          )}
-
-          {status !== "CANCELADO" && (
+        {status !== "CANCELADO" && (
+          <div
+            className={`admin-appointment-item__actions${
+              category === "akashicos" && status === "PENDIENTE_PAGO"
+                ? " admin-appointment-item__actions--three"
+                : ""
+            }`}
+          >
             <button
               type="button"
               className="admin-btn admin-btn--cancel"
@@ -161,8 +159,26 @@ function AppointmentItem({ appointment, onActionDone }) {
             >
               Cancelar
             </button>
-          )}
-        </div>
+
+            <button
+              type="button"
+              className="admin-btn admin-btn--reschedule"
+              onClick={() => setRescheduleOpen(true)}
+            >
+              Reprogramar
+            </button>
+
+            {category === "akashicos" && status === "PENDIENTE_PAGO" && (
+              <button
+                type="button"
+                className="admin-btn admin-btn--confirm"
+                onClick={openConfirmPaymentModal}
+              >
+                Confirmar reserva
+              </button>
+            )}
+          </div>
+        )}
       </article>
 
       <AdminConfirmModal
@@ -174,6 +190,13 @@ function AppointmentItem({ appointment, onActionDone }) {
         loading={loadingAction}
         onCancel={closeModal}
         onConfirm={handleConfirmAction}
+      />
+
+      <RescheduleModal
+        open={rescheduleOpen}
+        appointment={appointment}
+        onClose={() => setRescheduleOpen(false)}
+        onDone={onActionDone}
       />
     </>
   );

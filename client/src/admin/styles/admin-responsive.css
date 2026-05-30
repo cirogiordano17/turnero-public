@@ -47,6 +47,18 @@
   .admin-btn {
     flex: 1 1 auto;
   }
+
+  .admin-appointment-item__actions--three {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .admin-appointment-item__actions--three .admin-btn--confirm {
+    grid-column: 1 / -1;
+  }
+
+  .admin-reschedule__slots-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .admin-header__top {

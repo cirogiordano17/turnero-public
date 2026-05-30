@@ -96,6 +96,25 @@ export async function confirmPayment(id) {
 }
 
 
+export async function rescheduleAppointment(id, date, startHhmm) {
+  const res = await fetch(`${API_BASE}/admin/appointments/${id}/reschedule`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+    },
+    body: JSON.stringify({ date, start_hhmm: startHhmm }),
+  });
+
+  const data = await res.json().catch(() => ({}));
+
+  if (!res.ok) {
+    throw new Error(data.error || "No se pudo reprogramar el turno");
+  }
+
+  return data;
+}
+
 export async function getAvailability(date, serviceIds = [1]) {
   const res = await fetch(
     `${API_BASE}/availability?date=${date}&service_ids=${serviceIds.join(",")}`

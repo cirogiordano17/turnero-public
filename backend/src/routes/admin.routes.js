@@ -22,6 +22,7 @@ router.get("/appointments/history", requireAdminAuth, ctrl.getHistoryAppointment
 router.get("/appointments", requireAdminAuth, ctrl.getAdminAppointments);
 router.delete("/appointments/:id", requireAdminAuth, ctrl.cancelAdminAppointment);
 router.patch("/appointments/:id/confirm-payment", requireAdminAuth, ctrl.confirmAkashicosPayment);
+router.patch("/appointments/:id/reschedule", requireAdminAuth, ctrl.rescheduleAdminAppointment);
 
 
 router.get("/closed-days", requireAdminAuth, ctrl.getClosedDays);
