@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useAdminAuth } from "../hooks/useAdminAuth";
+import { CONTACT } from "../../config/contact";
 import { useAdminAppointments } from "../hooks/useAdminAppointments";
 import AdminLoginForm from "../components/AdminLoginForm";
 import AdminHeader from "../components/AdminHeader";
@@ -53,7 +54,7 @@ function AdminPage() {
     document.title = "Turnero | Admin";
 
     return () => {
-      document.title = previousTitle || "Salon Sala";
+      document.title = previousTitle || CONTACT.salonName;
     };
   }, []);
 

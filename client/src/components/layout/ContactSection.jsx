@@ -87,10 +87,12 @@ export default function ContactSection() {
             </div>
 
             <div className="contact-hours">
-              <div className="contact-hours__item">
-                <p>Lunes a Sabados</p>
-                <span>9:00 - 13:00 y 15:00 - 20:00</span>
-              </div>
+              {CONTACT.hours.map((h) => (
+                <div key={h.days} className="contact-hours__item">
+                  <p>{h.days}</p>
+                  <span>{h.range}</span>
+                </div>
+              ))}
             </div>
           </article>
 

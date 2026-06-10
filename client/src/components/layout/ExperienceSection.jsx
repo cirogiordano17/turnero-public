@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./styles/experience-section.css";
+import { CONTACT } from "../../config/contact";
 
 function FadeInStat({ value, label, delay = 0 }) {
   const ref = useRef(null);
@@ -42,7 +43,7 @@ export default function ExperienceSection() {
         <div className="experience-section__image-wrapper">
           <img
             src="/img/experience.jpg"
-            alt="Experiencia Salón Sala"
+            alt={`Experiencia ${CONTACT.salonName}`}
             className="experience-section__image"
           />
         </div>
@@ -53,7 +54,7 @@ export default function ExperienceSection() {
           </h2>
 
           <p className="experience-section__text">
-            En Salón Sala creemos que cada visita es una oportunidad para
+            En {CONTACT.salonName} creemos que cada visita es una oportunidad para
             renovarte. Combinamos técnicas profesionales de belleza con un
             enfoque integral que cuida tanto tu apariencia como tu bienestar
             interior.
