@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Settings } from "lucide-react";
 
-function AdminSettingsMenu({ onManageServices,onManageDays, onLogout }) {
+function AdminSettingsMenu({ onManageServices, onManageDays, onManageClients, onLogout }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef(null);
 
@@ -51,6 +51,17 @@ function AdminSettingsMenu({ onManageServices,onManageDays, onLogout }) {
             }}
           >
             Administrar días
+          </button>
+
+          <button
+            type="button"
+            className="admin-settings__item"
+            onClick={() => {
+              setOpen(false);
+              onManageClients?.();
+            }}
+          >
+            Clientes
           </button>
 
           <button

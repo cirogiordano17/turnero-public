@@ -15,7 +15,13 @@ function AppointmentItem({ appointment, onActionDone }) {
     whatsapp,
     email,
     comment,
+    services,
   } = appointment;
+
+  const serviceLabel =
+    category === "pelu" && Array.isArray(services) && services.length > 0
+      ? services.map((s) => s.name).join(" + ")
+      : null;
 
   const [confirmState, setConfirmState] = useState({
     open: false,
@@ -115,7 +121,13 @@ function AppointmentItem({ appointment, onActionDone }) {
           </span>
         </div>
 
-        {(hasEmail || hasComment || hasWhatsapp ) && (
+        {serviceLabel && (
+          <div className="admin-appointment-item__services">
+            {serviceLabel}
+          </div>
+        )}
+
+        {(hasEmail || hasComment || hasWhatsapp) && (
           <div className="admin-appointment-item__extra">
             {hasWhatsapp && (
               <div className="admin-appointment-item__extra-row">

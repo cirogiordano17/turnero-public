@@ -1,0 +1,387 @@
+/* ── Overlay ── */
+.acm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+}
+
+/* ── Modal card ── */
+.acm {
+  width: 100%;
+  max-width: 540px;
+  max-height: 88vh;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Header ── */
+.acm__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  flex-shrink: 0;
+}
+
+.acm__header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #0f172a;
+}
+
+.acm__title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.acm__close {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 10px;
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.acm__close:hover {
+  background: #e2e8f0;
+}
+
+/* ── Hint / empty ── */
+.acm__hint {
+  padding: 20px;
+  color: #94a3b8;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.acm__hint--error {
+  color: #ef4444;
+}
+
+/* ════════════════════════════
+   LIST VIEW
+════════════════════════════ */
+.acm__list-view {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+}
+
+.acm__search-wrap {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  flex-shrink: 0;
+}
+
+.acm__search {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.875rem;
+  color: #0f172a;
+  background: #f8fafc;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.acm__search:focus {
+  border-color: #6366f1;
+  background: #fff;
+}
+
+.acm__client-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.acm__client-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.acm__client-row:hover {
+  background: #f8fafc;
+}
+
+.acm__client-row-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.acm__client-row-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.acm__client-row-phone {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.acm__client-row-email {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.acm__client-row-arrow {
+  color: #cbd5e1;
+  flex-shrink: 0;
+  transform: rotate(180deg);
+}
+
+/* ── Avatar ── */
+.acm__client-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #e0e7ff;
+  color: #4f46e5;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  text-transform: uppercase;
+}
+
+.acm__client-avatar--sm {
+  width: 36px;
+  height: 36px;
+  font-size: 0.8rem;
+}
+
+/* ════════════════════════════
+   DETAIL VIEW
+════════════════════════════ */
+.acm__detail {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+}
+
+.acm__detail-header {
+  padding: 12px 16px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  flex-shrink: 0;
+}
+
+.acm__back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: none;
+  color: #6366f1;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+.acm__back-btn:hover {
+  color: #4338ca;
+}
+
+.acm__client-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.acm__client-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.acm__client-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 3px;
+}
+
+.acm__client-meta span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+/* ── Appointments header ── */
+.acm__appointments-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.acm__appointments-count {
+  margin-left: auto;
+  background: #f1f5f9;
+  color: #64748b;
+  border-radius: 20px;
+  padding: 1px 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* ── Appointment cards ── */
+.acm__appointments-list {
+  overflow-y: auto;
+  flex: 1;
+  padding: 6px 12px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.acm__appt-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.acm__appt-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.acm__appt-date {
+  display: flex;
+  flex-direction: column;
+}
+
+.acm__appt-day {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0f172a;
+  text-transform: capitalize;
+}
+
+.acm__appt-time {
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.acm__appt-services {
+  font-size: 0.82rem;
+  color: #334155;
+}
+
+.acm__appt-no-services {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.acm__appt-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.acm__appt-meta {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.acm__appt-price {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.acm__appt-comment {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #64748b;
+  font-style: italic;
+  border-top: 1px dashed #e2e8f0;
+  padding-top: 6px;
+}
+
+/* ── Status badges ── */
+.acm__badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.acm-badge--confirmado {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.acm-badge--cancelado {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.acm-badge--noshow {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.acm-badge--pendiente {
+  background: #fef9c3;
+  color: #a16207;
+}

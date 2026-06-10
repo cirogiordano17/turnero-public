@@ -5,6 +5,7 @@ const ctrl = require("../controllers/admin.controller");
 const authController = require("../controllers/auth.controller");
 const adminEventsController = require("../controllers/adminEvents.controller");
 const adminServicesCtrl = require("../controllers/adminServices.controller");
+const adminClientsCtrl = require("../controllers/adminClients.controller");
 const { requireAdminAuth } = require("../middleware/adminAuth.middleware");
 
 // LOGIN (NO protegido)
@@ -37,6 +38,10 @@ router.post("/services", requireAdminAuth, adminServicesCtrl.createAdminService)
 router.patch("/services/:id", requireAdminAuth, adminServicesCtrl.updateAdminService);
 
 router.get("/working-hours", requireAdminAuth, ctrl.getWorkingHours);
+
+// CLIENTS
+router.get("/clients", requireAdminAuth, adminClientsCtrl.getClients);
+router.get("/clients/:id/appointments", requireAdminAuth, adminClientsCtrl.getClientAppointments);
 
 router.get("/blocked-slots", requireAdminAuth, ctrl.getBlockedSlots);
 router.post("/blocked-slots", requireAdminAuth, ctrl.createBlockedSlot);

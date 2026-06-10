@@ -6,6 +6,7 @@ import AdminLoginForm from "../components/AdminLoginForm";
 import AdminHeader from "../components/AdminHeader";
 import DayGroup from "../components/DayGroup";
 import AdminServicesModal from "../components/AdminServicesModal";
+import AdminClientsModal from "../components/AdminClientsModal";
 import "../styles/admin.css";
 
 function groupAppointmentsByDate(appointments) {
@@ -24,6 +25,7 @@ function groupAppointmentsByDate(appointments) {
 function AdminPage() {
   const [mode, setMode] = useState("upcoming");
   const [servicesModalOpen, setServicesModalOpen] = useState(false);
+  const [clientsModalOpen, setClientsModalOpen] = useState(false);
 
   const {
     admin,
@@ -88,6 +90,7 @@ function AdminPage() {
           setMode={setMode}
           onLogout={logout}
           onManageServices={() => setServicesModalOpen(true)}
+          onManageClients={() => setClientsModalOpen(true)}
         />
 
         <div
@@ -137,6 +140,11 @@ function AdminPage() {
       <AdminServicesModal
         open={servicesModalOpen}
         onClose={() => setServicesModalOpen(false)}
+      />
+
+      <AdminClientsModal
+        open={clientsModalOpen}
+        onClose={() => setClientsModalOpen(false)}
       />
     </div>
   );

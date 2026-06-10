@@ -349,3 +349,21 @@ export async function deleteBlockedSlot(id) {
 
   return res.json().catch(() => ({}));
 }
+
+export async function getAdminClients() {
+  const res = await fetch(`${API_BASE}/admin/clients`, {
+    headers: { ...getAuthHeaders() },
+  });
+
+  if (!res.ok) throw new Error("No se pudieron cargar los clientes");
+  return res.json();
+}
+
+export async function getAdminClientAppointments(clientId) {
+  const res = await fetch(`${API_BASE}/admin/clients/${clientId}/appointments`, {
+    headers: { ...getAuthHeaders() },
+  });
+
+  if (!res.ok) throw new Error("No se pudieron cargar los turnos del cliente");
+  return res.json();
+}

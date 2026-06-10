@@ -137,6 +137,13 @@
   background: #f1f5f9;
 }
 
+.admin-appointment-item__services {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
 .admin-appointment-item__extra {
   margin-top: 8px;
   margin-bottom: 10px;
