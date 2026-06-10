@@ -1,6 +1,6 @@
 .results-section {
   background: linear-gradient(135deg, #103b28 0%, #184d35 100%);
-  padding: 0 20px 100px;
+  padding: 80px 20px 100px;
 }
 
 .results-section__card {
@@ -80,7 +80,7 @@
 
 @media (max-width: 768px) {
   .results-section {
-    padding: 0 16px 80px;
+    padding: 60px 16px 80px;
   }
 
   .results-section__content {

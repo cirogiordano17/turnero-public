@@ -59,6 +59,12 @@
   gap: 22px;
 }
 
+.contact-card__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .contact-card__left--top {
   align-items: flex-start;
 }
@@ -81,7 +87,7 @@
 }
 
 .contact-card__content h3 {
-  margin: 0 0 10px;
+  margin: 0;
   color: #183a28;
   font-size: 2rem;
   line-height: 1.1;
@@ -89,7 +95,7 @@
 }
 
 .contact-card__content p {
-  margin: 0;
+  margin: 10px 0 0;
   color: #5b6a7d;
   font-size: 1.1rem;
   line-height: 1.5;
@@ -182,7 +188,7 @@
   }
 
   .contact-card__left {
-    align-items: flex-start;
+    align-items: center;
   }
 
   .contact-card__icon {
