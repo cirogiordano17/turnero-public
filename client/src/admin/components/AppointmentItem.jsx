@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { cancelAppointment, confirmPayment } from "../api/admin.api";
+import { cancelAppointment, confirmPayment, markAttendance } from "../api/admin.api";
 import AdminConfirmModal from "./AdminConfirmModal";
 import RescheduleModal from "./RescheduleModal";
 
-function AppointmentItem({ appointment, onActionDone }) {
+function AppointmentItem({ appointment, onActionDone, isHistory = false }) {
   const {
     id,
     category,
@@ -54,39 +54,46 @@ function AppointmentItem({ appointment, onActionDone }) {
 
       if (confirmState.type === "cancel") {
         await cancelAppointment(id);
-      }
-
-      if (confirmState.type === "confirmPayment") {
+      } else if (confirmState.type === "confirmPayment") {
         await confirmPayment(id);
+      } else if (confirmState.type === "attended") {
+        await markAttendance(id, true);
+      } else if (confirmState.type === "noshow") {
+        await markAttendance(id, false);
       }
 
       closeModal();
       await onActionDone?.();
     } catch (err) {
-      alert(
-        err.message ||
-          (confirmState.type === "cancel"
-            ? "No se pudo cancelar el turno"
-            : "No se pudo confirmar el pago")
-      );
+      alert(err.message || "No se pudo completar la acción");
     } finally {
       setLoadingAction(false);
     }
   }
 
   const modalTitle =
-    confirmState.type === "cancel" ? "Cancelar turno" : "Confirmar pago";
+    confirmState.type === "cancel" ? "Cancelar turno"
+    : confirmState.type === "confirmPayment" ? "Confirmar pago"
+    : confirmState.type === "attended" ? "Marcar asistencia"
+    : "Marcar inasistencia";
 
   const modalMessage =
     confirmState.type === "cancel"
       ? `¿Seguro que querés cancelar el turno de ${fullName}? Esta acción no se puede deshacer.`
-      : `${fullName} ya realizó el pago del turno. ¿Querés confirmarlo?`;
+      : confirmState.type === "confirmPayment"
+      ? `${fullName} ya realizó el pago del turno. ¿Querés confirmarlo?`
+      : confirmState.type === "attended"
+      ? `¿Confirmás que ${fullName} asistió al turno?`
+      : `¿Confirmás que ${fullName} no asistió al turno?`;
 
   const modalConfirmText =
-    confirmState.type === "cancel" ? "Sí, cancelar" : "Sí, confirmar";
+    confirmState.type === "cancel" ? "Sí, cancelar"
+    : confirmState.type === "attended" ? "Sí, asistió"
+    : confirmState.type === "noshow" ? "Sí, no asistió"
+    : "Sí, confirmar";
 
   const modalVariant =
-    confirmState.type === "cancel" ? "danger" : "success";
+    confirmState.type === "cancel" || confirmState.type === "noshow" ? "danger" : "success";
 
   return (
     <>
@@ -111,12 +118,11 @@ function AppointmentItem({ appointment, onActionDone }) {
           <span
             className={`admin-badge admin-badge--status admin-badge--status-${status}`}
           >
-            {status === "CONFIRMADO"
-              ? "Confirmado"
-              : status === "PENDIENTE_PAGO"
-              ? "Pendiente de pago"
-              : status === "CANCELADO"
-              ? "Cancelado"
+            {status === "CONFIRMADO" ? "Confirmado"
+              : status === "PENDIENTE_PAGO" ? "Pendiente de pago"
+              : status === "CANCELADO" ? "Cancelado"
+              : status === "ASISTIDO" ? "Asistió"
+              : status === "NO_SHOW" ? "No asistió"
               : status}
           </span>
         </div>
@@ -156,7 +162,7 @@ function AppointmentItem({ appointment, onActionDone }) {
           </div>
         )}
 
-        {status !== "CANCELADO" && (
+        {!isHistory && status !== "CANCELADO" && (
           <div
             className={`admin-appointment-item__actions${
               category === "akashicos" && status === "PENDIENTE_PAGO"
@@ -189,6 +195,26 @@ function AppointmentItem({ appointment, onActionDone }) {
                 Confirmar reserva
               </button>
             )}
+          </div>
+        )}
+
+        {isHistory && status !== "ASISTIDO" && status !== "NO_SHOW" && status !== "CANCELADO" && (
+          <div className="admin-appointment-item__actions">
+            <button
+              type="button"
+              className="admin-btn admin-btn--confirm"
+              onClick={() => setConfirmState({ open: true, type: "attended" })}
+            >
+              Asistió
+            </button>
+
+            <button
+              type="button"
+              className="admin-btn admin-btn--cancel"
+              onClick={() => setConfirmState({ open: true, type: "noshow" })}
+            >
+              No asistió
+            </button>
           </div>
         )}
       </article>

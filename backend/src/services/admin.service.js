@@ -115,6 +115,19 @@ async function rescheduleAppointment(db, appointmentId, dateYmd, startHhmm) {
   return updated.rows[0];
 }
 
+async function markAttendance(db, appointmentId, attended) {
+  const status = attended ? "ASISTIDO" : "NO_SHOW";
+  const result = await adminRepo.markAttendance(db, appointmentId, status);
+
+  if (result.rows.length === 0) {
+    const err = new Error("Turno no encontrado o aún no comenzó");
+    err.status = 404;
+    throw err;
+  }
+
+  return result.rows[0];
+}
+
 async function getClosedDays(db, from, to) {
   const result = await adminRepo.getClosedDaysInRange(db, from, to);
   return result.rows;
@@ -142,4 +155,5 @@ module.exports = {
   getClosedDays,
   getAllClosedDays,
   getWorkingHours,
+  markAttendance,
 };

@@ -210,6 +210,24 @@ async function getAllClosedDays(req, res) {
   }
 }
 
+async function markAttendance(req, res) {
+  const id = toIntId(req.params.id);
+  if (!id) return res.status(400).json({ error: "id inválido" });
+
+  const { attended } = req.body;
+  if (typeof attended !== "boolean") {
+    return res.status(400).json({ error: "attended debe ser true o false" });
+  }
+
+  try {
+    const data = await adminService.markAttendance(req.app.locals.db, id, attended);
+    res.json(data);
+  } catch (err) {
+    console.error("Error PATCH /api/admin/appointments/:id/attendance:", err);
+    res.status(err.status || 500).json({ error: err.message });
+  }
+}
+
 async function getWorkingHours(req, res) {
   try {
     const rows = await adminService.getWorkingHours(req.app.locals.db);
@@ -235,4 +253,5 @@ module.exports = {
   getClosedDays,
   getAllClosedDays,
   getWorkingHours,
+  markAttendance,
 };

@@ -34,8 +34,19 @@
   color: #173f2b;
 }
 
+.hero__location {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin: 16px 0 0;
+  color: #46546b;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
 .hero__subtitle {
-  margin: 36px 0 0;
+  margin: 24px 0 0;
   font-size: clamp(1.4rem, 2.8vw, 2.4rem);
   font-weight: 300;
   color: #46546b;

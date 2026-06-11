@@ -78,6 +78,18 @@
   border: 1px solid #fecaca;
 }
 
+.admin-badge--status-ASISTIDO {
+  background: #dcfce7;
+  color: #15803d;
+  border: 1px solid #bbf7d0;
+}
+
+.admin-badge--status-NO_SHOW {
+  background: #f3f4f6;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
+}
+
 .admin-appointment-item__actions {
   display: grid;
   gap: 10px;

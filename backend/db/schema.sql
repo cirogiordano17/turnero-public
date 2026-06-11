@@ -27,7 +27,8 @@ CREATE TYPE public.appointment_status AS ENUM (
     'CONFIRMADO',
     'CANCELADO',
     'NO_SHOW',
-    'PENDIENTE_PAGO'
+    'PENDIENTE_PAGO',
+    'ASISTIDO'
 );
 
 

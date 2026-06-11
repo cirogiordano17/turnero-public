@@ -1,6 +1,9 @@
 export const CONTACT = {
   salonName: "Salón Sala",
 
+  city: "Córdoba",
+  province: "Córdoba",
+
   whatsapp: "541123456789", // sin + ni espacios
   phone: "+54 11 2345-6789",
   instagram: "@salonsala",

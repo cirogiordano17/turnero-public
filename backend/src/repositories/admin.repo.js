@@ -110,7 +110,7 @@ async function getUpcomingAppointments(db) {
     JOIN clients c ON c.id = a.client_id
     LEFT JOIN appointment_services aps ON aps.appointment_id = a.id
     LEFT JOIN services s ON s.id = aps.service_id
-    WHERE a.end_at > NOW()
+    WHERE a.start_at > NOW() - INTERVAL '15 minutes'
       AND a.start_at < NOW() + INTERVAL '15 days'
     GROUP BY a.id, c.id
     ORDER BY a.start_at ASC
@@ -150,8 +150,8 @@ async function getHistoryAppointments(db) {
     JOIN clients c ON c.id = a.client_id
     LEFT JOIN appointment_services aps ON aps.appointment_id = a.id
     LEFT JOIN services s ON s.id = aps.service_id
-    WHERE a.end_at <= NOW()
-      AND a.end_at >= NOW() - INTERVAL '60 days'
+    WHERE a.start_at <= NOW() - INTERVAL '15 minutes'
+      AND a.start_at >= NOW() - INTERVAL '60 days'
     GROUP BY a.id, c.id
     ORDER BY a.start_at DESC
     `
@@ -218,6 +218,17 @@ async function rescheduleAppointmentTimes(db, id, newStartIso, newEndIso) {
   );
 }
 
+async function markAttendance(db, id, status) {
+  return db.query(
+    `UPDATE appointments
+     SET status = $2
+     WHERE id = $1
+       AND start_at <= NOW() - INTERVAL '15 minutes'
+     RETURNING id, status`,
+    [id, status]
+  );
+}
+
 module.exports = {
   getAdminAppointmentsForRange,
   getUpcomingAppointments,
@@ -234,4 +245,5 @@ module.exports = {
   getAppointmentForReschedule,
   checkRescheduleOverlap,
   rescheduleAppointmentTimes,
+  markAttendance,
 };

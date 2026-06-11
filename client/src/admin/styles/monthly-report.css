@@ -1,0 +1,311 @@
+/* ── OVERLAY / MODAL ─────────────────────────────────────────── */
+
+.mreport-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+
+.mreport-modal {
+  background: #fff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 860px;
+  padding: 28px 28px 40px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* ── HEADER ──────────────────────────────────────────────────── */
+
+.mreport-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.mreport-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0;
+}
+
+.mreport-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mreport-print-btn {
+  background: #1f4b33;
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 9px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.mreport-print-btn:hover {
+  background: #183a28;
+}
+
+.mreport-close-btn {
+  background: #f3f4f6;
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+.mreport-close-btn:hover {
+  background: #e5e7eb;
+}
+
+/* ── NAVEGADOR DE MES ────────────────────────────────────────── */
+
+.mreport-month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.mreport-nav-btn {
+  background: #f3f4f6;
+  border: none;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #374151;
+  transition: background 0.15s;
+}
+
+.mreport-nav-btn:hover:not(:disabled) {
+  background: #e5e7eb;
+}
+
+.mreport-nav-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.mreport-month-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f4b33;
+  min-width: 160px;
+  text-align: center;
+}
+
+/* ── KPIs ────────────────────────────────────────────────────── */
+
+.mreport-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.mreport-kpi {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mreport-kpi--green {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.mreport-kpi--highlight {
+  background: #f0fdf4;
+  border-color: #86efac;
+}
+
+.mreport-kpi__value {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #111827;
+  line-height: 1;
+}
+
+.mreport-kpi__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── SECCIONES ───────────────────────────────────────────────── */
+
+.mreport-section {
+  margin-bottom: 28px;
+}
+
+.mreport-section__title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #374151;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 14px;
+}
+
+/* ── TABLA ───────────────────────────────────────────────────── */
+
+.mreport-table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.mreport-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.84rem;
+}
+
+.mreport-table th {
+  background: #f9fafb;
+  color: #6b7280;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.mreport-table td {
+  padding: 9px 12px;
+  color: #374151;
+  border-bottom: 1px solid #f3f4f6;
+  white-space: nowrap;
+}
+
+.mreport-table tr:last-child td {
+  border-bottom: none;
+}
+
+.mreport-row--CANCELADO td,
+.mreport-row--NO_SHOW td {
+  color: #9ca3af;
+}
+
+/* ── ESTADOS VACÍO / CARGANDO / ERROR ───────────────────────── */
+
+.mreport-loading,
+.mreport-empty {
+  text-align: center;
+  color: #9ca3af;
+  padding: 40px 0;
+  font-size: 0.9rem;
+}
+
+.mreport-error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 0.9rem;
+  margin-bottom: 16px;
+}
+
+/* ── PRINT ───────────────────────────────────────────────────── */
+
+.print-only {
+  display: none;
+}
+
+.mreport-print-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 4px;
+}
+
+.mreport-month-label--print {
+  font-size: 1rem;
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .mreport-modal,
+  .mreport-modal * {
+    visibility: visible;
+  }
+
+  .mreport-modal {
+    position: fixed;
+    inset: 0;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 24px;
+    overflow: visible;
+    max-width: 100%;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block !important;
+  }
+
+  .mreport-kpis {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .mreport-table-wrap {
+    overflow: visible;
+  }
+
+  .mreport-section {
+    break-inside: avoid;
+  }
+}
+
+@media (max-width: 600px) {
+  .mreport-modal {
+    padding: 20px 16px 32px;
+  }
+
+  .mreport-kpis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

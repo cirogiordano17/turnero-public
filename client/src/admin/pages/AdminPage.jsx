@@ -7,6 +7,7 @@ import AdminHeader from "../components/AdminHeader";
 import DayGroup from "../components/DayGroup";
 import AdminServicesModal from "../components/AdminServicesModal";
 import AdminClientsModal from "../components/AdminClientsModal";
+import MonthlyReportModal from "../components/MonthlyReportModal";
 import "../styles/admin.css";
 
 function groupAppointmentsByDate(appointments) {
@@ -26,6 +27,7 @@ function AdminPage() {
   const [mode, setMode] = useState("upcoming");
   const [servicesModalOpen, setServicesModalOpen] = useState(false);
   const [clientsModalOpen, setClientsModalOpen] = useState(false);
+  const [monthlyReportOpen, setMonthlyReportOpen] = useState(false);
 
   const {
     admin,
@@ -91,6 +93,7 @@ function AdminPage() {
           onLogout={logout}
           onManageServices={() => setServicesModalOpen(true)}
           onManageClients={() => setClientsModalOpen(true)}
+          onMonthlyReport={() => setMonthlyReportOpen(true)}
         />
 
         <div
@@ -130,6 +133,7 @@ function AdminPage() {
                   date={date}
                   items={items}
                   onActionDone={reloadAppointments}
+                  isHistory={mode === "history"}
                 />
               ))}
             </div>
@@ -146,6 +150,10 @@ function AdminPage() {
         open={clientsModalOpen}
         onClose={() => setClientsModalOpen(false)}
       />
+
+      {monthlyReportOpen && (
+        <MonthlyReportModal onClose={() => setMonthlyReportOpen(false)} />
+      )}
     </div>
   );
 }

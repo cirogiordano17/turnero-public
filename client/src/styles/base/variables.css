@@ -9,6 +9,27 @@
   --color-dark-surface: #111111;
   --color-dark-text: #ffffff;
 
+  /* Verdes primarios del salón */
+  --color-primary: #1f4b33;
+  --color-primary-dark: #183a28;
+  --color-primary-mid: #314f3d;
+
+  /* Fondo de secciones claras */
+  --color-section-bg: #f5f3f1;
+
+  /* Textos secundarios */
+  --color-text-secondary: #54657a;
+  --color-text-detail: #2c405d;
+
+  /* Iconos */
+  --color-icon-bg: #e5e7e4;
+
+  /* WhatsApp */
+  --color-whatsapp: #00ae35;
+  --color-whatsapp-hover: #00952d;
+  --color-whatsapp-bg: #ccead5;
+  --color-whatsapp-icon: #00a63e;
+
   --color-pelu-accent: #25d366;
   --color-akash-accent: #8b5cf6;
 
@@ -18,4 +39,5 @@
   --radius-xl: 24px;
 
   --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --shadow-card: 0 8px 20px rgba(0, 0, 0, 0.08);
 }

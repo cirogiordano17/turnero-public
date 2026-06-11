@@ -1,4 +1,5 @@
 import "./styles/hero.css";
+import { MapPin } from "lucide-react";
 import { Button } from "../ui/Button";
 import { CONTACT } from "../../config/contact";
 
@@ -16,6 +17,10 @@ export default function Hero({ onOpenBooking }) {
 
       <div className="hero__content">
         <h1 className="hero__title">{CONTACT.salonName}</h1>
+        <p className="hero__location">
+          <MapPin size={15} strokeWidth={2} />
+          {CONTACT.city}, {CONTACT.province}
+        </p>
         <p className="hero__subtitle">Estilo, bienestar y transformación</p>
 
         <div className="hero__actions">

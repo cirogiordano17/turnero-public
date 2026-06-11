@@ -13,7 +13,7 @@ function formatGroupDate(dateString) {
   return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 }
 
-function DayGroup({ date, items, onActionDone }) {
+function DayGroup({ date, items, onActionDone, isHistory = false }) {
   return (
     <section className="admin-day-group">
       <div className="admin-day-group__header">{formatGroupDate(date)}</div>
@@ -24,6 +24,7 @@ function DayGroup({ date, items, onActionDone }) {
             key={appointment.id}
             appointment={appointment}
             onActionDone={onActionDone}
+            isHistory={isHistory}
           />
         ))}
       </div>

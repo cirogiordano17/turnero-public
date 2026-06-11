@@ -64,6 +64,14 @@
   border-radius: 999px;
   padding: 8px 16px;
   background: transparent;
-  border: 1px solid #ccc;
+  border: 1.5px solid #1f4b33;
+  color: #1f4b33;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
+}
+
+.btn--pill:hover {
+  background: #1f4b33;
+  color: #fff;
 }

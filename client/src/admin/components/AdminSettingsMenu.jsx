@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Settings } from "lucide-react";
 
-function AdminSettingsMenu({ onManageServices, onManageDays, onManageClients, onLogout }) {
+function AdminSettingsMenu({ onManageServices, onManageDays, onManageClients, onMonthlyReport, onLogout }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef(null);
 
@@ -62,6 +62,17 @@ function AdminSettingsMenu({ onManageServices, onManageDays, onManageClients, on
             }}
           >
             Clientes
+          </button>
+
+          <button
+            type="button"
+            className="admin-settings__item"
+            onClick={() => {
+              setOpen(false);
+              onMonthlyReport?.();
+            }}
+          >
+            Resumen mensual
           </button>
 
           <button

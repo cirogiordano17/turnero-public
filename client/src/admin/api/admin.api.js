@@ -350,6 +350,31 @@ export async function deleteBlockedSlot(id) {
   return res.json().catch(() => ({}));
 }
 
+export async function getMonthlyStats(month) {
+  const res = await fetch(`${API_BASE}/admin/stats/monthly?month=${month}`, {
+    headers: { ...getAuthHeaders() },
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || "No se pudo cargar el resumen");
+  return data;
+}
+
+export async function markAttendance(id, attended) {
+  const res = await fetch(`${API_BASE}/admin/appointments/${id}/attendance`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      ...getAuthHeaders(),
+    },
+    body: JSON.stringify({ attended }),
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error || "No se pudo registrar la asistencia");
+  return data;
+}
+
 export async function getAdminClients() {
   const res = await fetch(`${API_BASE}/admin/clients`, {
     headers: { ...getAuthHeaders() },
