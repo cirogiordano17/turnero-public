@@ -35,7 +35,16 @@ function Services({
     load();
   }, [category, onServicesLoaded]);
 
-  if (loading) return <div>Cargando servicios...</div>;
+  if (loading)
+    return (
+      <div className="services-loading">
+        <div className="services-loading__spinner" />
+        <p className="services-loading__title">Cargando servicios...</p>
+        <p className="services-loading__subtitle">
+          Esto puede demorar unos segundos
+        </p>
+      </div>
+    );
   if (error) return <div className="text-danger">{error}</div>;
 
   return (
