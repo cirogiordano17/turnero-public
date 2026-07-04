@@ -81,6 +81,15 @@ app.locals.adminEventClients = new Set();
 
 app.get("/health", (req, res) => res.json({ ok: true }));
 
+app.get("/health/db", async (req, res) => {
+  try {
+    await query("SELECT 1");
+    res.json({ ok: true });
+  } catch {
+    res.status(503).json({ ok: false });
+  }
+});
+
 app.use("/api/services", servicesRoutes);
 app.use("/api/appointments", bookingLimiter, appointmentsRoutes);
 app.use("/api/availability", availabilityRoutes);

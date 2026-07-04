@@ -1,0 +1,13 @@
+name: Keep DB alive
+
+on:
+  schedule:
+    - cron: "0 12 */4 * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping backend health/db endpoint
+        run: curl -fsS "${{ vars.BACKEND_URL }}/health/db"
