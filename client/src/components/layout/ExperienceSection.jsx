@@ -73,7 +73,7 @@ export default function ExperienceSection() {
           </p>
 
           <div className="experience-section__stats">
-            <FadeInStat value="10+" label="Años de experiencia" delay={0} />
+            <FadeInStat value="20+" label="Años de experiencia" delay={0} />
             <FadeInStat value="500+" label="Clientes felices" delay={150} />
             <FadeInStat value="100%" label="Dedicación" delay={300} />
           </div>

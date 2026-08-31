@@ -1,7 +1,7 @@
 export const CONTACT = {
   salonName: "MSA",
 
-  city: "Córdoba",
+  city: "Villa Allende",
   province: "Córdoba",
 
   whatsapp: "541123456789", // sin + ni espacios

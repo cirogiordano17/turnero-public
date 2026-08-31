@@ -1,4 +1,4 @@
-import { MessageCircle, Clock3 } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 import "./styles/contact-section.css";
 import { CONTACT } from "../../config/contact";
 
@@ -61,28 +61,6 @@ export default function ContactSection() {
             >
               Ver perfil
             </a>
-          </article>
-
-          {/* HORARIOS */}
-          <article className="contact-card contact-card--hours">
-            <div className="contact-card__left contact-card__left--top">
-              <div className="contact-card__icon">
-                <Clock3 size={32} strokeWidth={2.2} />
-              </div>
-
-              <div className="contact-card__content">
-                <h3>Horarios de atención</h3>
-              </div>
-            </div>
-
-            <div className="contact-hours">
-              {CONTACT.hours.map((h) => (
-                <div key={h.days} className="contact-hours__item">
-                  <p>{h.days}</p>
-                  <span>{h.range}</span>
-                </div>
-              ))}
-            </div>
           </article>
 
         </div>

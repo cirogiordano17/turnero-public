@@ -21,7 +21,6 @@ export default function Hero({ onOpenBooking }) {
           alt={CONTACT.salonName}
           className="hero__logo"
         />
-     
 
         <div className="hero__actions">
           <Button

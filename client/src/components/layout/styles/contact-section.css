@@ -55,17 +55,6 @@
   gap: 28px;
 }
 
-.contact-card--secondary {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-.contact-card--hours {
-  grid-column: 1 / -1;
-}
-
 .contact-card__left {
   display: flex;
   align-items: center;
@@ -76,10 +65,6 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.contact-card__left--top {
-  align-items: flex-start;
 }
 
 .contact-card__icon {
@@ -156,35 +141,13 @@
   transform: translateY(-2px);
 }
 
-.contact-hours {
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 30px;
-}
-
-.contact-hours__item p {
-  margin: 0 0 16px;
-  color: var(--color-text-detail);
-  font-size: 1.1rem;
-}
-
-.contact-hours__item span {
-  color: var(--color-text-detail);
-  font-size: 1.1rem;
-}
-
 @media (max-width: 980px) {
   .contact-section__grid {
     grid-template-columns: 1fr;
   }
 
-  .contact-card--primary,
-  .contact-card--hours {
-    grid-column: auto;
-  }
-
   .contact-card--primary {
+    grid-column: auto;
     flex-direction: column;
     align-items: flex-start;
   }
@@ -192,10 +155,6 @@
   .contact-card__cta {
     width: 100%;
     min-width: 0;
-  }
-
-  .contact-hours {
-    grid-template-columns: 1fr;
   }
 }
 

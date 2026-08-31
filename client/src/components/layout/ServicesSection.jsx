@@ -1,5 +1,6 @@
 import "./styles/services-section.css";
 import { Button } from "../ui/Button";
+import HoursSection from "./HoursSection";
 
 export default function ServicesSection({ onOpenBooking }) {
   return (
@@ -8,6 +9,8 @@ export default function ServicesSection({ onOpenBooking }) {
       <p className="services-section__subtitle">
         Todos nuestros servicios se realizan en Villa Allende, Córdoba.
       </p>
+
+      <HoursSection />
 
       <div className="services-section__grid">
         <div className="service-card">
