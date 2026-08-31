@@ -10,8 +10,8 @@
 .services-loading__spinner {
   width: 52px;
   height: 52px;
-  border: 4px solid #d1e8da;
-  border-top-color: #1f5b3a;
+  border: 4px solid var(--color-line);
+  border-top-color: var(--color-primary);
   border-radius: 50%;
   animation: spin 0.9s linear infinite;
 }
@@ -24,13 +24,13 @@
   margin: 0;
   font-size: 18px;
   font-weight: 600;
-  color: #1f5b3a;
+  color: var(--color-primary);
 }
 
 .services-loading__subtitle {
   margin: 0;
   font-size: 13px;
-  color: #6b7280;
+  color: var(--color-muted);
 }
 
 .services-wrap {
@@ -60,22 +60,22 @@
   width: 100%;
   padding: 12px;
   border-radius: 10px;
-  background: #fff;
-  border: 1px solid #ddd;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
   transition: 0.2s;
 }
 
 .svc-inner:hover {
-  border-color: #1f4b33;
+  border-color: var(--color-primary);
 }
 
 .svc-inner.active {
-  border-color: #1f4b33;
-  background: #eef6f0;
+  border-color: var(--color-primary);
+  background: var(--color-icon-bg);
 }
 
 .svc input {
-  accent-color: #1f4b33;
+  accent-color: var(--color-primary);
 }
 
 .svc-inner .fw-semibold {
@@ -84,7 +84,7 @@
 
 .svc-inner .muted.small {
   font-size: 12px;
-  color: #666;
+  color: var(--color-muted);
 }
 
 @media (min-width: 768px) {
@@ -106,16 +106,16 @@
 }
 
 .service-card {
-  border: 1px solid #d1d5db;
+  border: 1px solid var(--color-line);
   border-radius: 14px;
-  background: #fff;
+  background: var(--color-surface);
   padding: 16px;
   transition: all 0.2s ease;
 }
 
 .service-card.active {
-  border: 2px solid #1f5b3a;
-  background: #f0f7f3;
+  border: 2px solid var(--color-primary);
+  background: var(--color-icon-bg);
 }
 
 .service-card__header {
@@ -134,19 +134,19 @@
 
 .service-price {
   font-weight: 700;
-  color: #1f5b3a; /* verde marca */
+  color: var(--color-primary);
   font-size: 15px;
 }
 
 .service-meta {
   font-size: 13px;
-  color: #6b7280;
+  color: var(--color-muted);
   margin-top: 4px;
 }
 
 .service-desc {
   font-size: 14px;
-  color: #4b5563;
+  color: var(--color-muted);
   margin-top: 10px;
   line-height: 1.4;
 }
@@ -158,7 +158,7 @@
 }
 
 .service-btn {
-  background: #1f5b3a;
+  background: var(--color-primary);
   color: #fff;
   border: none;
   border-radius: 8px;

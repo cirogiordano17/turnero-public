@@ -1,4 +1,4 @@
-import { MessageCircle, Phone, Clock3 } from "lucide-react";
+import { MessageCircle, Clock3 } from "lucide-react";
 import "./styles/contact-section.css";
 import { CONTACT } from "../../config/contact";
 
@@ -37,29 +37,11 @@ export default function ContactSection() {
             </a>
           </article>
 
-          {/* TELÉFONO */}
-          <article className="contact-card contact-card--secondary">
-            <div className="contact-card__left">
-              <div className="contact-card__icon">
-                <Phone size={32} strokeWidth={2.2} />
-              </div>
-
-              <div className="contact-card__content">
-                <h3>Teléfono</h3>
-                <p>Llamanos directamente</p>
-              </div>
-            </div>
-
-            <a className="contact-card__cta contact-card__cta--outline" href={`tel:${CONTACT.phone}`}>
-              Llamar
-            </a>
-          </article>
-
           {/* INSTAGRAM */}
-          <article className="contact-card contact-card--secondary">
+          <article className="contact-card contact-card--primary">
             <div className="contact-card__left">
               <div className="contact-card__icon">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
                   <circle cx="12" cy="12" r="4" />
                   <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none" />
@@ -68,7 +50,6 @@ export default function ContactSection() {
 
               <div className="contact-card__content">
                 <h3>Instagram</h3>
-                <p>Seguinos en redes</p>
               </div>
             </div>
 

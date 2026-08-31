@@ -1,6 +1,6 @@
 .booking-view {
   min-height: 100vh;
-  background: #f5f3f1;
+  background: var(--color-bg);
   padding: 48px 20px 80px;
 }
 
@@ -12,7 +12,7 @@
 .booking-view__back {
   border: none;
   background: transparent;
-  color: #1f4b33;
+  color: var(--color-primary);
   font-size: 1rem;
   cursor: pointer;
   margin-bottom: 28px;
@@ -25,7 +25,7 @@
 
 .booking-view__title {
   margin: 0 0 12px;
-  color: #1f4b33;
+  color: var(--color-primary);
   font-size: clamp(2.5rem, 5vw, 4.5rem);
   line-height: 1.05;
   font-weight: 500;
@@ -33,7 +33,7 @@
 
 .booking-view__subtitle {
   margin: 0;
-  color: #5b6a7d;
+  color: var(--color-muted);
   font-size: 1.15rem;
 }
 

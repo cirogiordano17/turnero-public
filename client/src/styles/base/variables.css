@@ -1,28 +1,28 @@
 :root {
-  --color-bg: #f4f4f5;
-  --color-surface: #ffffff;
-  --color-text: #111827;
-  --color-muted: #475569;
-  --color-line: #e5e7eb;
+  --color-bg: #efe7da;
+  --color-surface: #fbf8f2;
+  --color-text: #1a1a1a;
+  --color-muted: #6b6357;
+  --color-line: #ddd2bd;
 
   --color-dark-bg: #0b0b0b;
   --color-dark-surface: #111111;
   --color-dark-text: #ffffff;
 
-  /* Verdes primarios del salón */
-  --color-primary: #1f4b33;
-  --color-primary-dark: #183a28;
-  --color-primary-mid: #314f3d;
+  /* Tema tinta/crema del logo (MSA) */
+  --color-primary: #1a1a1a;
+  --color-primary-dark: #0d0d0d;
+  --color-primary-mid: #3a362e;
 
   /* Fondo de secciones claras */
-  --color-section-bg: #f5f3f1;
+  --color-section-bg: #f1e9dc;
 
   /* Textos secundarios */
-  --color-text-secondary: #54657a;
-  --color-text-detail: #2c405d;
+  --color-text-secondary: #6b6357;
+  --color-text-detail: #2a2a2a;
 
   /* Iconos */
-  --color-icon-bg: #e5e7e4;
+  --color-icon-bg: #e7dfd0;
 
   /* WhatsApp */
   --color-whatsapp: #00ae35;

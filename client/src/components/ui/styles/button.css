@@ -28,24 +28,24 @@
 
 /* variantes */
 .btn--primary {
-  background-color: #1f4b33;
+  background-color: var(--color-primary);
   color: white;
-  box-shadow: 0 6px 16px rgba(31, 75, 51, 0.25);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
 }
 
 .btn--primary:hover {
-  background-color: #183a28;
+  background-color: var(--color-primary-dark);
   transform: translateY(-1px);
 }
 
 .btn--secondary {
   background-color: transparent;
-  color: #1f4b33;
-  border: 2px solid #1f4b33;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
 }
 
 .btn--secondary:hover {
-  background-color: rgba(31, 75, 51, 0.08);
+  background-color: rgba(0, 0, 0, 0.06);
 }
 
 /* ancho completo */
@@ -64,14 +64,14 @@
   border-radius: 999px;
   padding: 8px 16px;
   background: transparent;
-  border: 1.5px solid #1f4b33;
-  color: #1f4b33;
+  border: 1.5px solid var(--color-primary);
+  color: var(--color-primary);
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
 }
 
 .btn--pill:hover {
-  background: #1f4b33;
+  background: var(--color-primary);
   color: #fff;
 }

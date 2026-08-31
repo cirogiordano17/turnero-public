@@ -5,6 +5,9 @@ export default function ServicesSection({ onOpenBooking }) {
   return (
     <section className="services-section" id="servicios">
       <h2 className="services-section__title">Nuestros Servicios</h2>
+      <p className="services-section__subtitle">
+        Todos nuestros servicios se realizan en Villa Allende, Córdoba.
+      </p>
 
       <div className="services-section__grid">
         <div className="service-card">
@@ -31,7 +34,10 @@ export default function ServicesSection({ onOpenBooking }) {
           </div>
 
           <div className="service-card__content">
-            <h3>Registros Akáshicos</h3>
+            <div className="service-card__title-row">
+              <h3>Registros Akáshicos</h3>
+              <span className="service-card__badge">Virtual o presencial</span>
+            </div>
             <p>
               Bienestar espiritual y conexión profunda. Sesiones personalizadas
               para tu transformación interior.

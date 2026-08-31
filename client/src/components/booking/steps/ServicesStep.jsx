@@ -10,12 +10,6 @@ function ServicesStep({ category, booking, onNext, onBack }) {
             <span>Anterior</span>
         </button>
 
-        <div className="text-end">
-          <div className="fw-bold">Elegí tus servicios</div>
-          <div className="muted small">
-            {category === "pelu" ? "Peluquería" : "Registros Akáshicos"}
-          </div>
-        </div>
       </div>
 
       <Services

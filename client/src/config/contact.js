@@ -1,5 +1,5 @@
 export const CONTACT = {
-  salonName: "Salón Sala",
+  salonName: "MSA",
 
   city: "Córdoba",
   province: "Córdoba",

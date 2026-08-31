@@ -12,16 +12,16 @@ export default function Hero({ onOpenBooking }) {
   };
 
    return (
-    <section className="hero">
+    <section className="hero" id="inicio">
       <div className="hero__overlay" />
 
       <div className="hero__content">
-        <h1 className="hero__title">{CONTACT.salonName}</h1>
-        <p className="hero__location">
-          <MapPin size={15} strokeWidth={2} />
-          {CONTACT.city}, {CONTACT.province}
-        </p>
-        <p className="hero__subtitle">Estilo, bienestar y transformación</p>
+        <img
+          src="/img/home-name.png"
+          alt={CONTACT.salonName}
+          className="hero__logo"
+        />
+     
 
         <div className="hero__actions">
           <Button

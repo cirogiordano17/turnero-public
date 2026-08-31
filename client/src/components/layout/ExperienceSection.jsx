@@ -38,7 +38,7 @@ function FadeInStat({ value, label, delay = 0 }) {
 
 export default function ExperienceSection() {
   return (
-    <section className="experience-section">
+    <section className="experience-section" id="nosotros">
       <div className="experience-section__grid">
         <div className="experience-section__image-wrapper">
           <img
