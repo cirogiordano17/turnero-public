@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Sparkles, Lock } from "lucide-react";
+import { Sparkles, Lock, Eye, EyeOff } from "lucide-react";
 
 function AdminLoginForm({ onSubmit, loading, error }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -35,13 +36,28 @@ function AdminLoginForm({ onSubmit, loading, error }) {
 
           <label className="admin-login__field">
             <span>Contraseña</span>
-            <input
-              type="password"
-              placeholder="Ingresa tu contraseña"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              autoComplete="current-password"
-            />
+            <div className="admin-login__password-wrap">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Ingresa tu contraseña"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+              />
+              <button
+                type="button"
+                className="admin-login__password-toggle"
+                onClick={() => setShowPassword((prev) => !prev)}
+                aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                tabIndex={-1}
+              >
+                {showPassword ? (
+                  <EyeOff size={20} strokeWidth={2} />
+                ) : (
+                  <Eye size={20} strokeWidth={2} />
+                )}
+              </button>
+            </div>
           </label>
 
           <label className="admin-login__checkbox">
