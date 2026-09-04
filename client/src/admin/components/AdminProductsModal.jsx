@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { Package, FolderOpen, Plus, Pencil, Trash2, X, Upload } from "lucide-react";
+import { Package, FolderOpen, Settings, Plus, Pencil, Trash2, X, Upload } from "lucide-react";
+import { getTransferSettings, updateTransferSettings } from "../api/admin.api";
 import "../styles/admin-modal.css";
 
 const API_BASE = import.meta.env.VITE_API_URL;
@@ -243,6 +244,87 @@ function ProductForm({ initial, categories, onSave, onCancel }) {
   );
 }
 
+// ── SettingsForm ───────────────────────────────────────────────
+
+function SettingsForm() {
+  const [full, setFull] = useState(null);
+  const [form, setForm] = useState({ whatsapp_productos: "", shipping_cost: 0 });
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    getTransferSettings()
+      .then((data) => {
+        setFull(data);
+        setForm({
+          whatsapp_productos: data.whatsapp_productos || "",
+          shipping_cost: data.shipping_cost || 0,
+        });
+      })
+      .catch((e) => setError(e.message))
+      .finally(() => setLoading(false));
+  }, []);
+
+  function set(field, value) {
+    setForm((prev) => ({ ...prev, [field]: value }));
+    setSuccess(false);
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setSaving(true);
+    setError(null);
+    setSuccess(false);
+    try {
+      const saved = await updateTransferSettings({ ...full, ...form });
+      setFull(saved);
+      setSuccess(true);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  if (loading) return <p className="admin-modal__hint">Cargando...</p>;
+
+  return (
+    <form onSubmit={handleSubmit} className="admin-modal__form">
+      <div className="admin-modal__field">
+        <label className="admin-modal__label">WhatsApp para pedidos de productos (sin + ni espacios)</label>
+        <input
+          className="admin-modal__input"
+          value={form.whatsapp_productos}
+          onChange={(e) => set("whatsapp_productos", e.target.value)}
+          placeholder="Ej: 5493512345678"
+        />
+      </div>
+      <div className="admin-modal__field">
+        <label className="admin-modal__label">Costo de envío fuera de Villa Allende ($)</label>
+        <input
+          type="number"
+          min={0}
+          className="admin-modal__input"
+          value={form.shipping_cost}
+          onChange={(e) => set("shipping_cost", Number(e.target.value))}
+          placeholder="0"
+        />
+      </div>
+
+      {error && <p className="admin-modal__error">{error}</p>}
+      {success && <p className="admin-modal__success">Guardado correctamente.</p>}
+
+      <div className="admin-modal__actions">
+        <button type="submit" className="admin-modal__btn admin-modal__btn--primary" disabled={saving}>
+          {saving ? "Guardando..." : "Guardar"}
+        </button>
+      </div>
+    </form>
+  );
+}
+
 // ── Main modal ─────────────────────────────────────────────────
 
 export default function AdminProductsModal({ open, onClose }) {
@@ -339,6 +421,12 @@ export default function AdminProductsModal({ open, onClose }) {
             onClick={() => { setTab("categorias"); setCatForm(null); setProdForm(null); }}
           >
             <FolderOpen size={14} /> Categorías
+          </button>
+          <button
+            className={`admin-modal__tab${tab === "ajustes" ? " admin-modal__tab--active" : ""}`}
+            onClick={() => { setTab("ajustes"); setCatForm(null); setProdForm(null); }}
+          >
+            <Settings size={14} /> Ajustes
           </button>
         </div>
 
@@ -454,6 +542,9 @@ export default function AdminProductsModal({ open, onClose }) {
               )}
             </>
           )}
+
+          {/* ── AJUSTES ── */}
+          {!loading && tab === "ajustes" && <SettingsForm />}
 
           {/* ── CONFIRM DELETE ── */}
           {confirmDelete && (

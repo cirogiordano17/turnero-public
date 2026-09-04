@@ -120,27 +120,6 @@ function AdminTransferModal({ open, onClose }) {
                   placeholder="Ej: 5493512345678"
                 />
               </div>
-              <div className="admin-modal__field">
-                <label className="admin-modal__label">WhatsApp para pedidos de productos (sin + ni espacios)</label>
-                <input
-                  className="admin-modal__input"
-                  value={form.whatsapp_productos}
-                  onChange={(e) => set("whatsapp_productos", e.target.value)}
-                  placeholder="Ej: 5493512345678"
-                />
-              </div>
-              <div className="admin-modal__field">
-                <label className="admin-modal__label">Costo de envío fuera de Villa Allende ($)</label>
-                <input
-                  type="number"
-                  min={0}
-                  className="admin-modal__input"
-                  value={form.shipping_cost}
-                  onChange={(e) => set("shipping_cost", Number(e.target.value))}
-                  placeholder="0"
-                />
-              </div>
-
               {error && <p className="admin-modal__error">{error}</p>}
               {success && <p className="admin-modal__success">Guardado correctamente.</p>}
 
