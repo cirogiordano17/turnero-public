@@ -1,4 +1,4 @@
-import { Menu } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 
 function AdminHeader({ mode, onToggleSidebar }) {
   const isHistory = mode === "history";
@@ -24,6 +24,11 @@ function AdminHeader({ mode, onToggleSidebar }) {
           <p className="admin-header__subtitle">
             {isHistory ? "Consulta de turnos anteriores" : "Gestión de turnos"}
           </p>
+        </div>
+
+        <div className="admin-header__search">
+          <Search size={16} strokeWidth={2.2} />
+          <input type="search" placeholder="Buscar..." aria-label="Buscar" />
         </div>
       </div>
     </header>

@@ -55,14 +55,6 @@
     font-size: 1.45rem;
   }
 
-  .admin-header__controls {
-    flex-direction: column;
-  }
-
-  .admin-logout-btn {
-    width: 100%;
-  }
-
   .admin-day-group__header {
     font-size: 0.95rem;
     padding: 13px 14px;
@@ -107,44 +99,13 @@
     align-items: stretch;
   }
 
-  .admin-view-toggle {
+  .admin-header__search input {
     width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-    box-sizing: border-box;
-  }
-
-  .admin-view-toggle__btn {
-    width: 100%;
-    padding: 10px 8px;
-    font-size: 0.88rem;
-    text-align: center;
   }
 }
 
 @media (max-width: 768px) {
   .admin-services-manager__grid {
     grid-template-columns: 1fr;
-  }
-
-  .admin-header__tools {
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .admin-settings {
-    width: 100%;
-  }
-
-  .admin-settings__trigger {
-    width: 100%;
-  }
-
-  .admin-settings__menu {
-    width: 100%;
-    right: auto;
-    left: 0;
   }
 }
