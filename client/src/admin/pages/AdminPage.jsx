@@ -91,21 +91,21 @@ function AdminPage() {
 
   return (
     <div className="admin-page admin-page--dashboard">
-      <AdminSidebar admin={admin} />
+      <AdminSidebar
+        admin={admin}
+        mode={mode}
+        setMode={setMode}
+        onLogout={logout}
+        onManageServices={() => setServicesModalOpen(true)}
+        onManageClients={() => setClientsModalOpen(true)}
+        onManageTransfer={() => setTransferModalOpen(true)}
+        onManageProducts={() => setProductsModalOpen(true)}
+        onMonthlyReport={() => setMonthlyReportOpen(true)}
+      />
 
       <div className="admin-main">
       <div className="admin-shell">
-        <AdminHeader
-          mode={mode}
-          setMode={setMode}
-          onLogout={logout}
-          onManageServices={() => setServicesModalOpen(true)}
-          onManageClients={() => setClientsModalOpen(true)}
-          onManageTransfer={() => setTransferModalOpen(true)}
-          onManageProducts={() => setProductsModalOpen(true)}
-          onMonthlyReport={() => setMonthlyReportOpen(true)}
-          userRole={admin?.userRole}
-        />
+        <AdminHeader mode={mode} />
 
         <div
           className={`admin-content ${
