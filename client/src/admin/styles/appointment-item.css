@@ -154,6 +154,41 @@
   font-weight: 600;
   color: #374151;
   margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.admin-appointment-item__price {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #16a34a;
+  background: #dcfce7;
+  border-radius: 999px;
+  padding: 2px 10px;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.admin-appointment-item__price-detail {
+  width: 100%;
+  margin-top: 6px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.admin-appointment-item__price-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: #374151;
 }
 
 .admin-appointment-item__extra {

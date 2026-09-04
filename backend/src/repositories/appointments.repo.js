@@ -61,9 +61,12 @@ async function insertAppointment(db, { clientId, startIso, totalMin, totalPrice,
 async function insertAppointmentServices(db, appointmentId, serviceIds) {
   if (!serviceIds.length) return;
 
-  const values = serviceIds.map((_, i) => `($1, $${i + 2})`).join(", ");
+  const placeholders = serviceIds.map((_, i) => `$${i + 2}`).join(", ");
   return db.query(
-    `INSERT INTO appointment_services (appointment_id, service_id) VALUES ${values}`,
+    `INSERT INTO appointment_services (appointment_id, service_id, service_name, duration_min, price)
+     SELECT $1, s.id, s.name, s.duration_min, s.price
+     FROM services s
+     WHERE s.id = ANY(ARRAY[${placeholders}]::int[])`,
     [appointmentId, ...serviceIds]
   );
 }

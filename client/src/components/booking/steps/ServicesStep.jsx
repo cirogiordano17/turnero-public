@@ -19,31 +19,34 @@ function ServicesStep({ category, booking, onNext, onBack }) {
         onServicesLoaded={booking.setServices}
       />
 
-      {booking.selectedServices.length === 0 ? (
-        <div className="muted small mt-3">Elegí al menos un servicio para seguir.</div>
-        ) : null}
+      <div className="booking-bottom-bar">
+          <div className="booking-bottom-bar__info">
+            {booking.selectedServices.length > 0 ? (
+              <>
+                <div className="booking-bottom-bar__title">
+                  {booking.selectedServices.length} servicio
+                  {booking.selectedServices.length > 1 ? "s" : ""}
+                </div>
+                <div className="booking-bottom-bar__price">
+                  ${booking.totalPrice.toLocaleString("es-AR")}
+                </div>
+              </>
+            ) : (
+              <div className="booking-bottom-bar__meta">
+                Elegí al menos un servicio para continuar
+              </div>
+            )}
+          </div>
 
-        {booking.selectedServices.length > 0 && (
-        <div className="booking-bottom-bar">
-            <div className="booking-bottom-bar__info">
-            <div className="booking-bottom-bar__title">
-                {booking.selectedServices.length} servicio
-                {booking.selectedServices.length > 1 ? "s" : ""}
-            </div>
-            <div className="booking-bottom-bar__price">
-                ${booking.totalPrice.toLocaleString("es-AR")}
-            </div>
-            </div>
-
-            <button
+          <button
             className="booking-bottom-bar__button"
             type="button"
             onClick={onNext}
-            >
+            disabled={booking.selectedServices.length === 0}
+          >
             Siguiente
-            </button>
+          </button>
         </div>
-        )}
     </div>
   );
 }

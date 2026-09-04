@@ -29,7 +29,6 @@ async function getAdminAppointmentsForRange(db, startIso, endIso) {
     FROM appointments a
     JOIN clients c ON c.id = a.client_id
     LEFT JOIN appointment_services aps ON aps.appointment_id = a.id
-    LEFT JOIN services s ON s.id = aps.service_id
     WHERE a.start_at < $2::timestamptz
       AND a.end_at   > $1::timestamptz
     GROUP BY a.id, c.id
@@ -97,19 +96,18 @@ async function getUpcomingAppointments(db) {
       COALESCE(
         json_agg(
           json_build_object(
-            'id', s.id,
-            'name', s.name,
-            'duration_min', s.duration_min,
-            'category', s.category
+            'id', aps.service_id,
+            'name', aps.service_name,
+            'duration_min', aps.duration_min,
+            'price', aps.price
           )
-          ORDER BY s.id
-        ) FILTER (WHERE s.id IS NOT NULL),
+          ORDER BY aps.service_id
+        ) FILTER (WHERE aps.service_id IS NOT NULL),
         '[]'::json
       ) AS services
     FROM appointments a
     JOIN clients c ON c.id = a.client_id
     LEFT JOIN appointment_services aps ON aps.appointment_id = a.id
-    LEFT JOIN services s ON s.id = aps.service_id
     WHERE a.start_at > NOW() - INTERVAL '15 minutes'
       AND a.start_at < NOW() + INTERVAL '15 days'
     GROUP BY a.id, c.id
@@ -137,19 +135,18 @@ async function getHistoryAppointments(db) {
       COALESCE(
         json_agg(
           json_build_object(
-            'id', s.id,
-            'name', s.name,
-            'duration_min', s.duration_min,
-            'category', s.category
+            'id', aps.service_id,
+            'name', aps.service_name,
+            'duration_min', aps.duration_min,
+            'price', aps.price
           )
-          ORDER BY s.id
-        ) FILTER (WHERE s.id IS NOT NULL),
+          ORDER BY aps.service_id
+        ) FILTER (WHERE aps.service_id IS NOT NULL),
         '[]'::json
       ) AS services
     FROM appointments a
     JOIN clients c ON c.id = a.client_id
     LEFT JOIN appointment_services aps ON aps.appointment_id = a.id
-    LEFT JOIN services s ON s.id = aps.service_id
     WHERE a.start_at <= NOW() - INTERVAL '15 minutes'
       AND a.start_at >= NOW() - INTERVAL '60 days'
     GROUP BY a.id, c.id

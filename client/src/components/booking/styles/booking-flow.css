@@ -45,7 +45,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 14px;
-  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  padding: 18px 20px calc(18px + env(safe-area-inset-bottom));
   background: var(--color-surface);
   border-top: 1px solid var(--color-line);
   box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.08);
@@ -55,26 +55,26 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 3px;
   flex: 1;
 }
 
 .booking-bottom-bar__title {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--color-text);
   line-height: 1.25;
 }
 
 .booking-bottom-bar__price {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--color-text);
   line-height: 1.2;
 }
 
 .booking-bottom-bar__meta {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--color-muted);
   line-height: 1.3;
 }
@@ -85,9 +85,9 @@
   color: #fff;
   border: none;
   border-radius: 999px;
-  padding: 10px 16px;
-  min-width: 110px;
-  font-size: 14px;
+  padding: 13px 22px;
+  min-width: 120px;
+  font-size: 15px;
   font-weight: 600;
   transition: background 0.2s ease, opacity 0.2s ease;
 }
@@ -335,25 +335,25 @@
   /* schedule */
   .booking-bottom-bar {
     align-items: center;
-    padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
+    padding: 16px 16px calc(16px + env(safe-area-inset-bottom));
   }
 
   .booking-bottom-bar__title {
-    font-size: 13px;
+    font-size: 15px;
   }
 
   .booking-bottom-bar__price {
-    font-size: 14px;
+    font-size: 17px;
   }
 
   .booking-bottom-bar__meta {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .booking-bottom-bar__button {
-    min-width: 96px;
-    padding: 9px 14px;
-    font-size: 13px;
+    min-width: 110px;
+    padding: 13px 18px;
+    font-size: 15px;
   }
 
   /* confirm */

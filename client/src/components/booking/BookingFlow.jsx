@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useBooking from "../../hooks/useBooking";
 import ServicesStep from "./steps/ServicesStep";
 import ScheduleStep from "./steps/ScheduleStep";
@@ -12,6 +12,39 @@ function BookingFlow({ category, onBackToCategory, onStepChange }) {
   useEffect(() => {
     onStepChange?.(step);
   }, [step, onStepChange]);
+
+  const stepRef = useRef(step);
+  useEffect(() => { stepRef.current = step; }, [step]);
+
+  const onBackToCategoryRef = useRef(onBackToCategory);
+  useEffect(() => { onBackToCategoryRef.current = onBackToCategory; }, [onBackToCategory]);
+
+  // Push initial history entry and handle mobile browser back button
+  const prevStepRef = useRef(0);
+  useEffect(() => {
+    window.history.pushState({ bookingStep: 1 }, "");
+    prevStepRef.current = 1;
+
+    const handlePopState = () => {
+      if (stepRef.current <= 1) {
+        onBackToCategoryRef.current?.();
+      } else {
+        setStep((prev) => Math.max(1, prev - 1));
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  // Push history entry when advancing forward + scroll to top on every step change
+  useEffect(() => {
+    if (prevStepRef.current > 0 && step > prevStepRef.current) {
+      window.history.pushState({ bookingStep: step }, "");
+    }
+    prevStepRef.current = step;
+    window.scrollTo(0, 0);
+  }, [step]);
 
   const goNextFromServices = () => {
     if (!booking.selectedIds.length) return;

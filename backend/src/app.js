@@ -22,15 +22,19 @@ const app = express();
 const allowedOrigins =
   process.env.NODE_ENV === "production"
     ? [process.env.FRONTEND_ORIGIN]
-    : ["http://localhost:5173", "http://localhost:5500"];
-
+    : null;
 
 app.use(
   cors({
     origin(origin, callback) {
       if (!origin) return callback(null, true);
 
-      if (allowedOrigins.includes(origin)) {
+      if (allowedOrigins === null) {
+        // desarrollo: permitir cualquier localhost
+        if (/^https?:\/\/localhost(:\d+)?$/.test(origin)) {
+          return callback(null, true);
+        }
+      } else if (allowedOrigins.includes(origin)) {
         return callback(null, true);
       }
 

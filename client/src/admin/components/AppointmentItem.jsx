@@ -16,12 +16,20 @@ function AppointmentItem({ appointment, onActionDone, isHistory = false }) {
     email,
     comment,
     services,
+    price_total,
   } = appointment;
 
   const serviceLabel =
     category === "pelu" && Array.isArray(services) && services.length > 0
       ? services.map((s) => s.name).join(" + ")
       : null;
+
+  const priceLabel =
+    price_total != null && price_total > 0
+      ? `$${Number(price_total).toLocaleString("es-AR")}`
+      : null;
+
+  const [priceOpen, setPriceOpen] = useState(false);
 
   const [confirmState, setConfirmState] = useState({
     open: false,
@@ -127,9 +135,30 @@ function AppointmentItem({ appointment, onActionDone, isHistory = false }) {
           </span>
         </div>
 
-        {serviceLabel && (
+        {(serviceLabel || priceLabel) && (
           <div className="admin-appointment-item__services">
             {serviceLabel}
+            {priceLabel && (
+              <>
+                <button
+                  type="button"
+                  className="admin-appointment-item__price"
+                  onClick={() => setPriceOpen((v) => !v)}
+                >
+                  {priceLabel} {priceOpen ? "▲" : "▼"}
+                </button>
+                {priceOpen && Array.isArray(services) && services.length > 0 && (
+                  <div className="admin-appointment-item__price-detail">
+                    {services.map((s) => (
+                      <div key={s.id} className="admin-appointment-item__price-row">
+                        <span>{s.name}</span>
+                        <span>${Number(s.price).toLocaleString("es-AR")}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
           </div>
         )}
 
