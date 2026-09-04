@@ -23,29 +23,27 @@
  function SlotGroup({ title, slots = [], selectedSlot, onSelect }) {
   const safeSlots = Array.isArray(slots) ? slots : [];
 
+  if (safeSlots.length === 0) return null;
+
   return (
     <section className="slot-group-card">
       <h3 className="slot-group-card__title">{title}</h3>
 
       <div className="slots-grid">
-        {safeSlots.length === 0 ? (
-          <div className="slots-empty">Sin horarios.</div>
-        ) : (
-          safeSlots.map((slot) => {
-            const active = selectedSlot === slot;
+        {safeSlots.map((slot) => {
+          const active = selectedSlot === slot;
 
-            return (
-              <button
-                key={slot}
-                type="button"
-                className={`slot-btn ${active ? "slot-btn--active" : ""}`}
-                onClick={() => onSelect(slot)}
-              >
-                {slot}
-              </button>
-            );
-          })
-        )}
+          return (
+            <button
+              key={slot}
+              type="button"
+              className={`slot-btn ${active ? "slot-btn--active" : ""}`}
+              onClick={() => onSelect(slot)}
+            >
+              {slot}
+            </button>
+          );
+        })}
       </div>
     </section>
   );
@@ -61,6 +59,10 @@ function Slots({ slots, selectedSlot, onSelect, isClosed }) {
     {isClosed ? (
       <div className="slots-closed">
         Este día el salón está cerrado
+      </div>
+    ) : safeSlots.length === 0 ? (
+      <div className="slots-closed">
+        Sin cupos disponibles para este día. Elegí otra fecha.
       </div>
     ) : (
       <>

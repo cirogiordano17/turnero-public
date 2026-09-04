@@ -4,6 +4,7 @@ const { isYmd, parseServiceIds } = require("../utils/validate");
 async function getAvailability(req, res) {
   const date = req.query.date;
   const serviceIds = parseServiceIds(req.query.service_ids);
+  const category = req.query.category || "pelu";
 
   if (!date || !isYmd(date)) {
     return res.status(400).json({ error: "date inválida. Formato: YYYY-MM-DD" });
@@ -13,7 +14,7 @@ async function getAvailability(req, res) {
   }
 
   try {
-    const slots = await availabilityService.getAvailability(req.app.locals.db, date, serviceIds);
+    const slots = await availabilityService.getAvailability(req.app.locals.db, date, serviceIds, category);
     res.json(slots);
   } catch (err) {
     console.error("Error GET /api/availability:", err);

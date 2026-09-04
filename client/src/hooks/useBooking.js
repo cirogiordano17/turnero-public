@@ -90,7 +90,7 @@ function useBooking({ category }) {
       setLoadingSlots(true);
       setSlotsError("");
 
-      const data = await getAvailability(date, ids);
+      const data = await getAvailability(date, ids, category);
 
       if (data?.closed) {
         setSlots([]);

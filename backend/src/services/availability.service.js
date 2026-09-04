@@ -9,7 +9,7 @@ function addMinutesToHHmm(time, mins) {
   return d.toTimeString().slice(0, 5);
 }
 
-async function getAvailability(db, dateYmd, serviceIds) {
+async function getAvailability(db, dateYmd, serviceIds, category = "pelu") {
   // closed day
   const closedRes = await availabilityRepo.isClosedDay(db, dateYmd);
   if (closedRes.rows.length > 0) {
@@ -59,7 +59,7 @@ async function getAvailability(db, dateYmd, serviceIds) {
 
   // blocks
   const blocks = [];
-  if (wh.start_morning && wh.end_morning) {
+  if (wh.start_morning && wh.end_morning && category !== "akashicos") {
     blocks.push({ start: wh.start_morning.slice(0, 5), end: wh.end_morning.slice(0, 5) });
   }
   if (wh.start_afternoon && wh.end_afternoon) {
