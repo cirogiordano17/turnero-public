@@ -45,6 +45,9 @@ router.get("/working-hours", requireAdminAuth, ctrl.getWorkingHours);
 
 // CLIENTS
 router.get("/clients", requireAdminAuth, adminClientsCtrl.getClients);
+router.post("/clients", requireAdminAuth, adminClientsCtrl.createClient);
+router.patch("/clients/:id", requireAdminAuth, adminClientsCtrl.updateClient);
+router.delete("/clients/:id", requireAdminAuth, adminClientsCtrl.deleteClient);
 router.get("/clients/:id/appointments", requireAdminAuth, adminClientsCtrl.getClientAppointments);
 
 router.get("/blocked-slots", requireAdminAuth, ctrl.getBlockedSlots);

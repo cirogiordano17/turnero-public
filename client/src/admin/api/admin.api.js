@@ -392,3 +392,35 @@ export async function getAdminClientAppointments(clientId) {
   if (!res.ok) throw new Error("No se pudieron cargar los turnos del cliente");
   return res.json();
 }
+
+export async function createAdminClient(data) {
+  const res = await fetch(`${API_BASE}/admin/clients`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", ...getAuthHeaders() },
+    body: JSON.stringify(data),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(json.error || "No se pudo crear el cliente");
+  return json;
+}
+
+export async function updateAdminClient(id, data) {
+  const res = await fetch(`${API_BASE}/admin/clients/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json", ...getAuthHeaders() },
+    body: JSON.stringify(data),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(json.error || "No se pudo actualizar el cliente");
+  return json;
+}
+
+export async function deleteAdminClient(id) {
+  const res = await fetch(`${API_BASE}/admin/clients/${id}`, {
+    method: "DELETE",
+    headers: { ...getAuthHeaders() },
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(json.error || "No se pudo eliminar el cliente");
+  return json;
+}

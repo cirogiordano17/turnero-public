@@ -1,29 +1,44 @@
 async function findClientIdByWhatsapp(db, whatsapp) {
-  return db.query(`SELECT id FROM clients WHERE whatsapp = $1`, [whatsapp]);
-}
-
-async function updateClient(db, { id, first_name, last_name, email }) {
   return db.query(
-    `UPDATE clients
-     SET first_name = $1, last_name = $2, email = $3
-     WHERE id = $4`,
-    [first_name, last_name, email || null, id]
+    `SELECT id FROM clients WHERE whatsapp = $1 AND deleted_at IS NULL`,
+    [whatsapp]
   );
 }
 
-async function createClient(db, { first_name, last_name, whatsapp, email }) {
+async function updateClient(db, { id, first_name, last_name, email, whatsapp, notes }) {
   return db.query(
-    `INSERT INTO clients (first_name, last_name, whatsapp, email)
-     VALUES ($1, $2, $3, $4)
+    `UPDATE clients
+     SET first_name = $1, last_name = $2, email = $3, whatsapp = $4, notes = $5
+     WHERE id = $6 AND deleted_at IS NULL
+     RETURNING id, first_name, last_name, whatsapp, email, notes, created_at`,
+    [first_name, last_name, email || null, whatsapp, notes || null, id]
+  );
+}
+
+async function createClient(db, { first_name, last_name, whatsapp, email, notes }) {
+  return db.query(
+    `INSERT INTO clients (first_name, last_name, whatsapp, email, notes)
+     VALUES ($1, $2, $3, $4, $5)
+     RETURNING id, first_name, last_name, whatsapp, email, notes, created_at`,
+    [first_name, last_name, whatsapp, email || null, notes || null]
+  );
+}
+
+async function softDeleteClient(db, id) {
+  return db.query(
+    `UPDATE clients
+     SET deleted_at = NOW()
+     WHERE id = $1 AND deleted_at IS NULL
      RETURNING id`,
-    [first_name, last_name, whatsapp, email || null]
+    [id]
   );
 }
 
 async function getAllClients(db) {
   return db.query(
-    `SELECT id, first_name, last_name, whatsapp, email, created_at
+    `SELECT id, first_name, last_name, whatsapp, email, notes, created_at
      FROM clients
+     WHERE deleted_at IS NULL
      ORDER BY last_name ASC, first_name ASC`
   );
 }
@@ -42,14 +57,13 @@ async function getAppointmentsByClientId(db, clientId) {
        a.created_at,
        COALESCE(
          json_agg(
-           json_build_object('id', s.id, 'name', s.name, 'price', s.price, 'duration_min', s.duration_min)
-           ORDER BY s.name
-         ) FILTER (WHERE s.id IS NOT NULL),
+           json_build_object('id', aps.service_id, 'name', aps.service_name, 'price', aps.price, 'duration_min', aps.duration_min)
+           ORDER BY aps.service_id
+         ) FILTER (WHERE aps.service_id IS NOT NULL),
          '[]'
        ) AS services
      FROM appointments a
      LEFT JOIN appointment_services aps ON aps.appointment_id = a.id
-     LEFT JOIN services s ON s.id = aps.service_id
      WHERE a.client_id = $1
      GROUP BY a.id
      ORDER BY a.start_at DESC`,
@@ -61,6 +75,7 @@ module.exports = {
   findClientIdByWhatsapp,
   updateClient,
   createClient,
+  softDeleteClient,
   getAllClients,
   getAppointmentsByClientId,
 };
