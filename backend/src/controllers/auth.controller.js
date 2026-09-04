@@ -1,5 +1,5 @@
-const bcrypt = require("bcryptjs");
 const { signAdminToken } = require("../utils/jwt");
+const authService = require("../services/auth.service");
 
 async function login(req, res) {
   try {
@@ -14,32 +14,13 @@ async function login(req, res) {
       return res.status(500).json({ ok: false, error: "Configuración incompleta de autenticación" });
     }
 
-    // Busca el usuario entre los configurados en env
-    const users = [
-      {
-        username: process.env.ADMIN_USERNAME,
-        passwordHash: process.env.ADMIN_PASSWORD_HASH,
-        userRole: "super_admin",
-      },
-      {
-        username: process.env.OPERADOR_USERNAME,
-        passwordHash: process.env.OPERADOR_PASSWORD_HASH,
-        userRole: "operador",
-      },
-    ].filter((u) => u.username && u.passwordHash);
-
-    const matched = users.find((u) => u.username === username);
+    const matched = await authService.login(req.app.locals.db, { username, password });
 
     if (!matched) {
       return res.status(401).json({ ok: false, error: "Credenciales inválidas" });
     }
 
-    const validPassword = await bcrypt.compare(password, matched.passwordHash);
-    if (!validPassword) {
-      return res.status(401).json({ ok: false, error: "Credenciales inválidas" });
-    }
-
-    const token = signAdminToken(matched.userRole);
+    const token = signAdminToken(matched.username, matched.userRole);
 
     return res.json({
       ok: true,

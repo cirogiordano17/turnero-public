@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
 
-function signAdminToken(userRole) {
+function signAdminToken(username, userRole) {
   return jwt.sign(
     {
       sub: "admin",
-      username: process.env.ADMIN_USERNAME,
+      username,
       role: "admin",
-      userRole: userRole || process.env.ADMIN_ROLE || "super_admin",
+      userRole: userRole || "super_admin",
     },
     process.env.JWT_SECRET,
     {
