@@ -26,22 +26,36 @@ export default function Navbar() {
     <header className="navbar">
       <div className="navbar__inner">
         <nav className="navbar__links">
-          {SCROLL_LINKS.map((link) => (
-            <button
-              key={link.id}
-              type="button"
-              className="navbar__link"
-              onClick={() => scrollToSection(link.id)}
-            >
-              {link.label}
-            </button>
-          ))}
+          <button
+            type="button"
+            className="navbar__link"
+            onClick={() => scrollToSection("inicio")}
+          >
+            Inicio
+          </button>
+
           <button
             type="button"
             className={`navbar__link${location.pathname === "/productos" ? " navbar__link--active" : ""}`}
             onClick={() => navigate("/productos")}
           >
             Productos
+          </button>
+
+          <button
+            type="button"
+            className="navbar__link"
+            onClick={() => scrollToSection("nosotros")}
+          >
+            Nosotros
+          </button>
+
+          <button
+            type="button"
+            className="navbar__link"
+            onClick={() => scrollToSection("contacto")}
+          >
+            Contacto
           </button>
         </nav>
       </div>

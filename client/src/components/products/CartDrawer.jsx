@@ -4,14 +4,13 @@ import { useCart } from "../../context/CartContext";
 import { getTransferSettings } from "../../admin/api/admin.api";
 
 const SHIPPING_OPTIONS = [
-  { value: "retiro", label: "Retiro en local (gratis)" },
   { value: "villa_allende", label: "Villa Allende (gratis)" },
   { value: "otro", label: "Otro destino" },
 ];
 
 export default function CartDrawer({ open, onClose }) {
   const { items, removeItem, setQty, clearCart, subtotal } = useCart();
-  const [shipping, setShipping] = useState("retiro");
+  const [shipping, setShipping] = useState("villa_allende");
   const [shippingCost, setShippingCost] = useState(0);
   const [waProductos, setWaProductos] = useState("");
 
@@ -33,9 +32,7 @@ export default function CartDrawer({ open, onClose }) {
       (i) => `• ${i.name} x${i.qty} — $${(i.price * i.qty).toLocaleString("es-AR")}`
     );
     const shippingLabel =
-      shipping === "retiro"
-        ? "Retiro en local"
-        : shipping === "villa_allende"
+      shipping === "villa_allende"
         ? "Villa Allende (envío gratis)"
         : `Envío a domicilio (+$${shippingCost.toLocaleString("es-AR")})`;
 

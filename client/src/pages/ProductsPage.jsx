@@ -40,7 +40,6 @@ export default function ProductsPage() {
             <ArrowLeft size={18} />
             Volver
           </button>
-          <h1 className="products-title">Productos</h1>
         </div>
 
         {categories.length > 0 && (
