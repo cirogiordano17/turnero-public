@@ -1,7 +1,14 @@
 import { Menu, Search } from "lucide-react";
 
-function AdminHeader({ mode, onToggleSidebar }) {
-  const isHistory = mode === "history";
+function AdminHeader({ view, mode, onToggleSidebar }) {
+  const isHistory = view === "turnos" && mode === "history";
+
+  const subtitle =
+    view === "inicio"
+      ? "Resumen general"
+      : isHistory
+      ? "Consulta de turnos anteriores"
+      : "Gestión de turnos";
 
   return (
     <header
@@ -21,9 +28,7 @@ function AdminHeader({ mode, onToggleSidebar }) {
 
         <div className="admin-header__titles">
           <h1 className="admin-header__title">Panel de Administración</h1>
-          <p className="admin-header__subtitle">
-            {isHistory ? "Consulta de turnos anteriores" : "Gestión de turnos"}
-          </p>
+          <p className="admin-header__subtitle">{subtitle}</p>
         </div>
 
         <div className="admin-header__search">

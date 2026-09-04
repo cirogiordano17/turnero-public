@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {
+  Home,
   CalendarClock,
   History,
   Sparkles,
@@ -18,6 +19,8 @@ function getInitial(username) {
 
 function AdminSidebar({
   admin,
+  view,
+  setView,
   mode,
   setMode,
   onLogout,
@@ -53,8 +56,17 @@ function AdminSidebar({
         <nav className="admin-sidebar__nav" aria-label="Navegación admin">
           <button
             type="button"
-            className={`admin-sidebar__item${mode === "upcoming" ? " admin-sidebar__item--active" : ""}`}
-            onClick={() => go(() => setMode("upcoming"))}
+            className={`admin-sidebar__item${view === "inicio" ? " admin-sidebar__item--active" : ""}`}
+            onClick={() => go(() => setView("inicio"))}
+          >
+            <Home size={18} strokeWidth={2.2} />
+            <span>Inicio</span>
+          </button>
+
+          <button
+            type="button"
+            className={`admin-sidebar__item${view === "turnos" && mode === "upcoming" ? " admin-sidebar__item--active" : ""}`}
+            onClick={() => go(() => { setView("turnos"); setMode("upcoming"); })}
           >
             <CalendarClock size={18} strokeWidth={2.2} />
             <span>Próximos</span>
@@ -62,8 +74,8 @@ function AdminSidebar({
 
           <button
             type="button"
-            className={`admin-sidebar__item${mode === "history" ? " admin-sidebar__item--active" : ""}`}
-            onClick={() => go(() => setMode("history"))}
+            className={`admin-sidebar__item${view === "turnos" && mode === "history" ? " admin-sidebar__item--active" : ""}`}
+            onClick={() => go(() => { setView("turnos"); setMode("history"); })}
           >
             <History size={18} strokeWidth={2.2} />
             <span>Historial</span>
@@ -91,10 +103,12 @@ function AdminSidebar({
             <span>Resumen mensual</span>
           </button>
 
-          <button type="button" className="admin-sidebar__item" onClick={() => go(onManageTransfer)}>
-            <CreditCard size={18} strokeWidth={2.2} />
-            <span>Datos de transferencia</span>
-          </button>
+          {userRole === "super_admin" && (
+            <button type="button" className="admin-sidebar__item" onClick={() => go(onManageTransfer)}>
+              <CreditCard size={18} strokeWidth={2.2} />
+              <span>Datos de transferencia</span>
+            </button>
+          )}
 
           {userRole === "super_admin" && (
             <button type="button" className="admin-sidebar__item" onClick={() => go(onManageProducts)}>

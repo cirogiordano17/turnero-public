@@ -5,6 +5,7 @@ import { useAdminAppointments } from "../hooks/useAdminAppointments";
 import AdminLoginForm from "../components/AdminLoginForm";
 import AdminHeader from "../components/AdminHeader";
 import AdminSidebar from "../components/AdminSidebar";
+import AdminDashboard from "../components/AdminDashboard";
 import DayGroup from "../components/DayGroup";
 import AdminServicesModal from "../components/AdminServicesModal";
 import AdminClientsModal from "../components/AdminClientsModal";
@@ -27,6 +28,7 @@ function groupAppointmentsByDate(appointments) {
 }
 
 function AdminPage() {
+  const [view, setView] = useState("inicio");
   const [mode, setMode] = useState("upcoming");
   const [servicesModalOpen, setServicesModalOpen] = useState(false);
   const [clientsModalOpen, setClientsModalOpen] = useState(false);
@@ -94,6 +96,8 @@ function AdminPage() {
     <div className="admin-page admin-page--dashboard">
       <AdminSidebar
         admin={admin}
+        view={view}
+        setView={setView}
         mode={mode}
         setMode={setMode}
         onLogout={logout}
@@ -108,51 +112,57 @@ function AdminPage() {
 
       <div className="admin-main">
       <div className="admin-shell">
-        <AdminHeader mode={mode} onToggleSidebar={() => setSidebarOpen(true)} />
+        <AdminHeader view={view} mode={mode} onToggleSidebar={() => setSidebarOpen(true)} />
 
-        <div
-          className={`admin-content ${
-            mode === "history"
-              ? "admin-content--history"
-              : "admin-content--upcoming"
-          }`}
-        >
-          {liveMessage && <div className="admin-live-toast">{liveMessage}</div>}
-
-          <div className="admin-section-head">
-            <h2>
-              {mode === "history" ? "Historial de Turnos" : "Próximos Turnos"}
-            </h2>
-            <p>
-              {appointments.length}{" "}
-              {mode === "history" ? "turnos anteriores" : "turnos programados"}
-            </p>
+        {view === "inicio" ? (
+          <div className="admin-content admin-content--upcoming">
+            <AdminDashboard appointments={appointments} />
           </div>
+        ) : (
+          <div
+            className={`admin-content ${
+              mode === "history"
+                ? "admin-content--history"
+                : "admin-content--upcoming"
+            }`}
+          >
+            {liveMessage && <div className="admin-live-toast">{liveMessage}</div>}
 
-          {loadingAppointments ? (
-            <div className="admin-empty">Cargando turnos...</div>
-          ) : appointmentsError ? (
-            <div className="admin-error-box">{appointmentsError}</div>
-          ) : appointments.length === 0 ? (
-            <div className="admin-empty">
-              {mode === "history"
-                ? "No hay turnos en el historial."
-                : "No hay próximos turnos."}
+            <div className="admin-section-head">
+              <h2>
+                {mode === "history" ? "Historial de Turnos" : "Próximos Turnos"}
+              </h2>
+              <p>
+                {appointments.length}{" "}
+                {mode === "history" ? "turnos anteriores" : "turnos programados"}
+              </p>
             </div>
-          ) : (
-            <div className="admin-day-groups">
-              {Object.entries(groupedAppointments).map(([date, items]) => (
-                <DayGroup
-                  key={date}
-                  date={date}
-                  items={items}
-                  onActionDone={reloadAppointments}
-                  isHistory={mode === "history"}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+
+            {loadingAppointments ? (
+              <div className="admin-empty">Cargando turnos...</div>
+            ) : appointmentsError ? (
+              <div className="admin-error-box">{appointmentsError}</div>
+            ) : appointments.length === 0 ? (
+              <div className="admin-empty">
+                {mode === "history"
+                  ? "No hay turnos en el historial."
+                  : "No hay próximos turnos."}
+              </div>
+            ) : (
+              <div className="admin-day-groups">
+                {Object.entries(groupedAppointments).map(([date, items]) => (
+                  <DayGroup
+                    key={date}
+                    date={date}
+                    items={items}
+                    onActionDone={reloadAppointments}
+                    isHistory={mode === "history"}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
       </div>
 
