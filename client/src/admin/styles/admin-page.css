@@ -23,3 +23,22 @@
 .admin-shell--login {
   max-width: 360px;
 }
+
+.admin-page--dashboard {
+  display: flex;
+  align-items: stretch;
+  padding: 0;
+  background: #f1f5f9;
+}
+
+.admin-main {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.admin-page--dashboard .admin-shell {
+  max-width: 960px;
+  margin: 0;
+}

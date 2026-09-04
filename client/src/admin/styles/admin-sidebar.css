@@ -1,0 +1,49 @@
+.admin-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  min-height: 100vh;
+  background: #0f172a;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 16px;
+  box-sizing: border-box;
+}
+
+.admin-sidebar__user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.admin-sidebar__avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.admin-sidebar__username {
+  margin: 0;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.98rem;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.admin-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}

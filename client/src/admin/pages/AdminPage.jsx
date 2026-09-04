@@ -4,6 +4,7 @@ import { CONTACT } from "../../config/contact";
 import { useAdminAppointments } from "../hooks/useAdminAppointments";
 import AdminLoginForm from "../components/AdminLoginForm";
 import AdminHeader from "../components/AdminHeader";
+import AdminSidebar from "../components/AdminSidebar";
 import DayGroup from "../components/DayGroup";
 import AdminServicesModal from "../components/AdminServicesModal";
 import AdminClientsModal from "../components/AdminClientsModal";
@@ -89,7 +90,10 @@ function AdminPage() {
   }
 
   return (
-    <div className="admin-page">
+    <div className="admin-page admin-page--dashboard">
+      <AdminSidebar admin={admin} />
+
+      <div className="admin-main">
       <div className="admin-shell">
         <AdminHeader
           mode={mode}
@@ -146,6 +150,7 @@ function AdminPage() {
             </div>
           )}
         </div>
+      </div>
       </div>
 
       <AdminServicesModal
