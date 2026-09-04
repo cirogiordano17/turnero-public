@@ -20,14 +20,33 @@
 
 .admin-header__top {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
   gap: 12px;
   width: 100%;
 }
 
-.admin-header__top > div:first-child {
+.admin-header__titles {
   min-width: 0;
+}
+
+.admin-header__menu-btn {
+  display: none;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #f9fafb;
+  color: #111827;
+  cursor: pointer;
+}
+
+.admin-header--history .admin-header__menu-btn {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
+  color: #f9fafb;
 }
 
 .admin-header__tools {

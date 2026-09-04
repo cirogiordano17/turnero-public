@@ -1,4 +1,6 @@
-function AdminHeader({ mode }) {
+import { Menu } from "lucide-react";
+
+function AdminHeader({ mode, onToggleSidebar }) {
   const isHistory = mode === "history";
 
   return (
@@ -8,7 +10,16 @@ function AdminHeader({ mode }) {
       }`}
     >
       <div className="admin-header__top">
-        <div>
+        <button
+          type="button"
+          className="admin-header__menu-btn"
+          onClick={onToggleSidebar}
+          aria-label="Abrir menú"
+        >
+          <Menu size={20} strokeWidth={2.2} />
+        </button>
+
+        <div className="admin-header__titles">
           <h1 className="admin-header__title">Panel de Administración</h1>
           <p className="admin-header__subtitle">
             {isHistory ? "Consulta de turnos anteriores" : "Gestión de turnos"}

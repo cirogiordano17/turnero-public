@@ -33,6 +33,7 @@ function AdminPage() {
   const [transferModalOpen, setTransferModalOpen] = useState(false);
   const [productsModalOpen, setProductsModalOpen] = useState(false);
   const [monthlyReportOpen, setMonthlyReportOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const {
     admin,
@@ -101,11 +102,13 @@ function AdminPage() {
         onManageTransfer={() => setTransferModalOpen(true)}
         onManageProducts={() => setProductsModalOpen(true)}
         onMonthlyReport={() => setMonthlyReportOpen(true)}
+        open={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
       />
 
       <div className="admin-main">
       <div className="admin-shell">
-        <AdminHeader mode={mode} />
+        <AdminHeader mode={mode} onToggleSidebar={() => setSidebarOpen(true)} />
 
         <div
           className={`admin-content ${
