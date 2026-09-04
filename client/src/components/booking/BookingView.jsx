@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import BookingCategorySelector from "./BookingCategorySelector";
 import BookingFlow from "./BookingFlow";
+import HoursSection from "../layout/HoursSection";
 import "./styles/booking-view.css";
 import { Button } from "../ui/Button";
 
@@ -43,6 +44,7 @@ function BookingView({ selectedCategory, onSelectCategory, onBack }) {
               </Button>
             </div>
 
+            <HoursSection />
             <BookingCategorySelector onSelectCategory={onSelectCategory} />
           </>
         ) : (

@@ -52,6 +52,15 @@
   line-height: 1.6;
 }
 
+.booking-category-card__note {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  opacity: 0.85;
+}
+
 @media (max-width: 768px) {
   .booking-category-selector {
     padding: 28px 20px;

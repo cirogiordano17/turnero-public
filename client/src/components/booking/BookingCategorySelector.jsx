@@ -34,6 +34,9 @@ function BookingCategorySelector({ onSelectCategory }) {
           <span className="booking-category-card__text">
             Sesiones de conexión, bienestar y transformación interior.
           </span>
+          <span className="booking-category-card__note">
+            Turnos a partir de las 15:00 hs.
+          </span>
         </button>
       </div>
     </div>

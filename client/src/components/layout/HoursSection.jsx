@@ -20,6 +20,9 @@ export default function HoursSection() {
                 <span className="hours-section__range">{h.range}</span>
               </div>
             ))}
+            <p className="hours-section__note">
+              Registros Akáshicos: turnos a partir de las 15:00 hs.
+            </p>
           </div>
         </div>
       </div>

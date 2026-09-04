@@ -53,6 +53,14 @@
   font-size: 1rem;
 }
 
+.hours-section__note {
+  margin: 8px 0 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  opacity: 0.85;
+}
+
 .hours-section__days {
   font-weight: 600;
   color: var(--color-text);
