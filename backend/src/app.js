@@ -9,6 +9,7 @@ const appointmentsRoutes = require("./routes/appointments.routes");
 const availabilityRoutes = require("./routes/availability.routes");
 const closedDaysRoutes = require("./routes/closedDays.routes");
 const adminRoutes = require("./routes/admin.routes");
+const settingsCtrl = require("./controllers/settings.controller");
 
 const { pool, query } = require("./db");
 
@@ -94,6 +95,7 @@ app.get("/health/db", async (req, res) => {
   }
 });
 
+app.get("/api/settings/transfer", settingsCtrl.getTransferSettings);
 app.use("/api/services", servicesRoutes);
 app.use("/api/appointments", bookingLimiter, appointmentsRoutes);
 app.use("/api/availability", availabilityRoutes);

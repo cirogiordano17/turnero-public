@@ -231,7 +231,7 @@ function ClientDetail({ client, onBack, onUpdated, onDeleted }) {
 
       {confirmDelete && (
         <div className="acm__confirm-delete">
-          <p>¿Eliminar a <strong>{client.first_name} {client.last_name}</strong>? Esta acción es irreversible.</p>
+          <p>¿Eliminar a <strong>{client.first_name} {client.last_name}</strong>? El cliente dejará de aparecer en el sistema.</p>
           <div className="acm__form-actions">
             <button className="acm__btn acm__btn--ghost" onClick={() => setConfirmDelete(false)} disabled={deleting}>
               Cancelar

@@ -393,6 +393,23 @@ export async function getAdminClientAppointments(clientId) {
   return res.json();
 }
 
+export async function getTransferSettings() {
+  const res = await fetch(`${API_BASE}/settings/transfer`);
+  if (!res.ok) throw new Error("No se pudieron cargar los datos de transferencia");
+  return res.json();
+}
+
+export async function updateTransferSettings(data) {
+  const res = await fetch(`${API_BASE}/admin/settings/transfer`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json", ...getAuthHeaders() },
+    body: JSON.stringify(data),
+  });
+  const json = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(json.error || "No se pudieron guardar los datos");
+  return json;
+}
+
 export async function createAdminClient(data) {
   const res = await fetch(`${API_BASE}/admin/clients`, {
     method: "POST",

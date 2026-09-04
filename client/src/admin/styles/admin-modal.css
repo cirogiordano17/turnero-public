@@ -320,3 +320,101 @@
   font-size: 0.9rem;
   font-weight: 500;
 }
+
+/* ── Transfer modal ── */
+.admin-modal__header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #0f172a;
+}
+
+.admin-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-modal__field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-modal__label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.admin-modal__input {
+  padding: 9px 13px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  color: #0f172a;
+  background: #f8fafc;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+
+.admin-modal__input:focus {
+  border-color: #6366f1;
+  background: #fff;
+}
+
+.admin-modal__hint {
+  color: #94a3b8;
+  font-size: 0.875rem;
+  padding: 8px 0;
+}
+
+.admin-modal__error {
+  color: #ef4444;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.admin-modal__success {
+  color: #16a34a;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.admin-modal__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+  font-family: inherit;
+}
+
+.admin-modal__btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-modal__btn--primary {
+  background: #6366f1;
+  color: #fff;
+}
+
+.admin-modal__btn--primary:hover:not(:disabled) {
+  background: #4f46e5;
+}
+
+.admin-modal__btn--ghost {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.admin-modal__btn--ghost:hover:not(:disabled) {
+  background: #e2e8f0;
+}

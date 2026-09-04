@@ -1,8 +1,18 @@
+import { useEffect, useState } from "react";
 import { formatDateLong } from "../../../utils/dates";
 import ClientForm from "../ClientForm";
 import { CONTACT } from "../../../config/contact";
+import { getTransferSettings } from "../../../admin/api/admin.api";
 
 function ConfirmStep({ category, booking, onBack, onRestart }) {
+  const [transfer, setTransfer] = useState(null);
+
+  useEffect(() => {
+    if (category === "akashicos") {
+      getTransferSettings().then(setTransfer).catch(() => {});
+    }
+  }, [category]);
+
   const whatsappMessage = encodeURIComponent(
     `Hola, te envío el comprobante de pago de mi sesión de Registros Akáshicos.`
   );
@@ -34,43 +44,47 @@ function ConfirmStep({ category, booking, onBack, onRestart }) {
             <div className="transfer-box__title">Datos para la transferencia</div>
 
             <div className="transfer-box__grid">
-              <div className="transfer-box__row">
-                <span className="transfer-box__label">CVU</span>
-                <span className="transfer-box__value">
-                  {CONTACT.transfer.cvu}
-                </span>
-              </div>
-
-              <div className="transfer-box__row">
-                <span className="transfer-box__label">Alias</span>
-                <span className="transfer-box__value">
-                  {CONTACT.transfer.alias}
-                </span>
-              </div>
-
-              <div className="transfer-box__row">
-                <span className="transfer-box__label">CUIT</span>
-                <span className="transfer-box__value">
-                  {CONTACT.transfer.cuit}
-                </span>
-              </div>
-
-              <div className="transfer-box__row">
-                <span className="transfer-box__label">Nombre</span>
-                <span className="transfer-box__value">
-                  {CONTACT.transfer.holderName}
-                </span>
-              </div>
+              {transfer?.transfer_cvu && (
+                <div className="transfer-box__row">
+                  <span className="transfer-box__label">CVU</span>
+                  <span className="transfer-box__value">{transfer.transfer_cvu}</span>
+                </div>
+              )}
+              {transfer?.transfer_alias && (
+                <div className="transfer-box__row">
+                  <span className="transfer-box__label">Alias</span>
+                  <span className="transfer-box__value">{transfer.transfer_alias}</span>
+                </div>
+              )}
+              {transfer?.transfer_cuit && (
+                <div className="transfer-box__row">
+                  <span className="transfer-box__label">CUIT</span>
+                  <span className="transfer-box__value">{transfer.transfer_cuit}</span>
+                </div>
+              )}
+              {transfer?.transfer_holder_name && (
+                <div className="transfer-box__row">
+                  <span className="transfer-box__label">Nombre</span>
+                  <span className="transfer-box__value">{transfer.transfer_holder_name}</span>
+                </div>
+              )}
+              {!transfer && (
+                <div className="transfer-box__row">
+                  <span className="transfer-box__label">Cargando datos...</span>
+                </div>
+              )}
             </div>
 
-            <a
-              className="transfer-box__cta"
-              href={`https://wa.me/${CONTACT.whatsapp}?text=${whatsappMessage}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              Enviar comprobante
-            </a>
+            {transfer?.whatsapp && (
+              <a
+                className="transfer-box__cta"
+                href={`https://wa.me/${transfer.whatsapp}?text=${whatsappMessage}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Enviar comprobante
+              </a>
+            )}
           </div>
         </>
       )}

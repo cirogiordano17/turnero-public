@@ -7,6 +7,7 @@ import AdminHeader from "../components/AdminHeader";
 import DayGroup from "../components/DayGroup";
 import AdminServicesModal from "../components/AdminServicesModal";
 import AdminClientsModal from "../components/AdminClientsModal";
+import AdminTransferModal from "../components/AdminTransferModal";
 import MonthlyReportModal from "../components/MonthlyReportModal";
 import "../styles/admin.css";
 
@@ -27,6 +28,7 @@ function AdminPage() {
   const [mode, setMode] = useState("upcoming");
   const [servicesModalOpen, setServicesModalOpen] = useState(false);
   const [clientsModalOpen, setClientsModalOpen] = useState(false);
+  const [transferModalOpen, setTransferModalOpen] = useState(false);
   const [monthlyReportOpen, setMonthlyReportOpen] = useState(false);
 
   const {
@@ -93,6 +95,7 @@ function AdminPage() {
           onLogout={logout}
           onManageServices={() => setServicesModalOpen(true)}
           onManageClients={() => setClientsModalOpen(true)}
+          onManageTransfer={() => setTransferModalOpen(true)}
           onMonthlyReport={() => setMonthlyReportOpen(true)}
         />
 
@@ -149,6 +152,11 @@ function AdminPage() {
       <AdminClientsModal
         open={clientsModalOpen}
         onClose={() => setClientsModalOpen(false)}
+      />
+
+      <AdminTransferModal
+        open={transferModalOpen}
+        onClose={() => setTransferModalOpen(false)}
       />
 
       {monthlyReportOpen && (
