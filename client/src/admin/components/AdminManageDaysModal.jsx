@@ -185,6 +185,12 @@ function AdminManageDaysModal({ onClose }) {
     return workingHours.find((wh) => wh.day_of_week === dow) || null;
   }, [slotDate, workingHours]);
 
+  const dayDateWH = useMemo(() => {
+    if (!dayDate || workingHours.length === 0) return null;
+    const dow = getIsoDow(dayDate);
+    return workingHours.find((wh) => wh.day_of_week === dow) || null;
+  }, [dayDate, workingHours]);
+
   const isSlotDateFullyClosed = useMemo(
     () => closedDaysList.some((d) => d.closed_date.split("T")[0] === slotDate),
     [slotDate, closedDaysList]
@@ -390,7 +396,14 @@ function AdminManageDaysModal({ onClose }) {
               />
             </div>
 
-            {dayDate && (
+            {dayDate && !dayDateWH && (
+              <div className="mdm__notice">
+                <span>⛔</span>
+                <p>La peluquería no trabaja este día, no hace falta bloquearlo.</p>
+              </div>
+            )}
+
+            {dayDate && dayDateWH && (
               <div className="mdm__day-row">
                 <span
                   className={`mdm__status-badge ${
