@@ -4,6 +4,7 @@ import { CONTACT } from "./config/contact";
 import LandingPage from "./pages/LandingPage";
 import BookingView from "./components/booking/BookingView";
 import AdminPage from "./admin/pages/AdminPage";
+import ProductsPage from "./pages/ProductsPage";
 
 function App() {
   const navigate = useNavigate();
@@ -42,6 +43,7 @@ function App() {
       />
 
       <Route path="/admin" element={<AdminPage />} />
+      <Route path="/productos" element={<ProductsPage />} />
     </Routes>
   );
 }

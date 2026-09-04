@@ -8,7 +8,8 @@ const adminEventsController = require("../controllers/adminEvents.controller");
 const adminServicesCtrl = require("../controllers/adminServices.controller");
 const adminClientsCtrl = require("../controllers/adminClients.controller");
 const settingsCtrl = require("../controllers/settings.controller");
-const { requireAdminAuth } = require("../middleware/adminAuth.middleware");
+const productsCtrl = require("../controllers/products.controller");
+const { requireAdminAuth, requireSuperAdmin } = require("../middleware/adminAuth.middleware");
 
 // LOGIN (NO protegido)
 router.post("/login", authController.login);
@@ -51,7 +52,18 @@ router.patch("/clients/:id", requireAdminAuth, adminClientsCtrl.updateClient);
 router.delete("/clients/:id", requireAdminAuth, adminClientsCtrl.deleteClient);
 router.get("/clients/:id/appointments", requireAdminAuth, adminClientsCtrl.getClientAppointments);
 
-router.patch("/settings/transfer", requireAdminAuth, settingsCtrl.updateTransferSettings);
+router.patch("/settings/transfer", requireSuperAdmin, settingsCtrl.updateTransferSettings);
+
+// PRODUCTS (super_admin only)
+router.get("/products/categories", requireSuperAdmin, productsCtrl.adminGetCategories);
+router.post("/products/categories", requireSuperAdmin, productsCtrl.adminCreateCategory);
+router.patch("/products/categories/:id", requireSuperAdmin, productsCtrl.adminUpdateCategory);
+router.delete("/products/categories/:id", requireSuperAdmin, productsCtrl.adminDeleteCategory);
+
+router.get("/products", requireSuperAdmin, productsCtrl.adminGetProducts);
+router.post("/products", requireSuperAdmin, productsCtrl.adminCreateProduct);
+router.patch("/products/:id", requireSuperAdmin, productsCtrl.adminUpdateProduct);
+router.delete("/products/:id", requireSuperAdmin, productsCtrl.adminDeleteProduct);
 
 router.get("/blocked-slots", requireAdminAuth, ctrl.getBlockedSlots);
 router.post("/blocked-slots", requireAdminAuth, ctrl.createBlockedSlot);

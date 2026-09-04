@@ -8,6 +8,7 @@ import DayGroup from "../components/DayGroup";
 import AdminServicesModal from "../components/AdminServicesModal";
 import AdminClientsModal from "../components/AdminClientsModal";
 import AdminTransferModal from "../components/AdminTransferModal";
+import AdminProductsModal from "../components/AdminProductsModal";
 import MonthlyReportModal from "../components/MonthlyReportModal";
 import "../styles/admin.css";
 
@@ -29,6 +30,7 @@ function AdminPage() {
   const [servicesModalOpen, setServicesModalOpen] = useState(false);
   const [clientsModalOpen, setClientsModalOpen] = useState(false);
   const [transferModalOpen, setTransferModalOpen] = useState(false);
+  const [productsModalOpen, setProductsModalOpen] = useState(false);
   const [monthlyReportOpen, setMonthlyReportOpen] = useState(false);
 
   const {
@@ -96,7 +98,9 @@ function AdminPage() {
           onManageServices={() => setServicesModalOpen(true)}
           onManageClients={() => setClientsModalOpen(true)}
           onManageTransfer={() => setTransferModalOpen(true)}
+          onManageProducts={() => setProductsModalOpen(true)}
           onMonthlyReport={() => setMonthlyReportOpen(true)}
+          userRole={admin?.userRole}
         />
 
         <div
@@ -157,6 +161,11 @@ function AdminPage() {
       <AdminTransferModal
         open={transferModalOpen}
         onClose={() => setTransferModalOpen(false)}
+      />
+
+      <AdminProductsModal
+        open={productsModalOpen}
+        onClose={() => setProductsModalOpen(false)}
       />
 
       {monthlyReportOpen && (

@@ -10,6 +10,8 @@ function AdminTransferModal({ open, onClose }) {
     transfer_cuit: "",
     transfer_holder_name: "",
     whatsapp: "",
+    whatsapp_productos: "",
+    shipping_cost: 0,
   });
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -28,6 +30,8 @@ function AdminTransferModal({ open, onClose }) {
         transfer_cuit: data.transfer_cuit || "",
         transfer_holder_name: data.transfer_holder_name || "",
         whatsapp: data.whatsapp || "",
+        whatsapp_productos: data.whatsapp_productos || "",
+        shipping_cost: data.shipping_cost || 0,
       }))
       .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
@@ -114,6 +118,26 @@ function AdminTransferModal({ open, onClose }) {
                   value={form.whatsapp}
                   onChange={(e) => set("whatsapp", e.target.value)}
                   placeholder="Ej: 5493512345678"
+                />
+              </div>
+              <div className="admin-modal__field">
+                <label className="admin-modal__label">WhatsApp para pedidos de productos (sin + ni espacios)</label>
+                <input
+                  className="admin-modal__input"
+                  value={form.whatsapp_productos}
+                  onChange={(e) => set("whatsapp_productos", e.target.value)}
+                  placeholder="Ej: 5493512345678"
+                />
+              </div>
+              <div className="admin-modal__field">
+                <label className="admin-modal__label">Costo de envío fuera de Villa Allende ($)</label>
+                <input
+                  type="number"
+                  min={0}
+                  className="admin-modal__input"
+                  value={form.shipping_cost}
+                  onChange={(e) => set("shipping_cost", Number(e.target.value))}
+                  placeholder="0"
                 />
               </div>
 

@@ -11,7 +11,7 @@ async function getTransferSettings(req, res) {
 }
 
 async function updateTransferSettings(req, res) {
-  const { transfer_cvu, transfer_alias, transfer_cuit, transfer_holder_name, whatsapp } = req.body;
+  const { transfer_cvu, transfer_alias, transfer_cuit, transfer_holder_name, whatsapp, whatsapp_productos, shipping_cost } = req.body;
   try {
     const result = await settingsRepo.upsertTransferSettings(req.app.locals.db, {
       transfer_cvu: transfer_cvu?.trim() ?? "",
@@ -19,6 +19,8 @@ async function updateTransferSettings(req, res) {
       transfer_cuit: transfer_cuit?.trim() ?? "",
       transfer_holder_name: transfer_holder_name?.trim() ?? "",
       whatsapp: whatsapp?.trim() ?? "",
+      whatsapp_productos: whatsapp_productos?.trim() ?? "",
+      shipping_cost: Number(shipping_cost) || 0,
     });
     res.json(result.rows[0]);
   } catch (err) {

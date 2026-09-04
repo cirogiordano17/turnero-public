@@ -39,6 +39,16 @@ function requireAdminAuth(req, res, next) {
   }
 }
 
+function requireSuperAdmin(req, res, next) {
+  requireAdminAuth(req, res, () => {
+    if (req.admin?.userRole !== "super_admin") {
+      return res.status(403).json({ ok: false, error: "Requiere permisos de super administrador" });
+    }
+    next();
+  });
+}
+
 module.exports = {
   requireAdminAuth,
+  requireSuperAdmin,
 };

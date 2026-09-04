@@ -63,6 +63,7 @@ function me(req, res) {
     user: {
       username: req.admin.username,
       role: req.admin.role,
+      userRole: req.admin.userRole || "super_admin",
     },
   });
 }

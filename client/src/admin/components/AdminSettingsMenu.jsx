@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Settings } from "lucide-react";
 
-function AdminSettingsMenu({ onManageServices, onManageDays, onManageClients, onManageTransfer, onMonthlyReport, onLogout }) {
+function AdminSettingsMenu({ onManageServices, onManageDays, onManageClients, onManageTransfer, onManageProducts, onMonthlyReport, onLogout, userRole }) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef(null);
 
@@ -85,6 +85,19 @@ function AdminSettingsMenu({ onManageServices, onManageDays, onManageClients, on
           >
             Datos de transferencia
           </button>
+
+          {userRole === "super_admin" && (
+            <button
+              type="button"
+              className="admin-settings__item"
+              onClick={() => {
+                setOpen(false);
+                onManageProducts?.();
+              }}
+            >
+              Gestionar productos
+            </button>
+          )}
 
           <button
             type="button"

@@ -40,6 +40,11 @@
   color: var(--color-primary);
 }
 
+.navbar__link--active {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
 .navbar__link--disabled {
   position: relative;
   display: inline-flex;

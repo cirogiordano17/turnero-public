@@ -2,7 +2,7 @@ import { useState } from "react";
 import AdminSettingsMenu from "./AdminSettingsMenu";
 import AdminManageDaysModal from "./AdminManageDaysModal";
 
-function AdminHeader({ mode, setMode, onLogout, onManageServices, onManageClients, onManageTransfer, onMonthlyReport }) {
+function AdminHeader({ mode, setMode, onLogout, onManageServices, onManageClients, onManageTransfer, onManageProducts, onMonthlyReport, userRole }) {
   const isHistory = mode === "history";
   const [showManageDays, setShowManageDays] = useState(false);
 
@@ -57,8 +57,10 @@ function AdminHeader({ mode, setMode, onLogout, onManageServices, onManageClient
               onManageDays={() => setShowManageDays(true)}
               onManageClients={onManageClients}
               onManageTransfer={onManageTransfer}
+              onManageProducts={onManageProducts}
               onMonthlyReport={onMonthlyReport}
               onLogout={onLogout}
+              userRole={userRole}
             />
           </div>
         </div>
