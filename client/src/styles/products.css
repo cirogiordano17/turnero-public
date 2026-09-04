@@ -209,6 +209,35 @@
   color: #1a1a1a;
 }
 
+.product-card__qty {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  padding: 6px 10px;
+}
+
+.product-card__qty button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+
+.product-card__qty span {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  min-width: 20px;
+  text-align: center;
+}
+
 /* ===========================
    Floating cart button
 =========================== */
