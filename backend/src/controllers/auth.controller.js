@@ -6,54 +6,45 @@ async function login(req, res) {
     const { username, password } = req.body;
 
     if (!username || !password) {
-      return res.status(400).json({
-        ok: false,
-        error: "Faltan usuario o contraseña",
-      });
+      return res.status(400).json({ ok: false, error: "Faltan usuario o contraseña" });
     }
 
-    const expectedUsername = process.env.ADMIN_USERNAME;
-    const passwordHash = process.env.ADMIN_PASSWORD_HASH;
     const jwtSecret = process.env.JWT_SECRET;
-
-    if (!expectedUsername || !passwordHash || !jwtSecret) {
-      return res.status(500).json({
-        ok: false,
-        error: "Configuración incompleta de autenticación",
-      });
+    if (!jwtSecret) {
+      return res.status(500).json({ ok: false, error: "Configuración incompleta de autenticación" });
     }
 
-    if (username !== expectedUsername) {
-      return res.status(401).json({
-        ok: false,
-        error: "Credenciales inválidas",
-      });
-    }
-
-    const validPassword = await bcrypt.compare(password, passwordHash);
-
-    if (!validPassword) {
-      return res.status(401).json({
-        ok: false,
-        error: "Credenciales inválidas",
-      });
-    }
-
-    const token = signAdminToken();
-
-    return res.json({
-      ok: true,
-      token,
-      user: {
-        username: expectedUsername,
+    // Busca el usuario entre los configurados en env
+    const users = [
+      {
+        username: process.env.ADMIN_USERNAME,
+        passwordHash: process.env.ADMIN_PASSWORD_HASH,
+        userRole: "super_admin",
       },
-    });
+      {
+        username: process.env.OPERADOR_USERNAME,
+        passwordHash: process.env.OPERADOR_PASSWORD_HASH,
+        userRole: "operador",
+      },
+    ].filter((u) => u.username && u.passwordHash);
+
+    const matched = users.find((u) => u.username === username);
+
+    if (!matched) {
+      return res.status(401).json({ ok: false, error: "Credenciales inválidas" });
+    }
+
+    const validPassword = await bcrypt.compare(password, matched.passwordHash);
+    if (!validPassword) {
+      return res.status(401).json({ ok: false, error: "Credenciales inválidas" });
+    }
+
+    const token = signAdminToken(matched.userRole);
+
+    return res.json({ ok: true, token, user: { username: matched.username } });
   } catch (error) {
     console.error("auth.login error:", error);
-    return res.status(500).json({
-      ok: false,
-      error: "Error interno al iniciar sesión",
-    });
+    return res.status(500).json({ ok: false, error: "Error interno al iniciar sesión" });
   }
 }
 
@@ -68,7 +59,4 @@ function me(req, res) {
   });
 }
 
-module.exports = {
-  login,
-  me,
-};
+module.exports = { login, me };
